@@ -33,9 +33,5 @@ class Article extends Model
         return $this->belongsTo(Rythme::class);
     }
 
-    public function casts() {
-        return [
-            'en_ligne' => 'boolean',
-        ];
-    }
+
 }

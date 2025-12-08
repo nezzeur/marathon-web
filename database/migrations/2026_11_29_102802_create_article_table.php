@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('texte');
             $table->string('image');
             $table->string('media');
-	    $table->boolean("en_ligne")->default(false);
+	        $table->boolean("en_ligne");
             $table->foreignIdFor(\App\Models\User::class)->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

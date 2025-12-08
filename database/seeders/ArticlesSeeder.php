@@ -32,11 +32,12 @@ Bref : une aventure nocturne minimaliste, un suspense à hauteur d’enfant, et 
             'texte' => $texte,
             'image' => '/images/au-clair-de-la-lune.jpg',
             'media' => 'https://comptines.tv/musiques/au_clair_de_la_lune.mp3',
+            "en_ligne" => 1,
             "user_id" => 1,
             "rythme_id" => 1,
             "accessibilite_id" => 3,
             "conclusion_id" => 1,
-            "en_ligne" => $faker->numberBetween(0, 1),
+          
         ]);
 
         for($i = 1; $i <= 50; $i++)
@@ -50,6 +51,8 @@ Bref : une aventure nocturne minimaliste, un suspense à hauteur d’enfant, et 
                 "rythme_id" => $faker->numberBetween(1, 5),
                 "accessibilite_id" => $faker->numberBetween(1, 5),
                 "conclusion_id" => $faker->numberBetween(1, 5),
+                "en_ligne" => $faker->numberBetween(0,1),
+
             ]);
     }
 }
