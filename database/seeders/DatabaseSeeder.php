@@ -22,6 +22,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ArticlesSeeder::class);
         $this->call(AvisSeeder::class);
         $this->call(LikesSeeder::class);
-
+        $this->call(FollowsSeeder::class);
     }
 }
