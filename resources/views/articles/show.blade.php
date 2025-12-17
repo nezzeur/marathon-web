@@ -10,6 +10,7 @@
         <p>
             Rédigé par <strong>{{ $article->editeur->name }}</strong>
             • {{ $article->created_at->format('d/m/Y') }}
+            • 👁️ {{ $article->nb_vues }} {{ $article->nb_vues > 1 ? 'vues' : 'vue' }}
         </p>
 
         {{-- Image --}}
