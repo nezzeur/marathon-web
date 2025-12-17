@@ -39,14 +39,16 @@ Route::get('/articles/create', [ArticleController::class, 'create'])->name('arti
 Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store');
 
 // Affichage et gestion des articles
-Route::get('/articles/{article}', [ArticleController::class, 'show'])->name("articles.show");
-Route::post('/articles/{article}/toggle-like', [ArticleController::class, 'toggleLike'])->name("articles.toggleLike");
+const ARTICLE_SHOW = '/articles/{article}';
+
+Route::get(ARTICLE_SHOW, [ArticleController::class, 'show'])->name("articles.show");
+Route::post(ARTICLE_SHOW . '/toggle-like', [ArticleController::class, 'toggleLike'])->name("articles.toggleLike");
 
 // Routes protégées pour la gestion des articles (nécessitent authentification)
 Route::middleware(['auth'])->group(function () {
-    Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])->name('articles.edit');
-    Route::put('/articles/{article}', [ArticleController::class, 'update'])->name('articles.update');
-    Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('articles.destroy');
+    Route::get(ARTICLE_SHOW . '/edit', [ArticleController::class, 'edit'])->name('articles.edit');
+    Route::put(ARTICLE_SHOW, [ArticleController::class, 'update'])->name('articles.update');
+    Route::delete(ARTICLE_SHOW, [ArticleController::class, 'destroy'])->name('articles.destroy');
 });
 
 // Filtrage des articles par caractéristiques
