@@ -47,7 +47,7 @@
                 <option value="">-- Sélectionnez --</option>
                 @foreach($rythmes as $rythme)
                     <option value="{{ $rythme->id }}" {{ old('rythme_id') == $rythme->id ? 'selected' : '' }}>
-                        {{ $rythme->libelle }}
+                        {{ $rythme->texte }}
                     </option>
                 @endforeach
             </select>
@@ -59,7 +59,7 @@
                 <option value="">-- Sélectionnez --</option>
                 @foreach($accessibilites as $accessibilite)
                     <option value="{{ $accessibilite->id }}" {{ old('accessibilite_id') == $accessibilite->id ? 'selected' : '' }}>
-                        {{ $accessibilite->libelle }}
+                        {{ $accessibilite->texte }}
                     </option>
                 @endforeach
             </select>
@@ -71,7 +71,7 @@
                 <option value="">-- Sélectionnez --</option>
                 @foreach($conclusions as $conclusion)
                     <option value="{{ $conclusion->id }}" {{ old('conclusion_id') == $conclusion->id ? 'selected' : '' }}>
-                        {{ $conclusion->libelle }}
+                        {{ $conclusion->texte }}
                     </option>
                 @endforeach
             </select>
