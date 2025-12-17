@@ -7,15 +7,16 @@
 
 @vite(["resources/css/normalize.css", 'resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
-@include('components.header')
-@include('components.navigation')
 
+<body>
+<x-header/>
+<x-navigation/>
+<x-welcome-message />
 <main>
     @yield("contenu")
 </main>
 
-@include('components.footer')
-@include('components.notifications')
+<x-footer />
+<x-notifications />
 </body>
 </html>

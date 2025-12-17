@@ -42,7 +42,23 @@ class ArticleController extends Controller
         $articlesPlusVus = $this->articleService->getMostViewedArticles();
         $articlesPlusLikes = $this->articleService->getMostLikedArticles();
         
-        return view('home', compact('articles', 'articlesPlusVus', 'articlesPlusLikes'));
+        // Créer la réponse avec le cookie si c'est la première visite
+        $view = view('home', compact('articles', 'articlesPlusVus', 'articlesPlusLikes'));
+        
+        // Vérifier si le cookie n'existe pas déjà (première visite)
+        if (!request()->hasCookie('okrina_visited')) {
+            return response($view)->cookie(
+                'okrina_visited', 
+                'true', 
+                60 * 24 * 30, // 30 jours
+                '/', 
+                null, 
+                false, 
+                false
+            );
+        }
+        
+        return $view;
     }
 
     /**
