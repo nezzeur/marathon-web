@@ -110,6 +110,23 @@
             <p>Aucun commentaire pour le moment.</p>
         @endforelse
 
+        {{-- Formulaire d'ajout de commentaire --}}
+        @auth
+            <h3>Ajouter un commentaire</h3>
+            <form action="{{ route('avis.store') }}" method="POST">
+                @csrf
+                <input type="hidden" name="article_id" value="{{ $article->id }}">
+                <div>
+                    <textarea name="contenu" rows="4" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" required></textarea>
+                </div>
+                <button type="submit" style="margin-top: 10px; padding: 8px 16px; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                    Publier le commentaire
+                </button>
+            </form>
+        @else
+            <p>Vous devez être connecté pour laisser un commentaire. <a href="{{ route('login') }}">Connectez-vous</a> ou <a href="{{ route('register') }}">inscrivez-vous</a>.</p>
+        @endauth
+
     </div>
 
     <style>
