@@ -3,11 +3,17 @@
 use App\Http\Controllers\ArticleController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 
 Route::get('/', [ArticleController::class, 'index'])->name("accueil");
 
 Route::get('/articles/{article}', [ArticleController::class, 'show'])->name("articles.show");
+
+// Routes pour filtrer les articles par caractéristique
+Route::get('/articles/accessibilite/{accessibilite}', [ArticleController::class, 'byAccessibilite'])->name("articles.byAccessibilite");
+Route::get('/articles/rythme/{rythme}', [ArticleController::class, 'byRythme'])->name("articles.byRythme");
+Route::get('/articles/conclusion/{conclusion}', [ArticleController::class, 'byConclusion'])->name("articles.byConclusion");
 
 Route::get('/contact', function () {
     return view('contact');
@@ -17,9 +23,20 @@ Route::get('/test-vite', function () {
     return view('test-vite');
 })->name("test-vite");
 
-Route::get('/home', function () {
-    return view('home');
-})->name("home");
+Route::get('/home', [ArticleController::class, 'index'])->name("home");
 
 
+Route::get('/profile/{id}', [UserController::class, 'show'])->name('user.profile');
+
+Route::get('/mon-profil', [UserController::class, 'me'])
+    ->middleware('auth')
+    ->name('user.me');
+
+Route::get('/mon-profil/edit', [UserController::class, 'edit'])
+    ->middleware('auth')
+    ->name('user.edit');
+
+Route::put('/mon-profil', [UserController::class, 'update'])
+    ->middleware('auth')
+    ->name('user.update');
 

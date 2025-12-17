@@ -10,6 +10,7 @@
         <p>
             Rédigé par <strong>{{ $article->editeur->name }}</strong>
             • {{ $article->created_at->format('d/m/Y') }}
+            • 👁️ {{ $article->nb_vues }} {{ $article->nb_vues > 1 ? 'vues' : 'vue' }}
         </p>
 
         {{-- Image --}}
@@ -36,9 +37,36 @@
         {{-- Caractéristiques --}}
         <h3>Caractéristiques</h3>
         <ul>
-            <li>Accessibilité : {{ $article->accessibilite->libelle ?? 'Non renseigné' }}</li>
-            <li>Rythme : {{ $article->rythme->libelle ?? 'Non renseigné' }}</li>
-            <li>Conclusion : {{ $article->conclusion->libelle ?? 'Non renseigné' }}</li>
+            <li>
+                Accessibilité : 
+                @if($article->accessibilite)
+                    <a href="{{ route('articles.byAccessibilite', $article->accessibilite->id) }}">
+                        {{ $article->accessibilite->libelle }}
+                    </a>
+                @else
+                    Non renseigné
+                @endif
+            </li>
+            <li>
+                Rythme : 
+                @if($article->rythme)
+                    <a href="{{ route('articles.byRythme', $article->rythme->id) }}">
+                        {{ $article->rythme->libelle }}
+                    </a>
+                @else
+                    Non renseigné
+                @endif
+            </li>
+            <li>
+                Conclusion : 
+                @if($article->conclusion)
+                    <a href="{{ route('articles.byConclusion', $article->conclusion->id) }}">
+                        {{ $article->conclusion->libelle }}
+                    </a>
+                @else
+                    Non renseigné
+                @endif
+            </li>
         </ul>
 
         {{-- Likes --}}
