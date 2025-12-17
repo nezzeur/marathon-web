@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\LaravelMarkdown\MarkdownRenderer;
 
 class Article extends Model
 {
@@ -33,5 +34,14 @@ class Article extends Model
         return $this->belongsTo(Rythme::class);
     }
 
+    public function getTexteHtmlAttribute()
+    {
+        return app(MarkdownRenderer::class)->toHtml($this->texte);
+    }
+
+    public function getResumeHtmlAttribute()
+    {
+        return app(MarkdownRenderer::class)->toHtml($this->resume);
+    }
 
 }
