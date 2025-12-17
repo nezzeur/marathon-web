@@ -139,45 +139,10 @@
         </div>
 
         {{-- Commentaires --}}
-        <h3>Commentaires ({{ $article->avis->count() }})</h3>
-
-        @forelse($article->avis as $avis)
-            <div>
-                <p>
-                    <strong>{{ $avis->user->name }}</strong>
-                    • {{ $avis->created_at->format('d/m/Y H:i') }}
-                </p>
-                <p>{{ $avis->contenu }}</p>
-            </div>
-        @empty
-            <p>Aucun commentaire pour le moment.</p>
-        @endforelse
+        <x-avis-list :article="$article" />
 
         {{-- Formulaire d'ajout de commentaire --}}
-        @auth
-            <h3>Ajouter un commentaire</h3>
-
-            <form action="{{ route('avis.store') }}" method="POST">
-                @csrf
-
-                <input type="hidden" name="article_id" value="{{ $article->id }}">
-
-                <div>
-                    <textarea name="contenu" rows="4" required></textarea>
-                </div>
-
-                <button type="submit">
-                    Publier le commentaire
-                </button>
-            </form>
-        @else
-            <p>
-                Vous devez être connecté pour laisser un commentaire.
-                <a href="{{ route('login') }}">Connectez-vous</a>
-                ou
-                <a href="{{ route('register') }}">inscrivez-vous</a>.
-            </p>
-        @endauth
+        <x-avis :article="$article" />
 
 
     </div>
