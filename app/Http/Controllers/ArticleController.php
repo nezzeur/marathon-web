@@ -5,10 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Accessibilite;
 use App\Models\Article;
 use App\Models\Rythme;
-use App\Models\Accessibilite;
 use App\Models\Conclusion;
-use App\Models\Conclusion;
-use App\Models\Rythme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
