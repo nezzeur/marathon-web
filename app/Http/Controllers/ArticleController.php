@@ -160,10 +160,10 @@ class ArticleController extends Controller
         
         $article = Article::create([
             'titre' => $request->titre,
-            'resume' => $request->resume ?? null,
-            'texte' => $request->texte ?? null,
-            'image' => $imagePath,
-            'media' => $mediaPath,
+            'resume' => $request->resume ?? '',
+            'texte' => $request->texte ?? '',
+            'image' => $imagePath ?? '',
+            'media' => $mediaPath ?? '',
             'user_id' => Auth::id(),
             'rythme_id' => $request->rythme_id ?? null,
             'accessibilite_id' => $request->accessibilite_id ?? null,
@@ -344,11 +344,11 @@ class ArticleController extends Controller
     {
         return [
             'titre' => $request->titre,
-            'resume' => $request->resume ?? $article->resume,
-            'texte' => $request->texte ?? $article->texte,
-            'rythme_id' => $request->rythme_id ?? $article->rythme_id,
-            'accessibilite_id' => $request->accessibilite_id ?? $article->accessibilite_id,
-            'conclusion_id' => $request->conclusion_id ?? $article->conclusion_id,
+            'resume' => $request->resume ?? $article->resume ?? '',
+            'texte' => $request->texte ?? $article->texte ?? '',
+            'rythme_id' => $request->rythme_id ?? $article->rythme_id ?? null,
+            'accessibilite_id' => $request->accessibilite_id ?? $article->accessibilite_id ?? null,
+            'conclusion_id' => $request->conclusion_id ?? $article->conclusion_id ?? null,
             'en_ligne' => $request->has('action') && $request->action === 'publish',
         ];
     }
