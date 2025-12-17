@@ -22,12 +22,13 @@
 
         {{-- Résumé --}}
         <h3>Résumé</h3>
-        <div>{!! $article->resume_html !!}</div>
+        <p>{{ $article->resume }}</p>
 
         {{-- Texte principal --}}
         <h3>Contenu</h3>
-        <div>{!! $article->texte_html !!}</div>
-
+        <div class="article-body">
+            {!! $article->texte !!}
+        </div>
         {{-- Média --}}
         @if($article->media)
             <h3>Média associé</h3>
