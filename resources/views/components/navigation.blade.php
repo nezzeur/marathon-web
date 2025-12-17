@@ -4,6 +4,10 @@
     <a href="#">Contact</a>
 
     @auth
+        <a href="{{ route('articles.create') }}">Créer un article</a>
+    @endauth
+
+    @auth
         <a href="{{ route('user.me') }}" style="font-weight: bold;">
             {{ Auth::user()->name }}
         </a>

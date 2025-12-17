@@ -8,6 +8,9 @@ use App\Http\Controllers\UserController;
 
 Route::get('/', [ArticleController::class, 'index'])->name("accueil");
 
+Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
+Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store');
+
 Route::get('/articles/{article}', [ArticleController::class, 'show'])->name("articles.show");
 
 // Routes pour filtrer les articles par caractéristique
