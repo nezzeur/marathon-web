@@ -3,17 +3,15 @@
 @section('contenu')
     <h1>Créer un nouvel article</h1>
 
-    @if ($errors->any())
-        <div style="color:red">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    <div>
+        <strong>Information :</strong>
+        <ul>
+            <li><strong>Publier</strong> : L'article sera visible par tous les utilisateurs (tous les champs sont obligatoires)</li>
+            <li><strong>Enregistrer comme brouillon</strong> : L'article sera enregistré mais pas visible (seul le titre est obligatoire)</li>
+        </ul>
+    </div>
 
-    <form action="{{ route('articles.store') }}" method="POST" enctype="multipart/form-data">
+    <form id="articleForm" action="{{ route('articles.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div>
@@ -23,28 +21,28 @@
 
         <div>
             <label for="resume">Résumé :</label>
-            <textarea name="resume" id="resume" required>{{ old('resume') }}</textarea>
+            <textarea name="resume" id="resume">{{ old('resume') }}</textarea>
         </div>
 
         <div>
             <label for="texte">Texte :</label>
-            <textarea name="texte" id="texte" required>{{ old('texte') }}</textarea>
+            <textarea name="texte" id="texte">{{ old('texte') }}</textarea>
         </div>
 
         <div>
             <label for="image">Photo d'accroche :</label>
-            <input type="file" name="image" id="image" accept="image/*" required>
+            <input type="file" name="image" id="image" accept="image/*">
         </div>
 
         <div>
             <label for="media">Média son :</label>
-            <input type="file" name="media" id="media" accept=".mp3,.wav" required>
+            <input type="file" name="media" id="media" accept=".mp3,.wav">
         </div>
 
         <div>
             <label for="rythme_id">Rythme :</label>
-            <select name="rythme_id" id="rythme_id" required>
-                <option value="">-- Sélectionnez --</option>
+            <select name="rythme_id" id="rythme_id">
+                <option value="" selected>-- Sélectionnez --</option>
                 @foreach($rythmes as $rythme)
                     <option value="{{ $rythme->id }}" {{ old('rythme_id') == $rythme->id ? 'selected' : '' }}>
                         {{ $rythme->texte }}
@@ -55,8 +53,8 @@
 
         <div>
             <label for="accessibilite_id">Accessibilité :</label>
-            <select name="accessibilite_id" id="accessibilite_id" required>
-                <option value="">-- Sélectionnez --</option>
+            <select name="accessibilite_id" id="accessibilite_id">
+                <option value="" selected>-- Sélectionnez --</option>
                 @foreach($accessibilites as $accessibilite)
                     <option value="{{ $accessibilite->id }}" {{ old('accessibilite_id') == $accessibilite->id ? 'selected' : '' }}>
                         {{ $accessibilite->texte }}
@@ -67,8 +65,8 @@
 
         <div>
             <label for="conclusion_id">Conclusion :</label>
-            <select name="conclusion_id" id="conclusion_id" required>
-                <option value="">-- Sélectionnez --</option>
+            <select name="conclusion_id" id="conclusion_id">
+                <option value="" selected>-- Sélectionnez --</option>
                 @foreach($conclusions as $conclusion)
                     <option value="{{ $conclusion->id }}" {{ old('conclusion_id') == $conclusion->id ? 'selected' : '' }}>
                         {{ $conclusion->texte }}
@@ -78,7 +76,19 @@
         </div>
 
         <div>
-            <button type="submit">Créer l'article</button>
+            <button type="submit" name="action" value="publish" onclick="setRequired(true)">Publier</button>
+            <button type="submit" name="action" value="draft" onclick="setRequired(false)">Enregistrer comme brouillon</button>
         </div>
     </form>
+
+    <script>
+        function setRequired(isPublish) {
+            const fields = ['resume', 'texte', 'image', 'media', 'rythme_id', 'accessibilite_id', 'conclusion_id'];
+
+            fields.forEach(id => {
+                document.getElementById(id).required = isPublish;
+            });
+            document.getElementById('titre').required = true;
+        }
+    </script>
 @endsection
