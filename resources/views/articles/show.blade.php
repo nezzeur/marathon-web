@@ -35,13 +35,13 @@
         {{-- Résumé --}}
         <h3>Résumé</h3>
         <div class="article-resume">
-            {!! $article->resume_html !!}
+            {!! $article->getResumeHtmlAttribute() !!}
         </div>
 
         {{-- Texte principal --}}
         <h3>Contenu</h3>
         <div class="article-body">
-            {!! $article->texte_html !!}
+            {!! $article->getTexteHtmlAttribute() !!}
         </div>
         {{-- Média --}}
         @if($article->media)
@@ -152,6 +152,33 @@
         @empty
             <p>Aucun commentaire pour le moment.</p>
         @endforelse
+
+        {{-- Formulaire d'ajout de commentaire --}}
+        @auth
+            <h3>Ajouter un commentaire</h3>
+
+            <form action="{{ route('avis.store') }}" method="POST">
+                @csrf
+
+                <input type="hidden" name="article_id" value="{{ $article->id }}">
+
+                <div>
+                    <textarea name="contenu" rows="4" required></textarea>
+                </div>
+
+                <button type="submit">
+                    Publier le commentaire
+                </button>
+            </form>
+        @else
+            <p>
+                Vous devez être connecté pour laisser un commentaire.
+                <a href="{{ route('login') }}">Connectez-vous</a>
+                ou
+                <a href="{{ route('register') }}">inscrivez-vous</a>.
+            </p>
+        @endauth
+
 
     </div>
 

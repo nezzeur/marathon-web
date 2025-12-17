@@ -44,6 +44,10 @@ Route::get('/home', [ArticleController::class, 'index'])->name("home");
 
 Route::get('/profile/{id}', [UserController::class, 'show'])->name('user.profile');
 
+Route::post('/profile/{id}/toggle-follow', [UserController::class, 'toggleFollow'])
+    ->middleware('auth')
+    ->name('user.toggleFollow');
+
 Route::get('/mon-profil', [UserController::class, 'me'])
     ->middleware('auth')
     ->name('user.me');
@@ -55,4 +59,7 @@ Route::get('/mon-profil/edit', [UserController::class, 'edit'])
 Route::put('/mon-profil', [UserController::class, 'update'])
     ->middleware('auth')
     ->name('user.update');
+
+// Routes pour les avis/commentaires
+Route::post('/avis', [\App\Http\Controllers\AvisController::class, 'store'])->name('avis.store');
 
