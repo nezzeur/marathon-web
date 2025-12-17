@@ -15,30 +15,46 @@ class UsersSeeder extends Seeder {
      * Run the database seeds.
      */
     public function run(): void {
+        // Nettoyer les tables relacionadas
+        \DB::table('suivis')->truncate();
+        \DB::table('likes')->truncate();
+        \DB::table('avis')->truncate();
+        \DB::table('articles')->truncate();
+        User::truncate();
+
         $hash = Hash::make('azerty');
 
-        User::factory([
-            'name' => "inrocks",
-            'email' => "inrocks@gmail.com",
-            'email_verified_at' => now(),
-            'password' => $hash,
-        ])->create();
-        for ($i = 1; $i <= 50; $i++) {
-            User::factory()->create([
-                'name' => $name = 'user' . $i,
-                'email' => "$name@gmail.com",
+        // Créer l'utilisateur de test
+        User::firstOrCreate(
+            ['email' => 'inrocks@gmail.com'],
+            [
+                'name' => 'inrocks',
                 'email_verified_at' => now(),
                 'password' => $hash,
-            ]);
+            ]
+        );
+
+        // Créer 50 utilisateurs supplémentaires
+        for ($i = 1; $i <= 50; $i++) {
+            $name = 'user' . $i;
+            User::firstOrCreate(
+                ['email' => "$name@gmail.com"],
+                [
+                    'name' => $name,
+                    'email_verified_at' => now(),
+                    'password' => $hash,
+                ]
+            );
         }
 
         $faker = Factory::create('fr_FR');
 
+        // Créer les suivis
         $users = User::all();
         foreach($users as $user) {
             $nb = $faker->numberBetween(2, 10);
-            $userIds = User::pluck('id');
-            $userIdsSelected = $faker->randomElements($userIds, $nb);
+            $userIds = User::where('id', '!=', $user->id)->pluck('id')->toArray();
+            $userIdsSelected = $faker->randomElements($userIds, min($nb, count($userIds)));
             $user->suivis()->attach($userIdsSelected);
         }
     }

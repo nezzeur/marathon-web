@@ -10,15 +10,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('articles', function (Blueprint $table) {
-            $table->text('resume')->nullable()->change();
-            $table->text('texte')->nullable()->change();
-            $table->string('image')->nullable()->change();
-            $table->string('media')->nullable()->change();
-            $table->foreignIdFor(\App\Models\Rythme::class)->nullable()->change();
-            $table->foreignIdFor(\App\Models\Accessibilite::class)->nullable()->change();
-            $table->foreignIdFor(\App\Models\Conclusion::class)->nullable()->change();
-        });
+        // SQLite doesn't support changing columns directly, so we skip this for SQLite
+        if (Schema::getConnection()->getDriverName() !== 'sqlite') {
+            Schema::table('articles', function (Blueprint $table) {
+                $table->text('resume')->nullable()->change();
+                $table->text('texte')->nullable()->change();
+                $table->string('image')->nullable()->change();
+                $table->string('media')->nullable()->change();
+                $table->unsignedBigInteger('rythme_id')->nullable()->change();
+                $table->unsignedBigInteger('accessibilite_id')->nullable()->change();
+                $table->unsignedBigInteger('conclusion_id')->nullable()->change();
+            });
+        }
     }
 
     /**
@@ -26,14 +29,17 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('articles', function (Blueprint $table) {
-            $table->text('resume')->nullable(false)->change();
-            $table->text('texte')->nullable(false)->change();
-            $table->string('image')->nullable(false)->change();
-            $table->string('media')->nullable(false)->change();
-            $table->foreignIdFor(\App\Models\Rythme::class)->nullable(false)->change();
-            $table->foreignIdFor(\App\Models\Accessibilite::class)->nullable(false)->change();
-            $table->foreignIdFor(\App\Models\Conclusion::class)->nullable(false)->change();
-        });
+        // SQLite doesn't support changing columns directly, so we skip this for SQLite
+        if (Schema::getConnection()->getDriverName() !== 'sqlite') {
+            Schema::table('articles', function (Blueprint $table) {
+                $table->text('resume')->nullable(false)->change();
+                $table->text('texte')->nullable(false)->change();
+                $table->string('image')->nullable(false)->change();
+                $table->string('media')->nullable(false)->change();
+                $table->unsignedBigInteger('rythme_id')->nullable(false)->change();
+                $table->unsignedBigInteger('accessibilite_id')->nullable(false)->change();
+                $table->unsignedBigInteger('conclusion_id')->nullable(false)->change();
+            });
+        }
     }
 };
