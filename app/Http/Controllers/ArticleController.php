@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Accessibilite;
 use App\Models\Article;
-use App\Models\Rythme;
 use App\Models\Conclusion;
+use App\Models\Rythme;
+use App\Models\User;
+use App\Notifications\NewArticleFromFollowedUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -108,6 +110,20 @@ class ArticleController extends Controller
         ]);
 
         $message = $isPublish ? 'Article publié avec succès !' : 'Brouillon enregistré avec succès !';
+        
+        // Envoyer des notifications aux suiveurs uniquement si l'article est publié (en_ligne = true)
+        if ($isPublish) {
+            $suiveurs = $article->editeur->suiveurs;
+            
+            foreach ($suiveurs as $suiveur) {
+                try {
+                    $suiveur->notify(new NewArticleFromFollowedUser($article));
+                } catch (\Exception $e) {
+                    // Log l'erreur mais ne bloque pas le processus
+                    \Log::error('Erreur lors de l\'envoi de notification à ' . $suiveur->id . ': ' . $e->getMessage());
+                }
+            }
+        }
         
         return redirect()->route('articles.show', $article->id)
             ->with('success', $message);
