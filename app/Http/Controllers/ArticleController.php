@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Accessibilite;
 use App\Models\Article;
 use App\Models\Rythme;
 use App\Models\Accessibilite;
 use App\Models\Conclusion;
+use App\Models\Conclusion;
+use App\Models\Rythme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -86,7 +89,7 @@ class ArticleController extends Controller
         $articles = Article::with(['editeur', 'accessibilite', 'rythme', 'conclusion'])
             ->where('accessibilite_id', $accessibilite->id)
             ->paginate(6);
-
+        
         return view('articles.by_characteristic', [
             'articles' => $articles,
             'characteristic' => $accessibilite,
@@ -101,7 +104,7 @@ class ArticleController extends Controller
         $articles = Article::with(['editeur', 'accessibilite', 'rythme', 'conclusion'])
             ->where('rythme_id', $rythme->id)
             ->paginate(6);
-
+        
         return view('articles.by_characteristic', [
             'articles' => $articles,
             'characteristic' => $rythme,
@@ -116,7 +119,7 @@ class ArticleController extends Controller
         $articles = Article::with(['editeur', 'accessibilite', 'rythme', 'conclusion'])
             ->where('conclusion_id', $conclusion->id)
             ->paginate(6);
-
+        
         return view('articles.by_characteristic', [
             'articles' => $articles,
             'characteristic' => $conclusion,

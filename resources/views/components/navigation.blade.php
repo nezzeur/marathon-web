@@ -5,7 +5,10 @@
     <a href="#">Contact</a>
 
     @auth
-        {{Auth::user()->name}}
+        <a href="{{ route('user.me') }}" style="font-weight: bold;">
+            {{ Auth::user()->name }}
+        </a>
+
         <a href="{{route("logout")}}"
            onclick="document.getElementById('logout').submit(); return false;">Logout</a>
         <form id="logout" action="{{route("logout")}}" method="post">
@@ -16,4 +19,3 @@
         <a href="{{route("register")}}">Register</a>
     @endauth
 </nav>
-
