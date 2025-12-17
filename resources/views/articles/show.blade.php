@@ -1,25 +1,25 @@
 @extends('layout.app')
 
 @section('contenu')
-    <div class="article-detail-page">
+    <div class="max-w-4xl mx-auto p-5">
         {{-- En-tête avec titre et actions --}}
-        <div class="article-header">
-            <h1>{{ $article->titre }}</h1>
+        <div class="flex justify-between items-start mb-5 gap-5">
+            <h1 class="m-0 flex-1">{{ $article->titre }}</h1>
 
             @if(Auth::check() && Auth::id() === $article->user_id)
-                <div class="article-owner-actions">
-                    <a href="{{ route('articles.edit', $article) }}" class="btn btn-edit">✏️ Éditer</a>
+                <div class="flex gap-2.5 flex-shrink-0">
+                    <a href="{{ route('articles.edit', $article) }}" class="inline-block px-2 py-2 rounded text-decoration-none font-bold transition-colors duration-200 border-0 cursor-pointer text-sm whitespace-nowrap bg-green-500 text-white hover:bg-green-600">✏️ Éditer</a>
                     <form action="{{ route('articles.destroy', $article) }}" method="POST" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-delete">🗑️ Supprimer</button>
+                        <button type="submit" class="inline-block px-2 py-2 rounded text-decoration-none font-bold transition-colors duration-200 border-0 cursor-pointer text-sm whitespace-nowrap bg-red-600 text-white hover:bg-red-700">🗑️ Supprimer</button>
                     </form>
                 </div>
             @endif
         </div>
 
         {{-- Auteur & date --}}
-        <p class="article-meta">
+        <p class="text-gray-600 m-2.5 mb-5">
             Rédigé par <strong>{{ $article->editeur->name }}</strong>
             • {{ $article->created_at->format('d/m/Y') }}
             • 👁️ {{ $article->nb_vues }} {{ $article->nb_vues > 1 ? 'vues' : 'vue' }}
@@ -27,58 +27,58 @@
 
         {{-- Image --}}
         @if($article->image)
-            <div class="article-image">
-                <img src="{{ asset('storage/' . $article->image) }}" alt="Image de l'article">
+            <div class="my-5 text-center">
+                <img src="{{ asset('storage/' . $article->image) }}" alt="Image de l'article" class="max-w-full h-auto rounded-lg">
             </div>
         @endif
 
         {{-- Résumé --}}
-        <h3>Résumé</h3>
-        <div class="article-resume">
+        <h3 class="mt-7 mb-4 text-gray-800">Résumé</h3>
+        <div class="whitespace-pre-wrap">
             {!! $article->getResumeHtmlAttribute() !!}
         </div>
 
         {{-- Texte principal --}}
-        <h3>Contenu</h3>
-        <div class="article-body">
+        <h3 class="mt-7 mb-4 text-gray-800">Contenu</h3>
+        <div class="whitespace-pre-wrap">
             {!! $article->getTexteHtmlAttribute() !!}
         </div>
         {{-- Média --}}
         @if($article->media)
-            <h3>Média associé</h3>
-            <audio controls style="width: 100%; margin: 20px 0;">
+            <h3 class="mt-7 mb-4 text-gray-800">Média associé</h3>
+            <audio controls class="w-full my-5">
                 <source src="{{ asset('storage/' . $article->media) }}" type="audio/mpeg">
                 Votre navigateur ne supporte pas la balise audio.
             </audio>
         @endif
 
         {{-- Caractéristiques --}}
-        <h3>Caractéristiques</h3>
-        <ul>
-            <li>
-                Accessibilité : 
+        <h3 class="mt-7 mb-4 text-gray-800">Caractéristiques</h3>
+        <ul class="list-none p-0">
+            <li class="py-2 border-b border-gray-200">
+                Accessibilité :
                 @if($article->accessibilite)
-                    <a href="{{ route('articles.byAccessibilite', $article->accessibilite->id) }}">
+                    <a href="{{ route('articles.byAccessibilite', $article->accessibilite->id) }}" class="text-blue-600 no-underline hover:underline">
                         {{ $article->accessibilite->texte }}
                     </a>
                 @else
                     Non renseigné
                 @endif
             </li>
-            <li>
-                Rythme : 
+            <li class="py-2 border-b border-gray-200">
+                Rythme :
                 @if($article->rythme)
-                    <a href="{{ route('articles.byRythme', $article->rythme->id) }}">
+                    <a href="{{ route('articles.byRythme', $article->rythme->id) }}" class="text-blue-600 no-underline hover:underline">
                         {{ $article->rythme->texte }}
                     </a>
                 @else
                     Non renseigné
                 @endif
             </li>
-            <li>
-                Conclusion : 
+            <li class="py-2">
+                Conclusion :
                 @if($article->conclusion)
-                    <a href="{{ route('articles.byConclusion', $article->conclusion->id) }}">
+                    <a href="{{ route('articles.byConclusion', $article->conclusion->id) }}" class="text-blue-600 no-underline hover:underline">
                         {{ $article->conclusion->texte }}
                     </a>
                 @else
@@ -88,7 +88,7 @@
         </ul>
 
         {{-- Likes --}}
-        <h3>Réactions</h3>
+        <h3 class="mt-7 mb-4 text-gray-800">Réactions</h3>
         <div>
             <p>
                 👍 {{ $article->likes->where('pivot.nature', true)->count() }}
@@ -133,13 +133,13 @@
                 </div>
             @else
                 <p>
-                    <a href="{{ route('login') }}">Connectez-vous</a> pour réagir à cet article.
+                    <a href="{{ route('login') }}" class="text-blue-600 no-underline hover:underline">Connectez-vous</a> pour réagir à cet article.
                 </p>
             @endauth
         </div>
 
         {{-- Commentaires --}}
-        <h3>Commentaires ({{ $article->avis->count() }})</h3>
+        <h3 class="mt-7 mb-4 text-gray-800">Commentaires ({{ $article->avis->count() }})</h3>
 
         @forelse($article->avis as $avis)
             <div>
@@ -155,7 +155,7 @@
 
         {{-- Formulaire d'ajout de commentaire --}}
         @auth
-            <h3>Ajouter un commentaire</h3>
+            <h3 class="mt-7 mb-4 text-gray-800">Ajouter un commentaire</h3>
 
             <form action="{{ route('avis.store') }}" method="POST">
                 @csrf
@@ -163,125 +163,21 @@
                 <input type="hidden" name="article_id" value="{{ $article->id }}">
 
                 <div>
-                    <textarea name="contenu" rows="4" required></textarea>
+                    <textarea name="contenu" rows="4" required class="w-full px-2.5 py-2.5 border border-gray-300 rounded-md text-base box-border font-sans resize-vertical font-mono focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-200"></textarea>
                 </div>
 
-                <button type="submit">
+                <button type="submit" class="inline-block px-5 py-2.5 rounded-md text-decoration-none font-bold transition-colors duration-200 border-0 cursor-pointer text-base bg-blue-600 text-white hover:bg-blue-700 mt-4">
                     Publier le commentaire
                 </button>
             </form>
         @else
             <p>
                 Vous devez être connecté pour laisser un commentaire.
-                <a href="{{ route('login') }}">Connectez-vous</a>
+                <a href="{{ route('login') }}" class="text-blue-600 no-underline hover:underline">Connectez-vous</a>
                 ou
-                <a href="{{ route('register') }}">inscrivez-vous</a>.
+                <a href="{{ route('register') }}" class="text-blue-600 no-underline hover:underline">inscrivez-vous</a>.
             </p>
         @endauth
 
-
     </div>
-
-    <style>
-        .article-detail-page {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .article-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 20px;
-            gap: 20px;
-        }
-
-        .article-header h1 {
-            margin: 0;
-            flex: 1;
-        }
-
-        .article-owner-actions {
-            display: flex;
-            gap: 10px;
-            flex-shrink: 0;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 8px 16px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background 0.2s;
-            border: none;
-            cursor: pointer;
-            font-size: 0.9em;
-            white-space: nowrap;
-        }
-
-        .btn-edit {
-            background: #28a745;
-            color: white;
-        }
-
-        .btn-edit:hover {
-            background: #218838;
-        }
-
-        .btn-delete {
-            background: #dc3545;
-            color: white;
-        }
-
-        .btn-delete:hover {
-            background: #c82333;
-        }
-
-        .article-meta {
-            color: #666;
-            margin: 10px 0 20px 0;
-        }
-
-        .article-image {
-            margin: 20px 0;
-            text-align: center;
-        }
-
-        .article-image img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
-
-        h3 {
-            margin-top: 30px;
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        li {
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        li:last-child {
-            border-bottom: none;
-        }
-
-        a {
-            color: #0066cc;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
 @endsection
