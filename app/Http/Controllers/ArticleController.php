@@ -13,11 +13,18 @@ class ArticleController extends Controller
         $articles = Article::inRandomOrder()->limit(6)->get();
         return view('welcome', compact('articles'));
     }
-
-    // Détail d'un article
-    public function show(Article $article)
-    {
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id){
+        $article = Article::with([
+            'editeur',
+            'avis.user',
+            'likes',
+            'accessibilite',
+            'conclusion',
+            'rythme'
+        ])->findOrFail($id);
         return view('articles.show', compact('article'));
     }
 }
-
