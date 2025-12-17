@@ -44,6 +44,10 @@ Route::get('/home', [ArticleController::class, 'index'])->name("home");
 
 Route::get('/profile/{id}', [UserController::class, 'show'])->name('user.profile');
 
+Route::post('/profile/{id}/toggle-follow', [UserController::class, 'toggleFollow'])
+    ->middleware('auth')
+    ->name('user.toggleFollow');
+
 Route::get('/mon-profil', [UserController::class, 'me'])
     ->middleware('auth')
     ->name('user.me');
