@@ -7,13 +7,16 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
     // Page d'accueil : affiche les articles (derniers publiés)
     public function index()
     {
+        $articles = Article::inRandomOrder()->limit(6)->get();
+        return view('welcome', compact('articles'));
+    }
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id){
         $article = Article::with([
             'editeur',
             'avis.user',
@@ -22,10 +25,6 @@ class ArticleController extends Controller
             'conclusion',
             'rythme'
         ])->findOrFail($id);
-        $articles = Article::inRandomOrder()->limit(6)->get();
-        return view('welcome', compact('articles'));
-    }
-
         return view('articles.show', compact('article'));
     }
 }
