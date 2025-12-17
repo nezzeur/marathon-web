@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Accessibilite;
 use App\Models\Article;
-use App\Models\Rythme;
 use App\Models\Conclusion;
+use App\Models\Rythme;
+use App\Models\User;
+use App\Notifications\NewArticleFromFollowedUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -26,7 +28,37 @@ class ArticleController extends Controller
         }
         
         $articles = $query->inRandomOrder()->limit(6)->get();
-        return view('home', compact('articles'));
+        
+        // Récupérer les 3 articles les plus vus
+        $articlesPlusVus = $this->getArticlesPlusVus();
+        
+        // Récupérer les 3 articles les plus likés
+        $articlesPlusLikes = $this->getArticlesPlusLikes();
+        
+        return view('home', compact('articles', 'articlesPlusVus', 'articlesPlusLikes'));
+    }
+
+    /**
+     * Récupère les 3 articles les plus vus
+     */
+    protected function getArticlesPlusVus()
+    {
+        return Article::where('en_ligne', true)
+            ->orderBy('nb_vues', 'desc')
+            ->limit(3)
+            ->get();
+    }
+
+    /**
+     * Récupère les 3 articles les plus likés
+     */
+    protected function getArticlesPlusLikes()
+    {
+        return Article::withCount('likes')
+            ->where('en_ligne', true)
+            ->orderBy('likes_count', 'desc')
+            ->limit(3)
+            ->get();
     }
 
     // Afficher un article spécifique
@@ -109,6 +141,20 @@ class ArticleController extends Controller
         ]);
 
         $message = $isPublish ? 'Article publié avec succès !' : 'Brouillon enregistré avec succès !';
+        
+        // Envoyer des notifications aux suiveurs uniquement si l'article est publié (en_ligne = true)
+        if ($isPublish) {
+            $suiveurs = $article->editeur->suiveurs;
+            
+            foreach ($suiveurs as $suiveur) {
+                try {
+                    $suiveur->notify(new NewArticleFromFollowedUser($article));
+                } catch (\Exception $e) {
+                    // Log l'erreur mais ne bloque pas le processus
+                    \Log::error('Erreur lors de l\'envoi de notification à ' . $suiveur->id . ': ' . $e->getMessage());
+                }
+            }
+        }
         
         return redirect()->route('articles.show', $article->id)
             ->with('success', $message);

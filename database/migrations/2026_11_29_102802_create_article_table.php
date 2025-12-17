@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('media')->nullable();
 	        $table->boolean("en_ligne");
             $table->integer('nb_vues')->default(0);
-            $table->foreignIdFor(\App\Models\User::class)->constrained()
+            $table->foreignIdFor(\App\Models\User::class)->nullable()->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->foreignIdFor(\App\Models\Rythme::class)->nullable()->constrained()

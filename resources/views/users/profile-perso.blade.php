@@ -2,7 +2,6 @@
 
 @section('contenu')
     <div class="profile-container">
-        <!-- En-tête du profil -->
         <div class="profile-header">
             <div class="profile-avatar">
                 @if($user->avatar)

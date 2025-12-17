@@ -21,6 +21,15 @@ Route::get('/articles/accessibilite/{accessibilite}', [ArticleController::class,
 Route::get('/articles/rythme/{rythme}', [ArticleController::class, 'byRythme'])->name("articles.byRythme");
 Route::get('/articles/conclusion/{conclusion}', [ArticleController::class, 'byConclusion'])->name("articles.byConclusion");
 
+// Routes pour les notifications
+Route::middleware(['auth'])->group(function () {
+    Route::get('/notifications', [\App\Http\Controllers\NotificationController::class, 'all'])->name('notifications.all');
+    Route::get('/notifications/mark-as-read/{notification}', [\App\Http\Controllers\NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+    Route::get('/notifications/mark-all-as-read', [\App\Http\Controllers\NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
+    Route::delete('/notifications/{notification}', [\App\Http\Controllers\NotificationController::class, 'destroy'])->name('notifications.destroy');
+    Route::delete('/notifications/destroy-all', [\App\Http\Controllers\NotificationController::class, 'destroyAll'])->name('notifications.destroyAll');
+});
+
 Route::get('/contact', function () {
     return view('contact');
 })->name("contact");

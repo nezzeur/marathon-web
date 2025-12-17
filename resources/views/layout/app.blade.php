@@ -16,5 +16,6 @@
 </main>
 
 @include('components.footer')
+@include('components.notifications')
 </body>
 </html>
