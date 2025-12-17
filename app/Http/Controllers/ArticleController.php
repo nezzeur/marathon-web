@@ -25,6 +25,10 @@ class ArticleController extends Controller
             'conclusion',
             'rythme'
         ])->findOrFail($id);
+        
+        // Incrémenter le nombre de vues
+        $article->increment('nb_vues');
+        
         return view('articles.show', compact('article'));
     }
 }
