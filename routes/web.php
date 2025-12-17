@@ -12,6 +12,7 @@ Route::get('/articles/create', [ArticleController::class, 'create'])->name('arti
 Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store');
 
 Route::get('/articles/{article}', [ArticleController::class, 'show'])->name("articles.show");
+Route::post('/articles/{article}/toggle-like', [ArticleController::class, 'toggleLike'])->name("articles.toggleLike");
 
 // Routes pour filtrer les articles par caractéristique
 Route::get('/articles/accessibilite/{accessibilite}', [ArticleController::class, 'byAccessibilite'])->name("articles.byAccessibilite");
