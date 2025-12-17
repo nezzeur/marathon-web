@@ -11,6 +11,8 @@ class ArticleController extends Controller
      * Display the specified resource.
      */
     public function show(string $id)
+    // Page d'accueil : affiche les articles (derniers publiés)
+    public function index()
     {
         $article = Article::with([
             'editeur',
@@ -20,6 +22,9 @@ class ArticleController extends Controller
             'conclusion',
             'rythme'
         ])->findOrFail($id);
+        $articles = Article::inRandomOrder()->limit(6)->get();
+        return view('welcome', compact('articles'));
+    }
 
         return view('articles.show', compact('article'));
     }

@@ -1,13 +1,14 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
 
 
-Route::get('/', function () {
-    return view('welcome');
-})->name("accueil");
+Route::get('/', [ArticleController::class, 'index'])->name("accueil");
+
+Route::get('/articles/{article}', [ArticleController::class, 'show'])->name("articles.show");
 
 Route::get('/contact', function () {
     return view('contact');
