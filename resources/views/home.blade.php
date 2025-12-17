@@ -32,7 +32,6 @@
         @endif
     </div>
 
-    <!-- Top 3 articles les plus vus -->
     @if(isset($articlesPlusVus) && count($articlesPlusVus) > 0)
         <div class="categories-section">
             <h2 class="section-title">🔥 Top 3 articles les plus vus</h2>
@@ -53,7 +52,6 @@
         </div>
     @endif
 
-    <!-- Top 3 articles les plus aimés -->
     @if(isset($articlesPlusLikes) && count($articlesPlusLikes) > 0)
         <div class="categories-section">
             <h2 class="section-title">❤️ Top 3 articles les plus aimés</h2>

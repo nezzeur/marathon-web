@@ -38,9 +38,8 @@
 
         {{-- Texte principal --}}
         <h3>Contenu</h3>
-        <h3>Contenu</h3>
         <div class="article-body">
-            <x-markdown-component :content="$article->texte" />
+            {!! $article->texte !!}
         </div>
         {{-- Média --}}
         @if($article->media)
