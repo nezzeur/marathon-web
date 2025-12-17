@@ -1,3 +1,5 @@
+@props(['class' => ''])
+
 @if(auth()->check())
     @php
         // Vérifier si la table notifications existe avant de l'utiliser
@@ -10,7 +12,7 @@
         }
     @endphp
     
-    <div class="notification-dropdown">
+    <div {{ $attributes->merge(['class' => 'notification-dropdown ' . $class]) }}>
         <button class="notification-button" id="notificationButton">
             🔔 <span class="notification-count">{{ $unreadCount }}</span>
         </button>

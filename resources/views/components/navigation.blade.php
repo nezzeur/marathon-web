@@ -1,4 +1,6 @@
-<nav>
+@props(['class' => ''])
+
+<nav {{ $attributes->merge(['class' => 'navigation ' . $class]) }}>
     <a href="{{route('accueil')}}">Accueil</a>
     <a href="{{route('test-vite')}}">Test Vite</a>
     <a href="{{route('contact')}}">Contact</a>

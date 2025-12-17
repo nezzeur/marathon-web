@@ -1,2 +1,6 @@
-<footer>IUT de Lens</footer>
+@props(['class' => ''])
+
+<footer {{ $attributes->merge(['class' => 'footer ' . $class]) }}>
+    IUT de Lens
+</footer>
 
