@@ -22,11 +22,11 @@
 
         {{-- Résumé --}}
         <h3>Résumé</h3>
-        <p>{{ $article->resume }}</p>
+        <div>{!! $article->resume_html !!}</div>
 
         {{-- Texte principal --}}
         <h3>Contenu</h3>
-        <p>{!! nl2br(e($article->texte)) !!}</p>
+        <div>{!! $article->texte_html !!}</div>
 
         {{-- Média --}}
         @if($article->media)
