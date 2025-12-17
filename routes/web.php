@@ -13,6 +13,9 @@ Route::post('/articles', [ArticleController::class, 'store'])->name('articles.st
 
 Route::get('/articles/{article}', [ArticleController::class, 'show'])->name("articles.show");
 Route::post('/articles/{article}/toggle-like', [ArticleController::class, 'toggleLike'])->name("articles.toggleLike");
+Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])->middleware('auth')->name('articles.edit');
+Route::put('/articles/{article}', [ArticleController::class, 'update'])->middleware('auth')->name('articles.update');
+Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->middleware('auth')->name('articles.destroy');
 
 // Routes pour filtrer les articles par caractéristique
 Route::get('/articles/accessibilite/{accessibilite}', [ArticleController::class, 'byAccessibilite'])->name("articles.byAccessibilite");
