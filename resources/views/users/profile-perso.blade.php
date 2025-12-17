@@ -60,8 +60,12 @@
                                 <p class="article-excerpt">{{ Illuminate\Support\Str::limit(strip_tags($article->description ?? ''), 200) }}</p>
                                 <div class="article-actions">
                                     <a href="{{ route('articles.show', $article) }}" class="btn-small">Voir</a>
-                                    <a href="#" class="btn-small btn-edit">Éditer</a>
-                                    <a href="#" class="btn-small btn-delete">Supprimer</a>
+                                    <a href="{{ route('articles.edit', $article) }}" class="btn-small btn-edit">Éditer</a>
+                                    <form action="{{ route('articles.destroy', $article) }}" method="POST" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr ?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn-small btn-delete" style="border:none; background:none; padding:0; cursor:pointer; text-decoration:underline; color:#dc3545;">Supprimer</button>
+                                    </form>
                                 </div>
                             </div>
                         @endforeach
@@ -79,14 +83,18 @@
                         @foreach($articlesBrouillons as $article)
                             <div class="article-item">
                                 <div class="article-header">
-                                    <h3>{{ $article->title }}</h3>
+                                    <h3>{{ $article->titre ?? $article->title }}</h3>
                                     <span class="badge badge-draft">Brouillon</span>
                                 </div>
                                 <p class="article-date">Créé le {{ $article->created_at->format('d/m/Y à H:i') }}</p>
-                                <p class="article-excerpt">{{ Illuminate\Support\Str::limit(strip_tags($article->description ?? ''), 200) }}</p>
+                                <p class="article-excerpt">{{ Illuminate\Support\Str::limit(strip_tags($article->texte ?? $article->description ?? ''), 200) }}</p>
                                 <div class="article-actions">
-                                    <a href="#" class="btn-small btn-edit">Éditer</a>
-                                    <a href="#" class="btn-small btn-delete">Supprimer</a>
+                                    <a href="{{ route('articles.edit', $article) }}" class="btn-small btn-edit">Éditer</a>
+                                    <form action="{{ route('articles.destroy', $article) }}" method="POST" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr ?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn-small btn-delete" style="border:none; background:none; padding:0; cursor:pointer; text-decoration:underline; color:#dc3545;">Supprimer</button>
+                                    </form>
                                 </div>
                             </div>
                         @endforeach
