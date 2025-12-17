@@ -14,7 +14,7 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::inRandomOrder()->limit(6)->get();
-        return view('welcome', compact('articles'));
+        return view('home', compact('articles'));
     }
     /**
      * Display the specified resource.
