@@ -34,12 +34,14 @@
 
         {{-- Résumé --}}
         <h3>Résumé</h3>
-        <p>{{ $article->resume }}</p>
+        <div class="article-resume">
+            {!! $article->resume_html !!}
+        </div>
 
         {{-- Texte principal --}}
         <h3>Contenu</h3>
         <div class="article-body">
-            {!! $article->texte !!}
+            {!! $article->texte_html !!}
         </div>
         {{-- Média --}}
         @if($article->media)
