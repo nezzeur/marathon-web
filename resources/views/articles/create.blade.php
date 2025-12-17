@@ -20,13 +20,15 @@
         </div>
 
         <div>
-            <label for="resume">Résumé :</label>
+            <label for="resume">Résumé (Markdown supporté) :</label>
             <textarea name="resume" id="resume">{{ old('resume') }}</textarea>
+            <small>Vous pouvez utiliser la syntaxe Markdown pour formater votre texte</small>
         </div>
 
         <div>
-            <label for="texte">Texte :</label>
+            <label for="texte">Texte (Markdown supporté) :</label>
             <textarea name="texte" id="texte">{{ old('texte') }}</textarea>
+            <small>Vous pouvez utiliser la syntaxe Markdown pour formater votre texte</small>
         </div>
 
         <div>

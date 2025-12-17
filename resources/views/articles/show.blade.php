@@ -26,10 +26,8 @@
 
         {{-- Texte principal --}}
         <h3>Contenu</h3>
-        <h3>Contenu</h3>
-        <div class="article-body">
-            <x-markdown-component :content="$article->texte" />
-        </div>
+        <p>{!! nl2br(e($article->texte)) !!}</p>
+
         {{-- Média --}}
         @if($article->media)
             <h3>Média associé</h3>
