@@ -89,11 +89,54 @@
 
         {{-- Likes --}}
         <h3>Réactions</h3>
-        <p>
-            👍 {{ $article->likes->where('pivot.nature', 'like')->count() }}
-            |
-            👎 {{ $article->likes->where('pivot.nature', 'dislike')->count() }}
-        </p>
+        <div>
+            <p>
+                👍 {{ $article->likes->where('pivot.nature', true)->count() }}
+                |
+                👎 {{ $article->likes->where('pivot.nature', false)->count() }}
+            </p>
+
+            @auth
+                <div>
+                    @php
+                        $userLike = auth()->user()->likes->where('article_id', $article->id)->first();
+                        $currentNature = $userLike ? $userLike->pivot->nature : null;
+                    @endphp
+
+                    @if($currentNature === true)
+                        <form method="POST" action="{{ route('articles.toggleLike', $article->id) }}" style="display: inline;">
+                            @csrf
+                            <input type="hidden" name="nature" value="like">
+                            <button type="submit">👍 J'aime (actif)</button>
+                        </form>
+                    @else
+                        <form method="POST" action="{{ route('articles.toggleLike', $article->id) }}" style="display: inline;">
+                            @csrf
+                            <input type="hidden" name="nature" value="like">
+                            <button type="submit">👍 J'aime</button>
+                        </form>
+                    @endif
+
+                    @if($currentNature === false)
+                        <form method="POST" action="{{ route('articles.toggleLike', $article->id) }}" style="display: inline;">
+                            @csrf
+                            <input type="hidden" name="nature" value="dislike">
+                            <button type="submit">👎 Je n'aime pas (actif)</button>
+                        </form>
+                    @else
+                        <form method="POST" action="{{ route('articles.toggleLike', $article->id) }}" style="display: inline;">
+                            @csrf
+                            <input type="hidden" name="nature" value="dislike">
+                            <button type="submit">👎 Je n'aime pas</button>
+                        </form>
+                    @endif
+                </div>
+            @else
+                <p>
+                    <a href="{{ route('login') }}">Connectez-vous</a> pour réagir à cet article.
+                </p>
+            @endauth
+        </div>
 
         {{-- Commentaires --}}
         <h3>Commentaires ({{ $article->avis->count() }})</h3>

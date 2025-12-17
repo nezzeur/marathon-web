@@ -78,6 +78,50 @@ class ArticleController extends Controller
         return view('articles.show', compact('article'));
     }
 
+    // Gérer les likes/dislikes
+    public function toggleLike(Request $request, string $articleId)
+    {
+        try {
+            // Vérifier que l'utilisateur est connecté
+            if (!auth()->check()) {
+                return response()->json(['error' => 'Vous devez être connecté pour aimer un article'], 401);
+            }
+
+            $user = auth()->user();
+            $article = Article::findOrFail($articleId);
+            $nature = $request->input('nature'); // 'like' ou 'dislike'
+
+            // Vérifier que la nature est valide
+            if (!in_array($nature, ['like', 'dislike'])) {
+                return response()->json(['error' => 'Nature invalide'], 400);
+            }
+
+            // Convertir en booléen (true pour like, false pour dislike)
+            $natureValue = $nature === 'like' ? true : false;
+
+            // Vérifier si l'utilisateur a déjà aimé cet article
+            $existingLike = $user->likes()->where('article_id', $articleId)->first();
+
+            if ($existingLike) {
+                // Si le like existe déjà avec la même nature, le supprimer (toggle)
+                if ($existingLike->pivot->nature == $natureValue) {
+                    $user->likes()->detach($articleId);
+                    return redirect()->back()->with('success', 'Votre réaction a été supprimée');
+                } else {
+                    // Si la nature est différente, mettre à jour
+                    $user->likes()->updateExistingPivot($articleId, ['nature' => $natureValue]);
+                    return redirect()->back()->with('success', 'Votre réaction a été mise à jour');
+                }
+            } else {
+                // Créer un nouveau like
+                $user->likes()->attach($articleId, ['nature' => $natureValue]);
+                return redirect()->back()->with('success', 'Votre réaction a été enregistrée');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Une erreur est survenue: ' . $e->getMessage());
+        }
+    }
+
     // Afficher le formulaire de création d'article
     public function create()
     {
