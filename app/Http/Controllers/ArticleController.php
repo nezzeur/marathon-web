@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Rythme;
+use App\Models\Accessibilite;
+use App\Models\Conclusion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
