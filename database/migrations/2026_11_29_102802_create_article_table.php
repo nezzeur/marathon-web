@@ -23,13 +23,13 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\User::class)->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreignIdFor(\App\Models\Rythme::class)->constrained()
+            $table->foreignIdFor(\App\Models\Rythme::class)->nullable()->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreignIdFor(\App\Models\Accessibilite::class)->constrained()
+            $table->foreignIdFor(\App\Models\Accessibilite::class)->nullable()->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreignIdFor(\App\Models\Conclusion::class)->constrained()
+            $table->foreignIdFor(\App\Models\Conclusion::class)->nullable()->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->timestamps();
