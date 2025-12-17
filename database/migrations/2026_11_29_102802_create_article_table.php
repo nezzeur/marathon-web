@@ -14,22 +14,22 @@ return new class extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->string('titre');
-            $table->text('resume')->default('');
-            $table->text('texte')->default('');
-            $table->string('image')->default('');
-            $table->string('media')->default('');
-	        $table->boolean("en_ligne")->default(false);
+            $table->text('resume');
+            $table->text('texte');
+            $table->string('image');
+            $table->string('media');
+            $table->boolean("en_ligne");
             $table->integer('nb_vues')->default(0);
             $table->foreignIdFor(\App\Models\User::class)->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreignIdFor(\App\Models\Rythme::class)->nullable()->constrained()
+            $table->foreignIdFor(\App\Models\Rythme::class)->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreignIdFor(\App\Models\Accessibilite::class)->nullable()->constrained()
+            $table->foreignIdFor(\App\Models\Accessibilite::class)->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreignIdFor(\App\Models\Conclusion::class)->nullable()->constrained()
+            $table->foreignIdFor(\App\Models\Conclusion::class)->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->timestamps();
