@@ -1,8 +1,11 @@
 <nav>
     <a href="{{route('accueil')}}">Accueil</a>
     <a href="{{route('test-vite')}}">Test Vite</a>
-    <a href="{{ route('articles.create') }}">Créer un article</a>
     <a href="#">Contact</a>
+
+    @auth
+        <a href="{{ route('articles.create') }}">Créer un article</a>
+    @endauth
 
     @auth
         <a href="{{ route('user.me') }}" style="font-weight: bold;">
