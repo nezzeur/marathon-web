@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticleController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 
 Route::get('/', [ArticleController::class, 'index'])->name("accueil");
@@ -22,4 +23,9 @@ Route::get('/home', function () {
 })->name("home");
 
 
+Route::get('/profile/{id}', [UserController::class, 'show'])->name('user.profile');
+
+Route::get('/mon-profil', [UserController::class, 'me'])
+    ->middleware('auth')
+    ->name('user.me');
 
