@@ -55,3 +55,6 @@ Route::put('/mon-profil', [UserController::class, 'update'])
     ->middleware('auth')
     ->name('user.update');
 
+// Routes pour les avis/commentaires
+Route::post('/avis', [\App\Http\Controllers\AvisController::class, 'store'])->name('avis.store');
+
