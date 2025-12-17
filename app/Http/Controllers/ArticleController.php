@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Accessibilite;
 use App\Models\Article;
+use App\Models\Conclusion;
+use App\Models\Rythme;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
