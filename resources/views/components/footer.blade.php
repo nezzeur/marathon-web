@@ -1,1 +1,2 @@
-<?php
+<footer>IUT de Lens</footer>
+
