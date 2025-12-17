@@ -1,7 +1,7 @@
 <nav>
     <a href="{{route('accueil')}}">Accueil</a>
     <a href="{{route('test-vite')}}">Test Vite</a>
-    <a href="#">Contact</a>
+    <a href="{{route('contact')}}">Contact</a>
 
     @auth
         <a href="{{ route('articles.create') }}">Créer un article</a>
