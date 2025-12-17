@@ -56,7 +56,7 @@
                 Accessibilité : 
                 @if($article->accessibilite)
                     <a href="{{ route('articles.byAccessibilite', $article->accessibilite->id) }}">
-                        {{ $article->accessibilite->libelle }}
+                        {{ $article->accessibilite->texte }}
                     </a>
                 @else
                     Non renseigné
@@ -66,7 +66,7 @@
                 Rythme : 
                 @if($article->rythme)
                     <a href="{{ route('articles.byRythme', $article->rythme->id) }}">
-                        {{ $article->rythme->libelle }}
+                        {{ $article->rythme->texte }}
                     </a>
                 @else
                     Non renseigné
@@ -76,7 +76,7 @@
                 Conclusion : 
                 @if($article->conclusion)
                     <a href="{{ route('articles.byConclusion', $article->conclusion->id) }}">
-                        {{ $article->conclusion->libelle }}
+                        {{ $article->conclusion->texte }}
                     </a>
                 @else
                     Non renseigné

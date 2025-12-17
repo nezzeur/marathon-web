@@ -38,10 +38,10 @@
                                     {{ $article->accessibilite->libelle ?? 'Non renseigné' }}
                                 </span>
                                 <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">
-                                    {{ $article->rythme->libelle ?? 'Non renseigné' }}
+                                    {{ $article->rythme->texte ?? 'Non renseigné' }}
                                 </span>
                                 <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">
-                                    {{ $article->conclusion->libelle ?? 'Non renseigné' }}
+                                    {{ $article->conclusion->texte ?? 'Non renseigné' }}
                                 </span>
                             </div>
                         </div>
