@@ -7,10 +7,11 @@
 
 @vite(["resources/css/normalize.css", 'resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
-<x-header />
-<x-navigation />
 
+<body>
+<x-header/>
+<x-navigation/>
+<x-welcome-message />
 <main>
     @yield("contenu")
 </main>
