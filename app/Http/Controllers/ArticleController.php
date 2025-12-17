@@ -77,6 +77,40 @@ class ArticleController extends Controller
         
         return view('articles.show', compact('article'));
     }
+    
+    // Gérer les likes/dislikes sur un article
+    public function like(string $id, Request $request)
+    {
+        $article = Article::findOrFail($id);
+        $user = auth()->user();
+        $nature = $request->input('nature'); // 'like' ou 'dislike'
+        
+        // Vérifier que la nature est valide
+        if (!in_array($nature, ['like', 'dislike'])) {
+            return back()->with('error', 'Action invalide');
+        }
+        
+        // Vérifier si l'utilisateur a déjà réagi
+        $existingLike = $article->likes()->where('user_id', $user->id)->first();
+        
+        if ($existingLike) {
+            // Si l'utilisateur a déjà réagi avec la même nature, on supprime la réaction
+            if ($existingLike->pivot->nature === $nature) {
+                $article->likes()->detach($user->id);
+                return back()->with('success', 'Votre réaction a été supprimée');
+            }
+            // Sinon, on met à jour la nature de la réaction
+            else {
+                $article->likes()->updateExistingPivot($user->id, ['nature' => $nature]);
+                return back()->with('success', 'Votre réaction a été mise à jour');
+            }
+        }
+        
+        // Sinon, on ajoute une nouvelle réaction
+        $article->likes()->attach($user->id, ['nature' => $nature]);
+        
+        return back()->with('success', 'Votre réaction a été enregistrée');
+    }
 
     // Gérer les likes/dislikes
     public function toggleLike(Request $request, string $articleId)

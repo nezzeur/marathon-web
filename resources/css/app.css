@@ -160,6 +160,11 @@ footer {
     object-fit: cover;
 }
 
+.article-body {
+    white-space: pre-wrap; /* Conserve les espaces et les retours à la ligne */
+}
+
+
 .article-content {
     padding: 16px;
     flex: 1;
