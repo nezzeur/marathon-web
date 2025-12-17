@@ -26,9 +26,7 @@ Route::get('/test-vite', function () {
     return view('test-vite');
 })->name("test-vite");
 
-Route::get('/home', function () {
-    return view('home');
-})->name("home");
+Route::get('/home', [ArticleController::class, 'index'])->name("home");
 
 
 Route::get('/profile/{id}', [UserController::class, 'show'])->name('user.profile');
@@ -36,4 +34,12 @@ Route::get('/profile/{id}', [UserController::class, 'show'])->name('user.profile
 Route::get('/mon-profil', [UserController::class, 'me'])
     ->middleware('auth')
     ->name('user.me');
+
+Route::get('/mon-profil/edit', [UserController::class, 'edit'])
+    ->middleware('auth')
+    ->name('user.edit');
+
+Route::put('/mon-profil', [UserController::class, 'update'])
+    ->middleware('auth')
+    ->name('user.update');
 
