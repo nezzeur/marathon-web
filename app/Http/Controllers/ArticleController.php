@@ -74,4 +74,49 @@ class ArticleController extends Controller
         return redirect()->route('articles.show', $article->id)
             ->with('success', 'Article créé avec succès !');
     }
+
+    /**
+     * Filtrer les articles par accessibilité
+     */
+    public function byAccessibilite(Accessibilite $accessibilite) {
+        $articles = Article::with(['editeur', 'accessibilite', 'rythme', 'conclusion'])
+            ->where('accessibilite_id', $accessibilite->id)
+            ->paginate(6);
+
+        return view('articles.by_characteristic', [
+            'articles' => $articles,
+            'characteristic' => $accessibilite,
+            'type' => 'accessibilite'
+        ]);
+    }
+
+    /**
+     * Filtrer les articles par rythme
+     */
+    public function byRythme(Rythme $rythme) {
+        $articles = Article::with(['editeur', 'accessibilite', 'rythme', 'conclusion'])
+            ->where('rythme_id', $rythme->id)
+            ->paginate(6);
+
+        return view('articles.by_characteristic', [
+            'articles' => $articles,
+            'characteristic' => $rythme,
+            'type' => 'rythme'
+        ]);
+    }
+
+    /**
+     * Filtrer les articles par conclusion
+     */
+    public function byConclusion(Conclusion $conclusion) {
+        $articles = Article::with(['editeur', 'accessibilite', 'rythme', 'conclusion'])
+            ->where('conclusion_id', $conclusion->id)
+            ->paginate(6);
+
+        return view('articles.by_characteristic', [
+            'articles' => $articles,
+            'characteristic' => $conclusion,
+            'type' => 'conclusion'
+        ]);
+    }
 }
