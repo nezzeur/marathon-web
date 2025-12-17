@@ -1,97 +1,68 @@
-@extends('layouts.app')
+@extends('layout.app')
 
-@section('content')
-    <div class="container">
+@section('contenu')
+    <div>
 
         {{-- Titre --}}
-        <h1 class="mb-3">{{ $article->titre }}</h1>
+        <h1>{{ $article->titre }}</h1>
 
         {{-- Auteur & date --}}
-        <p class="text-muted">
+        <p>
             Rédigé par <strong>{{ $article->editeur->name }}</strong>
             • {{ $article->created_at->format('d/m/Y') }}
         </p>
 
         {{-- Image --}}
         @if($article->image)
-            <div class="mb-4">
-                <img src="{{ asset('storage/' . $article->image) }}"
-                     class="img-fluid rounded"
-                     alt="Image de l'article">
+            <div>
+                <img src="{{ asset('storage/' . $article->image) }}" alt="Image de l'article">
             </div>
         @endif
 
         {{-- Résumé --}}
-        <div class="mb-4">
-            <h3>Résumé</h3>
-            <p>{{ $article->resume }}</p>
-        </div>
+        <h3>Résumé</h3>
+        <p>{{ $article->resume }}</p>
 
         {{-- Texte principal --}}
-        <div class="mb-4">
-            <h3>Contenu</h3>
-            <p>{!! nl2br(e($article->texte)) !!}</p>
-        </div>
+        <h3>Contenu</h3>
+        <p>{!! nl2br(e($article->texte)) !!}</p>
 
         {{-- Média --}}
         @if($article->media)
-            <div class="mb-4">
-                <h3>Média associé</h3>
-                <a href="{{ $article->media }}" target="_blank" class="btn btn-outline-primary">
-                    Voir le média
-                </a>
-            </div>
+            <h3>Média associé</h3>
+            <a href="{{ $article->media }}" target="_blank">Voir le média</a>
         @endif
 
         {{-- Caractéristiques --}}
-        <div class="mb-4">
-            <h3>Caractéristiques</h3>
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <strong>Accessibilité :</strong>
-                    {{ $article->accessibilite->libelle ?? 'Non renseigné' }}
-                </li>
-                <li class="list-group-item">
-                    <strong>Rythme :</strong>
-                    {{ $article->rythme->libelle ?? 'Non renseigné' }}
-                </li>
-                <li class="list-group-item">
-                    <strong>Conclusion :</strong>
-                    {{ $article->conclusion->libelle ?? 'Non renseigné' }}
-                </li>
-            </ul>
-        </div>
+        <h3>Caractéristiques</h3>
+        <ul>
+            <li>Accessibilité : {{ $article->accessibilite->libelle ?? 'Non renseigné' }}</li>
+            <li>Rythme : {{ $article->rythme->libelle ?? 'Non renseigné' }}</li>
+            <li>Conclusion : {{ $article->conclusion->libelle ?? 'Non renseigné' }}</li>
+        </ul>
 
         {{-- Likes --}}
-        <div class="mb-4">
-            <h3>Réactions</h3>
-            <p>
-                👍 {{ $article->likes->where('pivot.nature', 'like')->count() }}
-                |
-                👎 {{ $article->likes->where('pivot.nature', 'dislike')->count() }}
-            </p>
-        </div>
+        <h3>Réactions</h3>
+        <p>
+            👍 {{ $article->likes->where('pivot.nature', 'like')->count() }}
+            |
+            👎 {{ $article->likes->where('pivot.nature', 'dislike')->count() }}
+        </p>
 
         {{-- Commentaires --}}
-        <div class="mb-4">
-            <h3>Commentaires ({{ $article->avis->count() }})</h3>
+        <h3>Commentaires ({{ $article->avis->count() }})</h3>
 
-            @forelse($article->avis as $avis)
-                <div class="card mb-2">
-                    <div class="card-body">
-                        <p class="mb-1">
-                            <strong>{{ $avis->user->name }}</strong>
-                            <span class="text-muted">
-                            • {{ $avis->created_at->format('d/m/Y H:i') }}
-                        </span>
-                        </p>
-                        <p class="mb-0">{{ $avis->contenu }}</p>
-                    </div>
-                </div>
-            @empty
-                <p class="text-muted">Aucun commentaire pour le moment.</p>
-            @endforelse
-        </div>
+        @forelse($article->avis as $avis)
+            <div>
+                <p>
+                    <strong>{{ $avis->user->name }}</strong>
+                    • {{ $avis->created_at->format('d/m/Y H:i') }}
+                </p>
+                <p>{{ $avis->contenu }}</p>
+            </div>
+        @empty
+            <p>Aucun commentaire pour le moment.</p>
+        @endforelse
 
     </div>
 @endsection
