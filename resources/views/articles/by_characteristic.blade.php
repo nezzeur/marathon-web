@@ -5,7 +5,7 @@
         <div class="mb-8">
             <h1 class="text-4xl font-bold text-gray-900">
                 🔎 Articles avec :
-                <span class="text-blue-600">
+                <span style="color: #2BE7C6">
                     @if($type === 'accessibilite')
                         ♿ {{ $characteristic->texte }}
                     @elseif($type === 'rythme')
@@ -21,9 +21,9 @@
         @if($articles->count() > 0)
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                 @foreach($articles as $article)
-                    <article class="bg-white rounded-lg shadow-md border border-gray-200 p-5 hover:shadow-lg transition-shadow">
+                    <article class="bg-white rounded-lg shadow-md border-2 p-5 hover:shadow-lg transition-shadow" style="border-color: #2BE7C6">
                         <h2 class="text-lg font-bold text-gray-900 mb-2">
-                            <a href="{{ route('articles.show', $article->id) }}" class="hover:text-blue-600 transition-colors">
+                            <a href="{{ route('articles.show', $article->id) }}" style="color: #2B5BBB" class="hover:underline transition-colors">
                                 {{ $article->titre }}
                             </a>
                         </h2>
@@ -36,17 +36,17 @@
                             {{ Str::limit($article->resume, 100) }}
                         </p>
                         <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded font-semibold">
+                            <span class="text-xs px-2 py-1 rounded font-semibold text-white" style="background-color: #2BE7C6; color: #2B5BBB">
                                 ♿ {{ $article->accessibilite->texte ?? 'Non renseigné' }}
                             </span>
-                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-semibold">
+                            <span class="text-xs px-2 py-1 rounded font-semibold text-white" style="background-color: #C2006D">
                                 ⏱️ {{ $article->rythme->texte ?? 'Non renseigné' }}
                             </span>
-                            <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded font-semibold">
+                            <span class="text-xs px-2 py-1 rounded font-semibold text-white" style="background-color: #2B5BBB">
                                 ✓ {{ $article->conclusion->texte ?? 'Non renseigné' }}
                             </span>
                         </div>
-                        <a href="{{ route('articles.show', $article->id) }}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded font-bold hover:bg-blue-700 transition-colors text-sm">
+                        <a href="{{ route('articles.show', $article->id) }}" class="inline-block text-white px-4 py-2 rounded font-bold hover:opacity-90 transition-opacity text-sm" style="background-color: #2BE7C6; color: #2B5BBB">
                             Lire →
                         </a>
                     </article>
@@ -57,14 +57,14 @@
                 {{ $articles->links() }}
             </div>
         @else
-            <div class="bg-yellow-50 border-l-4 border-yellow-500 rounded-lg p-6">
-                <p class="text-yellow-900 font-bold text-lg">⚠️ Aucun article trouvé</p>
-                <p class="text-yellow-800">Il n'y a pas d'articles avec cette caractéristique pour le moment.</p>
+            <div class="border-l-4 rounded-lg p-6 text-white" style="background-color: #C2006D; border-color: #2B5BBB">
+                <p class="font-bold text-lg">⚠️ Aucun article trouvé</p>
+                <p>Il n'y a pas d'articles avec cette caractéristique pour le moment.</p>
             </div>
         @endif
         
         <div class="mt-12">
-            <a href="{{ route('accueil') }}" class="inline-block bg-gray-500 text-white px-6 py-3 rounded-lg font-bold hover:bg-gray-600 transition-colors">
+            <a href="{{ route('accueil') }}" class="inline-block text-white px-6 py-3 rounded-lg font-bold hover:opacity-90 transition-opacity" style="background-color: #2B5BBB">
                 ← Retour à l'accueil
             </a>
         </div>

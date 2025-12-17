@@ -129,27 +129,27 @@
             <!-- Actions -->
             <div class="flex gap-4 pt-6">
                 <button type="submit" name="action" value="draft"
-                        class="flex-1 bg-gray-400 text-white font-bold py-3 rounded-lg hover:bg-gray-500 transition-colors duration-200">
+                        class="flex-1 text-white font-bold py-3 rounded-lg transition-opacity duration-200 hover:opacity-90" style="background-color: #2BE7C6; color: #2B5BBB">
                     💾 Enregistrer en brouillon
                 </button>
                 <button type="submit" name="action" value="publish"
-                        class="flex-1 bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                        class="flex-1 text-white font-bold py-3 rounded-lg transition-opacity duration-200 hover:opacity-90" style="background-color: #2B5BBB">
                     🚀 Publier
                 </button>
                 <a href="{{ route('articles.show', $article) }}"
-                   class="flex-1 bg-gray-300 text-gray-900 font-bold py-3 rounded-lg hover:bg-gray-400 transition-colors duration-200 flex items-center justify-center text-decoration-none">
+                   class="flex-1 text-white font-bold py-3 rounded-lg transition-opacity duration-200 hover:opacity-90 flex items-center justify-center text-decoration-none" style="background-color: #C2006D">
                     ❌ Annuler
                 </a>
             </div>
         </form>
 
         <!-- Zone de danger -->
-        <div class="mt-12 pt-8 border-t-2 border-red-300">
-            <h3 class="text-2xl font-bold text-red-600 mb-4">⚠️ Zone de danger</h3>
+        <div class="mt-12 pt-8 border-t-2" style="border-color: #C2006D">
+            <h3 class="text-2xl font-bold mb-4" style="color: #C2006D">⚠️ Zone de danger</h3>
             <form action="{{ route('articles.destroy', $article) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet article ? Cette action est irréversible.');" class="inline">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="bg-red-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-red-700 transition-colors duration-200">
+                <button type="submit" class="text-white font-bold py-3 px-6 rounded-lg transition-opacity duration-200 hover:opacity-90" style="background-color: #C2006D">
                     🗑️ Supprimer l'article
                 </button>
             </form>

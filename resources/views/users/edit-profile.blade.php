@@ -49,10 +49,10 @@
 
             <!-- Boutons -->
             <div class="flex gap-4 pt-6 border-t border-gray-200">
-                <button type="submit" class="flex-1 bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                <button type="submit" class="flex-1 text-white font-bold py-3 rounded-lg transition-opacity duration-200 hover:opacity-90" style="background-color: #2BE7C6; color: #2B5BBB">
                     💾 Enregistrer les modifications
                 </button>
-                <a href="{{ route('user.me') }}" class="flex-1 bg-gray-500 text-white font-bold py-3 rounded-lg hover:bg-gray-600 transition-colors duration-200 flex items-center justify-center text-decoration-none">
+                <a href="{{ route('user.me') }}" class="flex-1 text-white font-bold py-3 rounded-lg transition-opacity duration-200 hover:opacity-90 flex items-center justify-center text-decoration-none" style="background-color: #C2006D">
                     ❌ Annuler
                 </a>
             </div>

@@ -121,11 +121,11 @@
             <!-- Boutons -->
             <div class="flex gap-4 pt-6 border-t border-gray-200">
                 <button type="submit" name="action" value="publish" onclick="setRequired(true)"
-                        class="flex-1 bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                        class="flex-1 text-white font-bold py-3 rounded-lg transition-opacity duration-200 hover:opacity-90" style="background-color: #2B5BBB">
                     🚀 Publier
                 </button>
                 <button type="submit" name="action" value="draft" onclick="setRequired(false)"
-                        class="flex-1 bg-gray-400 text-white font-bold py-3 rounded-lg hover:bg-gray-500 transition-colors duration-200">
+                        class="flex-1 text-white font-bold py-3 rounded-lg transition-opacity duration-200 hover:opacity-90" style="background-color: #2BE7C6; color: #2B5BBB">
                     💾 Enregistrer comme brouillon
                 </button>
             </div>

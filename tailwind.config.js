@@ -10,7 +10,14 @@ export default {
       fontFamily: {
         orbitron: ['Orbitron', 'sans-serif'],
       },
-      colors: {},
+      colors: {
+        retro: {
+          cyan: '#2BE7C6',      // Cyan retro
+          pink: '#C2006D',      // Rose/Magenta
+          blue: '#2B5BBB',      // Bleu
+          white: '#FFFFFF',     // Blanc
+        },
+      },
     },
   },
   plugins: [
