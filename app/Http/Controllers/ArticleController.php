@@ -13,7 +13,17 @@ class ArticleController extends Controller
     // Page d'accueil : affiche les articles (derniers publiés)
     public function index()
     {
-        $articles = Article::inRandomOrder()->limit(6)->get();
+        $query = Article::where('en_ligne', true);
+        
+        // Si l'utilisateur est connecté, on ajoute ses articles même hors ligne
+        if (auth()->check()) {
+            $userId = auth()->id();
+            $query->orWhere(function($q) use ($userId) {
+                $q->where('user_id', $userId);
+            });
+        }
+        
+        $articles = $query->inRandomOrder()->limit(6)->get();
         return view('home', compact('articles'));
     }
     /**
@@ -39,9 +49,20 @@ class ArticleController extends Controller
      * Filtrer les articles par accessibilité
      */
     public function byAccessibilite(Accessibilite $accessibilite) {
-        $articles = Article::with(['editeur', 'accessibilite', 'rythme', 'conclusion'])
+        $query = Article::with(['editeur', 'accessibilite', 'rythme', 'conclusion'])
             ->where('accessibilite_id', $accessibilite->id)
-            ->paginate(6);
+            ->where('en_ligne', true);
+        
+        // Si l'utilisateur est connecté, on ajoute ses articles même hors ligne
+        if (auth()->check()) {
+            $userId = auth()->id();
+            $query->orWhere(function($q) use ($userId, $accessibilite) {
+                $q->where('user_id', $userId)
+                  ->where('accessibilite_id', $accessibilite->id);
+            });
+        }
+        
+        $articles = $query->paginate(6);
         
         return view('articles.by_characteristic', [
             'articles' => $articles,
@@ -54,9 +75,20 @@ class ArticleController extends Controller
      * Filtrer les articles par rythme
      */
     public function byRythme(Rythme $rythme) {
-        $articles = Article::with(['editeur', 'accessibilite', 'rythme', 'conclusion'])
+        $query = Article::with(['editeur', 'accessibilite', 'rythme', 'conclusion'])
             ->where('rythme_id', $rythme->id)
-            ->paginate(6);
+            ->where('en_ligne', true);
+        
+        // Si l'utilisateur est connecté, on ajoute ses articles même hors ligne
+        if (auth()->check()) {
+            $userId = auth()->id();
+            $query->orWhere(function($q) use ($userId, $rythme) {
+                $q->where('user_id', $userId)
+                  ->where('rythme_id', $rythme->id);
+            });
+        }
+        
+        $articles = $query->paginate(6);
         
         return view('articles.by_characteristic', [
             'articles' => $articles,
@@ -69,9 +101,20 @@ class ArticleController extends Controller
      * Filtrer les articles par conclusion
      */
     public function byConclusion(Conclusion $conclusion) {
-        $articles = Article::with(['editeur', 'accessibilite', 'rythme', 'conclusion'])
+        $query = Article::with(['editeur', 'accessibilite', 'rythme', 'conclusion'])
             ->where('conclusion_id', $conclusion->id)
-            ->paginate(6);
+            ->where('en_ligne', true);
+        
+        // Si l'utilisateur est connecté, on ajoute ses articles même hors ligne
+        if (auth()->check()) {
+            $userId = auth()->id();
+            $query->orWhere(function($q) use ($userId, $conclusion) {
+                $q->where('user_id', $userId)
+                  ->where('conclusion_id', $conclusion->id);
+            });
+        }
+        
+        $articles = $query->paginate(6);
         
         return view('articles.by_characteristic', [
             'articles' => $articles,
