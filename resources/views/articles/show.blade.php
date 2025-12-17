@@ -35,13 +35,13 @@
         {{-- Résumé --}}
         <h3>Résumé</h3>
         <div class="article-resume">
-            {!! $article->resume_html !!}
+            {!! $article->getResumeHtmlAttribute() !!}
         </div>
 
         {{-- Texte principal --}}
         <h3>Contenu</h3>
         <div class="article-body">
-            {!! $article->texte_html !!}
+            {!! $article->getTexteHtmlAttribute() !!}
         </div>
         {{-- Média --}}
         @if($article->media)
