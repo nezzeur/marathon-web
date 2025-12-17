@@ -1,7 +1,13 @@
 @if(auth()->check())
     @php
-        $notifications = auth()->user()->notifications()->latest()->take(5)->get();
-        $unreadCount = auth()->user()->unreadNotifications()->count();
+        // Vérifier si la table notifications existe avant de l'utiliser
+        try {
+            $notifications = auth()->user()->notifications()->latest()->take(5)->get();
+            $unreadCount = auth()->user()->unreadNotifications()->count();
+        } catch (\Exception $e) {
+            $notifications = collect();
+            $unreadCount = 0;
+        }
     @endphp
     
     <div class="notification-dropdown">

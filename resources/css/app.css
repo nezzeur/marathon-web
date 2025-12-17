@@ -131,3 +131,125 @@ footer {
     background-color: #0052a3;
 }
 
+/* ========== CATEGORIES SECTIONS ========== */
+
+.categories-section {
+    /* Section complète pour les catégories */
+    padding: 30px 20px;
+    max-width: 1200px;
+    margin: 40px auto;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+    /* Titre de la section */
+    font-size: 1.8em;
+    color: #2c3e50;
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.categories-grid {
+    /* Grille des catégories */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.category-card {
+    /* Carte individuelle de catégorie */
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e0e0e0;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.category-name {
+    /* Nom de la catégorie */
+    font-size: 1.2em;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-weight: 600;
+    border-bottom: 2px solid #0066cc;
+    padding-bottom: 8px;
+}
+
+.category-type {
+    /* Type de catégorie */
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 8px;
+    font-style: italic;
+}
+
+.category-stats {
+    /* Statistiques (vues/likes) */
+    font-size: 1.1em;
+    color: #0066cc;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.category-article {
+    /* Section de l'article vedette */
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px dashed #ccc;
+}
+
+.category-article h4 {
+    font-size: 1em;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.category-article p {
+    font-size: 0.9em;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.btn-small {
+    /* Bouton petit pour voir l'article */
+    background-color: #0066cc;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.85em;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+    font-weight: 600;
+}
+
+.btn-small:hover {
+    background-color: #0052a3;
+}
+
+.article-stats {
+    /* Statistiques des articles (vues/likes) */
+    font-size: 1em;
+    color: #0066cc;
+    font-weight: 700;
+    margin-bottom: 12px;
+    text-align: center;
+    padding: 6px;
+    background-color: #f0f8ff;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+}
+
