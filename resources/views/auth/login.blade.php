@@ -66,7 +66,7 @@
                             />
                         </div>
                         @error('email')
-                        <p class="text-[#C2006D] text-xs mt-2 font-bold animate-pulse pl-1">⚠️ {{ $message }}</p>
+                        <p class="text-[#C2006D] text-xs mt-2 font-bold animate-pulse pl-1">️ {{ $message }}</p>
                         @enderror
                     </div>
 
