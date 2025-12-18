@@ -45,8 +45,8 @@
                 </div>
 
                 {{-- Formulaire --}}
-                <div class="mx-3 my-2 p-4 relative overflow-hidden bg-[#0f0f23]" style="border: 2px solid #000; border-radius: 2px; box-shadow: inset 0 0 20px rgba(0,0,0,0.5);">
-                <form action="{{ route('login') }}" method="post" class="p-8 space-y-6">
+                <div class="mx-3 my-4 p-4 relative overflow-hidden bg-[#0f0f23]" style="border: 2px solid #000; border-radius: 2px; box-shadow: inset 0 0 20px rgba(0,0,0,0.5);">
+                <form action="{{ route('login') }}" method="post" class="p-8 space-y-8">
                     @csrf
 
                     <div class="group/input neon-border-cyan rounded-xl transition-all duration-300">
@@ -70,7 +70,7 @@
                         @enderror
                     </div>
 
-                    <div class="group/input neon-border-pink rounded-xl transition-all duration-300 mb-6">
+                    <div class="group/input neon-border-pink rounded-xl transition-all duration-300">
                         <label for="password" class="block text-[10px] font-bold text-[#C2006D] mb-1 uppercase tracking-widest pl-1">Mot de passe</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -87,7 +87,7 @@
                         </div>
                     </div>
 
-                    <div class="flex items-center justify-between mt-2 pl-1">
+                    <div class="flex items-center justify-between mt-4 pl-1">
                         <label class="flex items-center space-x-3 cursor-pointer group/check">
                             <div class="relative">
                                 <input type="checkbox" name="remember" class="peer sr-only">
@@ -100,12 +100,12 @@
 
                     <button
                             type="submit"
-                            class="block mx-auto mb-10 font-mono text-xs px-6 py-3 bg-destructive text-destructive-foreground hover:brightness-110 border-b-4 border-black/30 active:border-b-0 active:translate-y-1">
+                            class="block mx-auto mt-8 mb-8 font-mono text-xs px-6 py-3 bg-destructive text-destructive-foreground hover:brightness-110 border-b-4 border-black/30 active:border-b-0 active:translate-y-1">
                         INITIALISER LA SESSION
                     </button>
 
                     {{-- Footer du cadre --}}
-                    <p class="mt-12 text-center text-gray-400 text-xs font-medium">
+                    <p class="mt-8 text-center text-gray-400 text-xs font-medium">
                         Nouvel utilisateur ?
                         <a href="{{ route('register') }}"
                            class="text-[#bed2ff] hover:text-[#2BE7C6] font-bold uppercase transition-colors ml-1 hover:underline decoration-2 underline-offset-4">
