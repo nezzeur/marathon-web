@@ -525,9 +525,15 @@
         isRedirecting = true;
         document.body.classList.add('launching');
         setTimeout(() => {
+            // Rediriger vers l'accueil après l'animation
             window.location.href = "{{ route('home') }}";
         }, 1000);
     }
+
+    // Démarrer automatiquement l'animation après un court délai
+    setTimeout(() => {
+        startJourney();
+    }, 3000); // 3 secondes avant de démarrer l'animation
 
     window.addEventListener('keydown', (e) => {
         if (e.code === 'Space' || e.code === 'Enter') startJourney();

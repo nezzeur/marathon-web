@@ -36,7 +36,7 @@ class RedirectFirstTimeVisitor
         // Vérifier si c'est la première visite en vérifiant le cookie existant
         if (!$request->hasCookie('okrina_visited')) {
             // Si c'est la première visite et qu'on n'est pas sur une route spécifique (auth, api, etc.)
-            // et qu'on n'est pas déjà sur /first, rediriger vers first
+            // et qu'on n'est pas déjà sur /first, rediriger vers first avec le cookie
             if (!$request->is('first') && 
                 !$request->is('login') && 
                 !$request->is('register') && 
@@ -49,7 +49,16 @@ class RedirectFirstTimeVisitor
                 !$request->is('build/*')) {
                 
                 // Rediriger vers la page first pour les nouveaux visiteurs
-                return redirect()->route('first.page');
+                // et poser le cookie pour éviter les redirections futures
+                return redirect()->route('first.page')->cookie(
+                    'okrina_visited', 
+                    'true', 
+                    60 * 24 * 30, // 30 jours
+                    '/', 
+                    null, 
+                    false, 
+                    false
+                );
             }
         } else {
             // Si le cookie existe (visiteur déjà vu) et qu'on est sur /first, rediriger vers l'accueil
