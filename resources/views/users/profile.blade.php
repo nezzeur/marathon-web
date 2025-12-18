@@ -70,7 +70,7 @@
                             <button class="btn-follow-toggle px-6 py-3 rounded-lg font-bold text-white transition-all duration-200 {{ $isFollowing ? 'bg-red-600 hover:bg-red-700' : 'bg-blue-600 hover:bg-blue-700' }}"
                                     data-user-id="{{ $user->id }}"
                                     data-is-following="{{ $isFollowing ? 'true' : 'false' }}">
-                                {{ $isFollowing ? '❤️ Ne plus suivre' : '🤍 Suivre' }}
+                                {{ $isFollowing ? 'Ne plus suivre' : '🤍 Suivre' }}
                             </button>
                         @endif
                     @else
@@ -80,7 +80,6 @@
             </div>
         </div>
 
-        <!-- Articles publiés -->
         <div class="bg-card rounded-lg shadow-lg shadow-primary/20 overflow-hidden border border-border">
             <div class="border-b border-border">
                 <div class="flex flex-wrap">
@@ -92,7 +91,7 @@
 
             <div class="p-8 scanline-content">
                 <div class="tab-content active" id="tab-articles">
-                    <h2 class="text-2xl font-bold text-primary mb-6">📚 Articles publiés</h2>
+                    <h2 class="text-2xl font-bold text-primary mb-6">Articles publiés</h2>
 
                     @if($user->articles->count() > 0)
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -117,7 +116,7 @@
                         </div>
                     @else
                         <div class="bg-card/30 border-2 border-dashed border-border rounded-lg p-12 text-center">
-                            <p class="text-muted-foreground text-lg">📭 Aucun article publié pour le moment.</p>
+                            <p class="text-muted-foreground text-lg">Aucun article publié pour le moment.</p>
                         </div>
                     @endif
                 </div>
@@ -154,10 +153,9 @@
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
-                                this.textContent = data.isFollowing ? '❤️ Ne plus suivre' : '🤍 Suivre';
+                                this.textContent = data.isFollowing ? 'Ne plus suivre' : 'Suivre';
                                 this.setAttribute('data-is-following', data.isFollowing);
                                 
-                                // Mettre à jour les couleurs
                                 if (data.isFollowing) {
                                     this.classList.remove('bg-blue-600', 'hover:bg-blue-700');
                                     this.classList.add('bg-red-600', 'hover:bg-red-700');
