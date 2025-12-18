@@ -19,11 +19,12 @@
         <div class="w-full max-w-5xl">
 
             {{-- EN-TÊTE --}}
-            <div class="mb-10 text-center">
-                <h1 class="text-4xl md:text-5xl font-black italic uppercase tracking-tighter text-white drop-shadow-[0_2px_0px_#2B5BBB]">
-                    NOUVEL ARTICLE
-                </h1>
-                <div class="h-1 w-32 mx-auto mt-4 bg-gradient-to-r from-transparent via-[#C2006D] to-transparent"></div>
+            <div class="flex items-end gap-4 mb-8 border-b-4 border-[#2858bb] pb-2 pr-10 shadow-[0_4px_20px_rgba(40,88,187,0.3)] w-fit backdrop-blur-sm bg-black/30 px-4 rounded-t-lg">
+                <div>
+                    <h2 class="text-3xl md:text-5xl font-black font-orbitron text-transparent bg-clip-text bg-gradient-to-r from-[#bed2ff] to-white uppercase italic transform -skew-x-6 drop-shadow-[0_2px_0px_#2858bb]">
+                        NOUVEL ARTICLE
+                    </h2>
+                </div>
             </div>
 
             {{-- BOITE D'INFO (Texte Blanc) --}}
