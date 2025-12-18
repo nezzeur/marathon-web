@@ -53,7 +53,7 @@
                         <label for="email" class="block text-[10px] font-bold text-[#ffffff] mb-1 uppercase tracking-widest pl-1">Identifiant</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                <span class="text-[#2B5BBB] group-focus-within/input:text-[#2BE7C6] transition-colors">@</span>
+                                <span class="text-[#2B5BBB] group-focus-within/input:text-[#2BE7C6] transition-colors"></span>
                             </div>
                             <input
                                     type="email"
@@ -74,7 +74,7 @@
                         <label for="password" class="block text-[10px] font-bold text-[#ffffff] mb-1 uppercase tracking-widest pl-1">Mot de passe</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                <span class="text-[#2B5BBB] group-focus-within/input:text-[#C2006D] transition-colors">#</span>
+                                <span class="text-[#2B5BBB] group-focus-within/input:text-[#C2006D] transition-colors"></span>
                             </div>
                             <input
                                     type="password"
