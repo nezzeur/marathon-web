@@ -50,7 +50,7 @@
                     @csrf
 
                     <div class="group/input neon-border-cyan rounded-xl transition-all duration-300">
-                        <label for="email" class="block text-[10px] font-bold text-[#2BE7C6] mb-1 uppercase tracking-widest pl-1">Identifiant</label>
+                        <label for="email" class="block text-[10px] font-bold text-[#ffffff] mb-1 uppercase tracking-widest pl-1">Identifiant</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                                 <span class="text-[#2B5BBB] group-focus-within/input:text-[#2BE7C6] transition-colors">@</span>
@@ -71,7 +71,7 @@
                     </div>
 
                     <div class="group/input neon-border-pink rounded-xl transition-all duration-300">
-                        <label for="password" class="block text-[10px] font-bold text-[#C2006D] mb-1 uppercase tracking-widest pl-1">Mot de passe</label>
+                        <label for="password" class="block text-[10px] font-bold text-[#ffffff] mb-1 uppercase tracking-widest pl-1">Mot de passe</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                                 <span class="text-[#2B5BBB] group-focus-within/input:text-[#C2006D] transition-colors">#</span>
@@ -101,7 +101,7 @@
                     <button
                             type="submit"
                             class="block mx-auto mt-8 mb-8 font-mono text-xs px-6 py-3 bg-destructive text-destructive-foreground hover:brightness-110 border-b-4 border-black/30 active:border-b-0 active:translate-y-1">
-                        INITIALISER LA SESSION
+                        CONNEXION
                     </button>
 
                     {{-- Footer du cadre --}}
