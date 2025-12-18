@@ -54,7 +54,6 @@
                                 </div>
                                 <input type="text" name="name" id="name" required placeholder="RetroGamer88" class="w-full pl-10 pr-4 py-3 bg-black/70 border border-[#2BE7C6]/30 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:bg-black transition-all font-mono text-sm" value="{{ old('name') }}"/>
                             </div>
-                            @error('name') <p class="text-[#C2006D] text-xs mt-1 font-bold pl-1"> {{ $message }}</p> @enderror
                         </div>
 
                         <div class="group neon-border-blue rounded-xl transition-all duration-300">
@@ -65,7 +64,6 @@
                                 </div>
                                 <input type="email" name="email" id="email" required placeholder="player@one.com" class="w-full pl-10 pr-4 py-3 bg-black/70 border border-[#2B5BBB]/30 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:bg-black transition-all font-mono text-sm" value="{{ old('email') }}"/>
                             </div>
-                            @error('email') <p class="text-[#C2006D] text-xs mt-1 font-bold pl-1">️ {{ $message }}</p> @enderror
                         </div>
 
                         <div class="group neon-border-pink rounded-xl transition-all duration-300">
@@ -76,7 +74,6 @@
                                 </div>
                                 <input type="password" name="password" id="password" required placeholder="••••••••" class="w-full pl-10 pr-4 py-3 bg-black/70 border border-[#C2006D]/30 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:bg-black transition-all font-mono text-sm"/>
                             </div>
-                            @error('password') <p class="text-[#C2006D] text-xs mt-1 font-bold pl-1">️ {{ $message }}</p> @enderror
                         </div>
 
                         <div class="group neon-border-pink rounded-xl transition-all duration-300">
@@ -97,8 +94,8 @@
 
                         {{-- Contraintes de mot de passe --}}
                         <div class="mt-6 p-3 bg-black/30 border border-[#2B5BBB]/20 rounded-lg">
-                            <p class="text-[#2BE7C6] text-xs font-bold mb-2 uppercase tracking-wider">
-                                ⚡ Exigences de sécurité du mot de passe
+                            <p class="text-[#ffffff] text-xs font-bold mb-2 uppercase tracking-wider">
+                                 Exigences de sécurité du mot de passe
                             </p>
                             <ul class="text-gray-300 text-xs space-y-1 pl-4">
                                 <li class="flex items-start gap-2">
