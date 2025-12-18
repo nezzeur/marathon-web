@@ -22,6 +22,9 @@
             <a href="{{ route('accueil') }}" class="font-sans text-2xl uppercase text-white hover:text-primary hover:animate-glow-pulse transition-colors">
                 <span class="mr-1 opacity-50">[</span>Accueil<span class="ml-1 opacity-50">]</span>
             </a>
+            <a href="{{ route('articles.index') }}" class="font-sans text-2xl uppercase text-white hover:text-secondary hover:animate-glow-pulse transition-colors">
+                <span class="mr-1 opacity-50">[</span>Articles<span class="ml-1 opacity-50">]</span>
+            </a>
             <a href="{{ route('contact') }}" class="font-sans text-2xl uppercase text-white hover:text-secondary hover:animate-glow-pulse transition-colors">
                 <span class="mr-1 opacity-50">[</span>Contact<span class="ml-1 opacity-50">]</span>
             </a>

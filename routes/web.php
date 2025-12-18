@@ -68,7 +68,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Liste des articles (publique)
-Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
+Route::get('/articles', [ArticleController::class, 'indexAll'])->name('articles.index');
 
 // Affichage et gestion des articles
 const ARTICLE_SHOW = '/articles/{article}';
