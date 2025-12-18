@@ -48,7 +48,7 @@
                         box-shadow: inset 0 0 20px rgba(0,0,0,0.5);">
 
                 {{-- Image de fond de l'étiquette (si disponible) --}}
-                @if($article->image)
+                {{--@if($article->image)
                     <div class="absolute inset-0 opacity-40 mix-blend-luminosity group-hover:mix-blend-normal group-hover:opacity-30 transition-all duration-500">
                         <img src="{{ Storage::url($article->image) }}"
                              alt="{{ $article->titre }}"
@@ -64,9 +64,9 @@
                 {{-- Contenu de l'étiquette (au premier plan z-20) --}}
                 <div class="relative z-20">
                     {{-- Badge Année --}}
-                    <div class="absolute top-0 right-0 px-2 py-0.5 bg-[#ffd60a] text-black font-mono text-[8px] font-bold tracking-wider shadow-[1px_1px_0_#000]">
+                    {{--<div class="absolute top-0 right-0 px-2 py-0.5 bg-[#ffd60a] text-black font-mono text-[8px] font-bold tracking-wider shadow-[1px_1px_0_#000]">
                         {{ $year }}
-                    </div>
+                    </div>--}}
 
                     {{-- Titre de l'article (Mapping: Game Title) --}}
                     <h3 class="font-mono text-lg font-black text-white mb-1 leading-tight tracking-tight line-clamp-2"
@@ -101,11 +101,11 @@
                     @endif
 
                     {{-- Faux sceau de qualité --}}
-                    <div class="absolute bottom-0 right-0 w-8 h-8 rounded-full border-2 border-[#ffd60a] flex items-center justify-center bg-[#ffd60a20] backdrop-blur-sm">
+                    {{--<div class="absolute bottom-0 right-0 w-8 h-8 rounded-full border-2 border-[#ffd60a] flex items-center justify-center bg-[#ffd60a20] backdrop-blur-sm">
                         <span class="font-mono text-[6px] text-[#ffd60a] font-bold text-center leading-tight">
                             DEV<br>BLOG
                         </span>
-                    </div>
+                    </div>--}}
                 </div>
             </div>
 

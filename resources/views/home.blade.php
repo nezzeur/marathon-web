@@ -4,8 +4,6 @@
 
     {{-- Fond Grille 3D utilisant les variables CSS --}}
     <div class="fixed inset-0 z-0 pointer-events-none bg-background">
-        <!-- Soleil Retro (Optionnel, simple CSS shape) -->
-        <div class="absolute top-20 left-1/2 -translate-x-1/2 w-64 h-64 rounded-full bg-gradient-to-t from-accent to-transparent opacity-20 blur-3xl"></div>
     </div>
 
     <!-- Grid Floor -->
