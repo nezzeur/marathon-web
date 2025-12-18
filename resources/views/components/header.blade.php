@@ -29,7 +29,7 @@
 
             @auth
                 <a href="{{ route('articles.create') }}" class="font-sans text-2xl uppercase text-white hover:text-primary hover:animate-glow-pulse transition-colors">
-                    <span class="mr-1 opacity-50">[</span>Insert_Data<span class="ml-1 opacity-50">]</span>
+                    <span class="mr-1 opacity-50">[</span>Publier<span class="ml-1 opacity-50">]</span>
                 </a>
             @endauth
         </div>
