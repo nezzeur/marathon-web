@@ -3,11 +3,17 @@
 namespace App\Services\Article;
 
 use App\Models\Article;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\UploadedFile;
+use App\Services\FileManagement\FileUploadService;
 
 class ArticleService
 {
+    protected $fileUploadService;
+
+    public function __construct(FileUploadService $fileUploadService)
+    {
+        $this->fileUploadService = $fileUploadService;
+    }
+
     /**
      * Récupère les articles avec pagination et filtres
      * 
@@ -100,26 +106,24 @@ class ArticleService
     }
     
     /**
-     * Gère l'upload et le stockage des fichiers
+     * Gère l'upload et le stockage des fichiers avec validation de sécurité
      * 
      * @param UploadedFile|null $file
      * @param string $path
      * @param string|null $oldFile
+     * @param array $allowedMimeTypes
+     * @param array $allowedExtensions
      * @return string|null
+     * @throws \Illuminate\Validation\ValidationException
      */
-    public function handleFileUpload(?UploadedFile $file, string $path, ?string $oldFile = null): ?string
-    {
-        // Supprimer l'ancien fichier si nécessaire
-        if ($oldFile && Storage::exists('public/' . $oldFile)) {
-            Storage::delete('public/' . $oldFile);
-        }
-        
-        // Stocker le nouveau fichier
-        if ($file) {
-            return $file->store($path, 'public');
-        }
-        
-        return null;
+    public function handleFileUpload(
+        ?\Illuminate\Http\UploadedFile $file, 
+        string $path, 
+        ?string $oldFile = null,
+        array $allowedMimeTypes = [],
+        array $allowedExtensions = []
+    ): ?string {
+        return $this->fileUploadService->handleFileUpload($file, $path, $oldFile, $allowedMimeTypes, $allowedExtensions);
     }
     
     /**
