@@ -1,13 +1,13 @@
 @extends('layout.app')
 
 @section('contenu')
-    <div class="edit-profile-container">
-        <h1>Modifier mon profil</h1>
+    <div class="max-w-2xl mx-auto p-5">
+        <h1 class="text-4xl font-bold mb-8 text-gray-900">✏️ Modifier mon profil</h1>
 
         @if($errors->any())
-            <div class="alert alert-danger">
-                <strong>Erreurs :</strong>
-                <ul>
+            <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-8 rounded">
+                <strong class="text-red-900">❌ Erreurs :</strong>
+                <ul class="mt-3 space-y-1 text-red-800">
                     @foreach($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
@@ -15,164 +15,48 @@
             </div>
         @endif
 
-        <form action="{{ route('user.update') }}" method="POST" enctype="multipart/form-data" class="edit-form">
+        <form action="{{ route('user.update') }}" method="POST" enctype="multipart/form-data" class="bg-white rounded-lg shadow-lg p-8 space-y-6">
             @csrf
             @method('PUT')
 
-            <div class="form-group">
-                <label for="name">Nom :</label>
-                <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}" required class="form-control">
+            <!-- Nom -->
+            <div>
+                <label for="name" class="block text-sm font-bold text-gray-700 mb-2">👤 Nom :</label>
+                <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}" required
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
             </div>
 
-            <div class="form-group">
-                <label for="email">Email :</label>
-                <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" required class="form-control">
+            <!-- Email -->
+            <div>
+                <label for="email" class="block text-sm font-bold text-gray-700 mb-2">📧 Email :</label>
+                <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" required
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
             </div>
 
-            <div class="form-group">
-                <label for="avatar">Avatar :</label>
+            <!-- Avatar -->
+            <div>
+                <label for="avatar" class="block text-sm font-bold text-gray-700 mb-2">🖼️ Avatar :</label>
                 @if($user->avatar)
-                    <div class="current-avatar">
-                        <img src="{{ asset('storage/' . $user->avatar) }}" alt="Avatar actuel" class="avatar-preview">
-                        <p class="text-muted">Avatar actuel</p>
+                    <div class="mb-4 p-4 bg-gray-100 rounded-lg">
+                        <img src="{{ asset('storage/' . $user->avatar) }}" alt="Avatar actuel" class="w-40 h-40 rounded-lg object-cover border-4 border-blue-500">
+                        <p class="text-gray-600 text-sm mt-3">Avatar actuel</p>
                     </div>
                 @endif
-                <input type="file" id="avatar" name="avatar" accept="image/jpeg,image/png,image/gif,image/webp" class="form-control">
-                <small class="form-text">Formats acceptés : JPEG, PNG, GIF, WebP (max 2 Mo)</small>
+                <input type="file" id="avatar" name="avatar" accept="image/jpeg,image/png,image/gif,image/webp"
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <small class="text-gray-500 block mt-2">Formats acceptés : JPEG, PNG, GIF, WebP (max 2 Mo)</small>
             </div>
 
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
-                <a href="{{ route('user.me') }}" class="btn btn-secondary">Annuler</a>
+            <!-- Boutons -->
+            <div class="flex gap-4 pt-6 border-t border-gray-200">
+                <button type="submit" class="flex-1 text-white font-bold py-3 rounded-lg transition-opacity duration-200 hover:opacity-90" style="background-color: #2BE7C6; color: #2B5BBB">
+                    💾 Enregistrer les modifications
+                </button>
+                <a href="{{ route('user.me') }}" class="flex-1 text-white font-bold py-3 rounded-lg transition-opacity duration-200 hover:opacity-90 flex items-center justify-center text-decoration-none" style="background-color: #C2006D">
+                    ❌ Annuler
+                </a>
             </div>
         </form>
     </div>
-
-    <style>
-        .edit-profile-container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .edit-profile-container h1 {
-            margin-bottom: 30px;
-        }
-
-        .alert {
-            padding: 15px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-        }
-
-        .alert-danger {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .alert-danger ul {
-            margin: 10px 0 0 20px;
-            padding: 0;
-        }
-
-        .alert-danger li {
-            margin: 5px 0;
-        }
-
-        .edit-form {
-            background: #f9f9f9;
-            padding: 30px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1em;
-            box-sizing: border-box;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: #0066cc;
-            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
-        }
-
-        .current-avatar {
-            margin-bottom: 15px;
-        }
-
-        .avatar-preview {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #0066cc;
-        }
-
-        .text-muted {
-            color: #999;
-            font-size: 0.9em;
-            margin-top: 8px;
-        }
-
-        .form-text {
-            display: block;
-            margin-top: 8px;
-            color: #666;
-            font-size: 0.9em;
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 30px;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background 0.2s;
-            border: none;
-            cursor: pointer;
-            font-size: 1em;
-        }
-
-        .btn-primary {
-            background: #0066cc;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #0052a3;
-        }
-
-        .btn-secondary {
-            background: #6c757d;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #5a6268;
-        }
-    </style>
 @endsection
 

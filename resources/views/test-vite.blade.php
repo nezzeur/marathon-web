@@ -1,7 +1,6 @@
 @extends('layout.app')
 
 @section("contenu")
-    @vite(['resources/css/test-vite.css'])
 
     <div class="container">
         <h1>Test de Vite</h1>
@@ -67,7 +66,6 @@
         </ul>
     </div>
 
-    @vite(['resources/js/test-vite.js'])
 
 @endsection
 

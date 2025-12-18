@@ -1,0 +1,20 @@
+
+> build
+> vite build
+
+vite v7.2.4 building client environment for production...
+transforming...
+✓ 11 modules transformed.
+✗ Build failed in 279ms
+error during build:
+[vite:css] [postcss] It looks like you're trying to use `tailwindcss` directly as a PostCSS plugin. The PostCSS plugin has moved to a separate package, so to continue using Tailwind CSS with PostCSS you'll need to install `@tailwindcss/postcss` and update your PostCSS configuration.
+file: /home/noa/BUT2/SAE/code-marathon-2025/resources/css/app.css:undefined:NaN
+    at at (/home/noa/BUT2/SAE/code-marathon-2025/node_modules/tailwindcss/dist/lib.js:38:1629)
+    at LazyResult.runOnRoot (/home/noa/BUT2/SAE/code-marathon-2025/node_modules/postcss/lib/lazy-result.js:361:16)
+    at LazyResult.runAsync (/home/noa/BUT2/SAE/code-marathon-2025/node_modules/postcss/lib/lazy-result.js:290:26)
+    at async runPostCSS (file:///home/noa/BUT2/SAE/code-marathon-2025/node_modules/vite/dist/node/chunks/config.js:30793:19)
+    at async compilePostCSS (file:///home/noa/BUT2/SAE/code-marathon-2025/node_modules/vite/dist/node/chunks/config.js:30777:6)
+    at async compileCSS (file:///home/noa/BUT2/SAE/code-marathon-2025/node_modules/vite/dist/node/chunks/config.js:30707:26)
+    at async Object.handler (file:///home/noa/BUT2/SAE/code-marathon-2025/node_modules/vite/dist/node/chunks/config.js:30240:54)
+    at async transform (file:///home/noa/BUT2/SAE/code-marathon-2025/node_modules/rollup/dist/es/shared/node-entry.js:21163:16)
+    at async ModuleLoader.addModuleSource (file:///home/noa/BUT2/SAE/code-marathon-2025/node_modules/rollup/dist/es/shared/node-entry.js:21377:36)
