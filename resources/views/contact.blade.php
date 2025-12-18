@@ -51,7 +51,7 @@
                     <h2 class="text-2xl md:text-4xl font-black font-orbitron text-transparent bg-clip-text bg-gradient-to-r from-[#ff8dc7] to-white uppercase italic transform -skew-x-6 drop-shadow-[0_2px_0px_#c2006d]">
                         The Dev Squad
                     </h2>
-                    <span class="font-bold text-[#c2006d] text-xs md:text-sm tracking-widest uppercase text-right">> Select Your Character (8/8)</span>
+                    <span class="font-bold text-[#c2006d] text-xs md:text-sm tracking-widest uppercase text-right">> Choisis ton développeur (8/8)</span>
                 </div>
             </div>
 
@@ -95,47 +95,6 @@
                         <div class="absolute -bottom-1 -right-1 w-3 h-3 border-b-2 border-r-2 border-[#ff8dc7] opacity-50 group-hover:opacity-100 transition-opacity shadow-[0_0_10px_#ff8dc7]"></div>
                     </div>
                 @endforeach
-            </div>
-        </section>
-
-        {{-- SECTION 2 : HUD INFO (Style Bleu #2858bb) --}}
-        <section>
-            {{-- Titre discret --}}
-            <div class="mb-6 border-l-4 border-[#2858bb] pl-4">
-                <h3 class="text-xl font-orbitron text-[#bed2ff] uppercase italic">Base Coordinates</h3>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {{-- Carte : Email --}}
-                <div class="group relative bg-black/60 backdrop-blur-md rounded-xl border border-[#2858bb]/30 p-6 hover:border-[#2858bb] hover:shadow-[0_0_25px_rgba(40,88,187,0.4)] transition-all duration-300 text-center">
-                    <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300 filter drop-shadow-[0_0_8px_rgba(40,88,187,0.8)]">📧</div>
-                    <h3 class="font-orbitron text-[#bed2ff] text-lg mb-2 uppercase">Transmitter</h3>
-                    <p class="font-mono text-gray-300 text-sm hover:text-white transition-colors">contact@marathon.local</p>
-
-                    {{-- Coins Bleu --}}
-                    <div class="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-[#bed2ff] opacity-50 group-hover:opacity-100 transition-opacity"></div>
-                    <div class="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-[#bed2ff] opacity-50 group-hover:opacity-100 transition-opacity"></div>
-                </div>
-
-                {{-- Carte : Adresse --}}
-                <div class="group relative bg-black/60 backdrop-blur-md rounded-xl border border-[#2858bb]/30 p-6 hover:border-[#2858bb] hover:shadow-[0_0_25px_rgba(40,88,187,0.4)] transition-all duration-300 text-center">
-                    <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300 filter drop-shadow-[0_0_8px_rgba(40,88,187,0.8)]">📍</div>
-                    <h3 class="font-orbitron text-[#bed2ff] text-lg mb-2 uppercase">Coordinates</h3>
-                    <p class="font-mono text-gray-300 text-sm">IUT de Lens, FR</p>
-
-                    <div class="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-[#bed2ff] opacity-50 group-hover:opacity-100 transition-opacity"></div>
-                    <div class="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-[#bed2ff] opacity-50 group-hover:opacity-100 transition-opacity"></div>
-                </div>
-
-                {{-- Carte : Horaires --}}
-                <div class="group relative bg-black/60 backdrop-blur-md rounded-xl border border-[#2858bb]/30 p-6 hover:border-[#2858bb] hover:shadow-[0_0_25px_rgba(40,88,187,0.4)] transition-all duration-300 text-center">
-                    <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300 filter drop-shadow-[0_0_8px_rgba(40,88,187,0.8)]">⏰</div>
-                    <h3 class="font-orbitron text-[#bed2ff] text-lg mb-2 uppercase">Uptime</h3>
-                    <p class="font-mono text-gray-300 text-sm">Mon - Fri <br> 09:00 - 17:00</p>
-
-                    <div class="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-[#bed2ff] opacity-50 group-hover:opacity-100 transition-opacity"></div>
-                    <div class="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-[#bed2ff] opacity-50 group-hover:opacity-100 transition-opacity"></div>
-                </div>
             </div>
         </section>
 

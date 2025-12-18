@@ -375,4 +375,50 @@ class ArticleController extends Controller
         return redirect()->route('user.me')
             ->with('success', 'Article supprimé avec succès !');
     }
+
+    /**
+     * Rechercher des articles par différents critères
+     *
+     * @param Request $request
+     * @return \Illuminate\View\View
+     */
+    public function search(Request $request)
+    {
+        $query = Article::query();
+        
+        // Recherche par titre
+        if ($request->filled('title')) {
+            $searchTerm = $request->input('title');
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('titre', 'like', '%' . $searchTerm . '%')
+                  ->orWhere('texte', 'like', '%' . $searchTerm . '%')
+                  ->orWhere('resume', 'like', '%' . $searchTerm . '%');
+            });
+        }
+        
+        // Filtre par accessibilité
+        if ($request->filled('accessibilite')) {
+            $query->where('accessibilite_id', $request->input('accessibilite'));
+        }
+        
+        // Filtre par conclusion
+        if ($request->filled('conclusion')) {
+            $query->where('conclusion_id', $request->input('conclusion'));
+        }
+        
+        // Filtre par rythme
+        if ($request->filled('rythme')) {
+            $query->where('rythme_id', $request->input('rythme'));
+        }
+        
+        // Récupérer les articles filtrés
+        $articles = $query->with(['editeur', 'accessibilite', 'conclusion', 'rythme'])->paginate(9);
+        
+        // Récupérer les données pour les filtres
+        $accessibilites = Accessibilite::all();
+        $conclusions = Conclusion::all();
+        $rythmes = Rythme::all();
+        
+        return view('articles.search_results', compact('articles', 'accessibilites', 'conclusions', 'rythmes'));
+    }
 }
