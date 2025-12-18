@@ -2,69 +2,86 @@
 
 @section('contenu')
 
-    {{-- Fond Grille 3D utilisant les variables CSS --}}
-    <div class="fixed inset-0 z-0 pointer-events-none bg-background">
+    {{-- CSS Spécifique pour l'ambiance --}}
+    <style>
+        /* Animation subtile pour que le fond ne soit pas trop statique */
+        @keyframes pulse-grid {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+        .bg-pulse {
+            animation: pulse-grid 8s ease-in-out infinite;
+        }
+    </style>
+
+    {{-- 1. BACKGROUND : Bannière Importée --}}
+    <div class="fixed inset-0 z-0 overflow-hidden bg-black">
+        {{-- Image de fond : La bannière prend tout l'écran, ancrée en bas --}}
+        <img
+                src="{{ asset('images/bannière.png') }}"
+                alt="Synthwave Grid Background"
+                class="absolute inset-0 w-full h-full object-cover object-bottom bg-pulse"
+        >
+
+        {{-- Overlay léger pour que le texte reste lisible sur le dégradé --}}
+        <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/40"></div>
     </div>
 
-    <!-- Grid Floor -->
-    <div class="fixed bottom-0 left-0 right-0 h-[45vh] z-0 pointer-events-none opacity-40"
-         style="
-            background-image:
-                linear-gradient(0deg, transparent 24%, var(--border) 25%, var(--border) 26%, transparent 27%, transparent 74%, var(--border) 75%, var(--border) 76%, transparent 77%, transparent),
-                linear-gradient(90deg, transparent 24%, var(--border) 25%, var(--border) 26%, transparent 27%, transparent 74%, var(--border) 75%, var(--border) 76%, transparent 77%, transparent);
-            background-size: 50px 50px;
-            perspective: 1000px;
-            transform: perspective(500px) rotateX(60deg) translateY(100px) scale(2);
-         ">
-    </div>
+    {{-- 2. CONTENU PRINCIPAL --}}
+    <div class="relative z-10 max-w-7xl mx-auto px-6 py-10 space-y-20">
 
-    {{-- Contenu Principal --}}
-    <div class="relative z-10 max-w-6xl mx-auto p-5 mt-10 space-y-24">
 
+
+        {{-- SECTION 1 : HIGH SCORES (Thème Bleu #2858bb / #bed2ff) --}}
         @if(isset($articlesPlusVus) && count($articlesPlusVus) > 0)
             <section>
-                <div class="flex items-center gap-4 mb-8 border-b-2 border-primary pb-2 w-fit pr-10 shadow-[0_4px_20px_rgba(0,255,255,0.2)]">
+                {{-- Titre de section --}}
+                <div class="flex items-end gap-4 mb-8 border-b-4 border-[#2858bb] pb-2 pr-10 shadow-[0_4px_20px_rgba(40,88,187,0.3)] w-fit backdrop-blur-sm bg-black/30 px-4 rounded-t-lg">
                     <div>
-                        <h2 class="text-3xl md:text-4xl font-orbitron font-bold text-primary uppercase italic transform -skew-x-6" style="text-shadow: 2px 2px 0px var(--muted);">
+                        <h2 class="text-3xl md:text-5xl font-black font-orbitron text-transparent bg-clip-text bg-gradient-to-r from-[#bed2ff] to-white uppercase italic transform -skew-x-6 drop-shadow-[0_2px_0px_#2858bb]">
                             High Scores
                         </h2>
-                        <span class="font-montserrat text-xl text-muted-foreground">> Most Viewed Data</span>
+                        <span class="font-bold text-[#bed2ff] text-sm md:text-lg tracking-widest uppercase">> Most Viewed Data</span>
                     </div>
                 </div>
 
+                {{-- Grille Articles Bleu --}}
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     @foreach($articlesPlusVus as $article)
-                        <div class="group relative bg-card border border-border p-1 hover:border-primary hover:shadow-[0_0_25px_rgba(0,255,255,0.3)] transition-all duration-300 hover:-translate-y-1">
+                        <div class="group relative bg-black/60 backdrop-blur-md rounded-xl border border-[#2858bb]/30 p-2 hover:border-[#2858bb] hover:shadow-[0_0_25px_rgba(40,88,187,0.4)] transition-all duration-300 hover:-translate-y-2">
+
                             <x-article-card :article="$article" />
 
-                            <!-- Corner Accents -->
-                            <div class="absolute -top-1 -left-1 w-3 h-3 border-t-2 border-l-2 border-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                            <div class="absolute -bottom-1 -right-1 w-3 h-3 border-b-2 border-r-2 border-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div class="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-[#bed2ff] opacity-50 group-hover:opacity-100 transition-opacity shadow-[0_0_10px_#bed2ff]"></div>
+                            <div class="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-[#bed2ff] opacity-50 group-hover:opacity-100 transition-opacity shadow-[0_0_10px_#bed2ff]"></div>
                         </div>
                     @endforeach
                 </div>
             </section>
         @endif
 
+        {{-- SECTION 2 : FAN FAVORITES (Thème Rose #c2006d) --}}
         @if(isset($articlesPlusLikes) && count($articlesPlusLikes) > 0)
             <section>
-                <div class="flex items-center gap-4 mb-8 border-b-2 border-secondary pb-2 w-fit pr-10 shadow-[0_4px_20px_rgba(255,106,213,0.2)]">
-                    <div>
-                        <h2 class="text-3xl md:text-4xl font-orbitron font-bold text-secondary uppercase italic transform -skew-x-6" style="text-shadow: 2px 2px 0px var(--muted);">
+                {{-- Titre de section --}}
+                <div class="flex items-end gap-4 mb-8 border-b-4 border-[#c2006d] pb-2 pr-10 shadow-[0_4px_20px_rgba(194,0,109,0.3)] w-fit backdrop-blur-sm bg-black/30 px-4 rounded-t-lg ml-auto md:ml-0">
+                    <div class="text-right md:text-left">
+                        <h2 class="text-3xl md:text-5xl font-black font-orbitron text-transparent bg-clip-text bg-gradient-to-r from-[#ff8dc7] to-white uppercase italic transform -skew-x-6 drop-shadow-[0_2px_0px_#c2006d]">
                             Fan Favorites
                         </h2>
-                        <span class="font-montserrat text-xl text-muted-foreground">> Top Rated</span>
+                        <span class="font-bold text-[#c2006d] text-sm md:text-lg tracking-widest uppercase text-right">> Top Rated System</span>
                     </div>
                 </div>
 
+                {{-- Grille Articles Rose --}}
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     @foreach($articlesPlusLikes as $article)
-                        <div class="group relative bg-card border border-border p-1 hover:border-secondary hover:shadow-[0_0_25px_rgba(255,106,213,0.3)] transition-all duration-300 hover:-translate-y-1">
+                        <div class="group relative bg-black/60 backdrop-blur-md rounded-xl border border-[#c2006d]/30 p-2 hover:border-[#c2006d] hover:shadow-[0_0_25px_rgba(194,0,109,0.4)] transition-all duration-300 hover:-translate-y-2">
+
                             <x-article-card :article="$article" />
 
-                            <!-- Corner Accents -->
-                            <div class="absolute -top-1 -left-1 w-3 h-3 border-t-2 border-l-2 border-secondary opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                            <div class="absolute -bottom-1 -right-1 w-3 h-3 border-b-2 border-r-2 border-secondary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div class="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-[#c2006d] opacity-50 group-hover:opacity-100 transition-opacity shadow-[0_0_10px_#c2006d]"></div>
+                            <div class="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-[#c2006d] opacity-50 group-hover:opacity-100 transition-opacity shadow-[0_0_10px_#c2006d]"></div>
                         </div>
                     @endforeach
                 </div>

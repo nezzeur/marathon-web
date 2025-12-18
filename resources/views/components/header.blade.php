@@ -15,17 +15,15 @@
 
         <!-- Logo Hyper Vyper Style avec effet Chrome -->
         <a href="{{ route('accueil') }}" class="flex-shrink-0 group">
-            <h1 class="text-4xl md:text-5xl font-mono font-black italic tracking-tighter chrome-text transform -skew-x-12 hover:skew-x-0 transition-transform duration-300">
-                OKRINA
-            </h1>
+            <img src="{{ asset('images/logo.png') }}" alt="OKARINA" class="h-12 object-contain hover:opacity-80 transition-opacity duration-300">
         </a>
 
         <!-- Liens centraux -->
         <div class="hidden md:flex items-center gap-8 flex-1 justify-center">
-            <a href="{{ route('accueil') }}" class="font-sans text-2xl uppercase text-muted-foreground hover:text-primary hover:animate-glow-pulse transition-colors">
-                <span class="mr-1 opacity-50">[</span>Base<span class="ml-1 opacity-50">]</span>
+            <a href="{{ route('accueil') }}" class="font-sans text-2xl uppercase text-white hover:text-primary hover:animate-glow-pulse transition-colors">
+                <span class="mr-1 opacity-50">[</span>Accueil<span class="ml-1 opacity-50">]</span>
             </a>
-            <a href="{{ route('contact') }}" class="font-sans text-2xl uppercase text-muted-foreground hover:text-secondary hover:animate-glow-pulse transition-colors">
+            <a href="{{ route('contact') }}" class="font-sans text-2xl uppercase text-white hover:text-secondary hover:animate-glow-pulse transition-colors">
                 <span class="mr-1 opacity-50">[</span>Contact<span class="ml-1 opacity-50">]</span>
             </a>
 
