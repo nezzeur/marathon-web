@@ -55,12 +55,22 @@ class UserController extends Controller
         ]);
 
         if ($request->hasFile('avatar')) {
+            // Utiliser le service ArticleService pour une validation sécurisée
+            $articleService = new \App\Services\Article\ArticleService();
+            
             // Supprimer l'ancien avatar si existe
             if ($user->avatar && \Storage::exists('public/' . $user->avatar)) {
                 \Storage::delete('public/' . $user->avatar);
             }
-            // Télécharger le nouveau
-            $validated['avatar'] = $request->file('avatar')->store('avatars', 'public');
+            
+            // Télécharger le nouveau avatar avec validation de sécurité
+            $validated['avatar'] = $articleService->handleFileUpload(
+                $request->file('avatar'),
+                'avatars',
+                $user->avatar,
+                ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
+                ['jpg', 'jpeg', 'png', 'gif', 'webp']
+            );
         }
 
         $user->update($validated);

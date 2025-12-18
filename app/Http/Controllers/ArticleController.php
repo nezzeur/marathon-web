@@ -163,15 +163,21 @@ class ArticleController extends Controller
         // Validation différente selon l'action
         $this->validateRequest($request, $isPublish, false);
         
-        // Gestion des fichiers
+        // Gestion des fichiers avec validation de sécurité
         $imagePath = $this->articleService->handleFileUpload(
             $request->file('image'),
-            'articles/images'
+            'articles/images',
+            null,
+            ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
+            ['jpg', 'jpeg', 'png', 'gif', 'webp']
         );
         
         $mediaPath = $this->articleService->handleFileUpload(
             $request->file('media'),
-            'articles/media'
+            'articles/media',
+            null,
+            ['audio/mpeg', 'audio/wav'],
+            ['mp3', 'wav']
         );
         
         $article = Article::create([
@@ -315,17 +321,21 @@ class ArticleController extends Controller
 
         $data = $this->prepareArticleData($request, $article);
         
-        // Gestion des fichiers
+        // Gestion des fichiers avec validation de sécurité
         $data['image'] = $this->articleService->handleFileUpload(
             $request->file('image'),
             'articles/images',
-            $article->image
+            $article->image,
+            ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
+            ['jpg', 'jpeg', 'png', 'gif', 'webp']
         ) ?? $article->image;
         
         $data['media'] = $this->articleService->handleFileUpload(
             $request->file('media'),
             'articles/media',
-            $article->media
+            $article->media,
+            ['audio/mpeg', 'audio/wav'],
+            ['mp3', 'wav']
         ) ?? $article->media;
 
         $article->update($data);
