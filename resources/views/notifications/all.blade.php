@@ -34,7 +34,7 @@
                         $isUnread = !$notification->read_at;
                     @endphp
                     
-                    <div class="notification-card {{ $isUnread ? 'bg-blue-50 border-l-4 border-blue-500' : 'bg-white border-l-4 border-gray-200' }} p-4 rounded-r-lg shadow-sm">
+                        <div class="p-4 rounded-r-lg shadow-sm transition-all duration-200 {{ $isUnread ? 'bg-blue-50 border-l-4 border-blue-500 hover:translate-x-0.5 hover:shadow-md' : 'bg-white border-l-4 border-gray-200 hover:translate-x-0.5 hover:shadow-md' }}">
                         <div class="flex justify-between items-start">
                             <div class="flex-1">
                                 <div class="flex items-center mb-2">
@@ -76,14 +76,4 @@
     </div>
 </div>
 
-<style>
-    .notification-card {
-        transition: all 0.2s ease;
-    }
-    
-    .notification-card:hover {
-        transform: translateX(2px);
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    }
-</style>
 @endsection

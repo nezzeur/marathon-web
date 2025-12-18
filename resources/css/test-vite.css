@@ -4,33 +4,33 @@
     src: url("../fonts/Shadows_Into_Light_Two/ShadowsIntoLightTwo-Regular.ttf") format('truetype');
 }
 
-body {
-    position: relative;
+@layer base {
+    body {
+        @apply relative;
+    }
 }
 
-.logo {
-    position: absolute;
-    height: 100px;
-    right: 10px;
-    top: 10px
+@layer components {
+    .logo {
+        @apply absolute h-24 right-2.5 top-2.5;
+    }
+
+    .img-land {
+        @apply block w-[60vw] my-2.5 mx-auto;
+    }
+
+    .shadow {
+        @apply font-serif;
+        font-family: Shadow, serif;
+    }
+
+    .redact {
+        @apply text-5xl font-serif;
+        font-family: 'Redacted Script', serif;
+    }
+
+    .container {
+        @apply max-w-4xl mx-auto my-2.5;
+    }
 }
 
-.img-land {
-    display: block;
-    width: 60vw;
-    margin: 10px auto;
-}
-
-.shadow {
-    font-family: Shadow, serif;
-}
-
-.redact {
-    font-size: 48px;
-    font-family: 'Redacted Script', serif;
-}
-
-.container {
-    max-width: 1024px;
-    margin: 10px auto;
-}

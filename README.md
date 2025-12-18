@@ -48,6 +48,8 @@ php artisan migrate
 
 # ou pour ré-initialiser
 
+php artisan key:generate
+
 php artisan migrate:fresh
 
 # Initialisation des données de départ
