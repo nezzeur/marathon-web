@@ -1,3 +1,4 @@
+@php use App\Models\Accessibilite;use App\Models\Conclusion;use App\Models\Rythme; @endphp
 @extends("layout.app")
 
 @section('contenu')
@@ -6,9 +7,14 @@
     <style>
         /* Animation subtile pour que le fond ne soit pas trop statique */
         @keyframes pulse-grid {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 1; }
+            0%, 100% {
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 1;
+            }
         }
+
         .bg-pulse {
             animation: pulse-grid 8s ease-in-out infinite;
         }
@@ -33,12 +39,12 @@
         {{-- BARRE DE RECHERCHE --}}
         @php
             // Récupérer les données nécessaires pour la barre de recherche
-            $accessibilites = \App\Models\Accessibilite::all();
-            $conclusions = \App\Models\Conclusion::all();
-            $rythmes = \App\Models\Rythme::all();
+            $accessibilites = Accessibilite::all();
+            $conclusions = Conclusion::all();
+            $rythmes = Rythme::all();
         @endphp
-        
-        <x-search-bar :accessibilites="$accessibilites" :conclusions="$conclusions" :rythmes="$rythmes" />
+
+        <x-search-bar :accessibilites="$accessibilites" :conclusions="$conclusions" :rythmes="$rythmes"/>
 
         {{-- SECTION 1 : HIGH SCORES (Thème Bleu #2858bb / #bed2ff) --}}
         @if(isset($articlesPlusVus) && count($articlesPlusVus) > 0)
@@ -58,7 +64,7 @@
                     @foreach($articlesPlusVus as $article)
                         <div class="group relative bg-black/60 backdrop-blur-md rounded-xl border border-[#2858bb]/30 p-2 hover:border-[#2858bb] hover:shadow-[0_0_25px_rgba(40,88,187,0.4)] transition-all duration-300 hover:-translate-y-2">
 
-                            <x-article-card :article="$article" />
+                            <x-article-card :article="$article"/>
 
                             <div class="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-[#bed2ff] opacity-50 group-hover:opacity-100 transition-opacity shadow-[0_0_10px_#bed2ff]"></div>
                             <div class="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-[#bed2ff] opacity-50 group-hover:opacity-100 transition-opacity shadow-[0_0_10px_#bed2ff]"></div>
@@ -86,7 +92,7 @@
                     @foreach($articlesPlusLikes as $article)
                         <div class="group relative bg-black/60 backdrop-blur-md rounded-xl border border-[#c2006d]/30 p-2 hover:border-[#c2006d] hover:shadow-[0_0_25px_rgba(194,0,109,0.4)] transition-all duration-300 hover:-translate-y-2">
 
-                            <x-article-card :article="$article" />
+                            <x-article-card :article="$article"/>
 
                             <div class="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-[#c2006d] opacity-50 group-hover:opacity-100 transition-opacity shadow-[0_0_10px_#c2006d]"></div>
                             <div class="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-[#c2006d] opacity-50 group-hover:opacity-100 transition-opacity shadow-[0_0_10px_#c2006d]"></div>

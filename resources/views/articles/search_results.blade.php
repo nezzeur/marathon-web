@@ -88,48 +88,12 @@
             @if($articles->count() > 0)
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach($articles as $article)
-                        <div class="article-card-search bg-black/50 rounded-xl border border-white/10 overflow-hidden">
-                            <div class="p-4">
-                                <h3 class="text-xl font-bold text-white mb-2 truncate">
-                                    {{ $article->titre }}
-                                </h3>
-                                
-                                <div class="flex flex-wrap gap-2 mb-3">
-                                    @if($article->accessibilite)
-                                        <span class="bg-[#2858bb]/20 text-[#bed2ff] text-xs px-2 py-1 rounded">
-                                            {{ $article->accessibilite->nom }}
-                                        </span>
-                                    @endif
-                                    
-                                    @if($article->conclusion)
-                                        <span class="bg-[#c2006d]/20 text-[#ff8dc7] text-xs px-2 py-1 rounded">
-                                            {{ $article->conclusion->nom }}
-                                        </span>
-                                    @endif
-                                    
-                                    @if($article->rythme)
-                                        <span class="bg-[#8b5cf6]/20 text-[#c4b5fd] text-xs px-2 py-1 rounded">
-                                            {{ $article->rythme->nom }}
-                                        </span>
-                                    @endif
-                                </div>
-                                
-                                <p class="text-gray-300 text-sm mb-4 line-clamp-3">
-                                    {{ $article->resume ?? Str::limit(strip_tags($article->texte), 100) }}
-                                </p>
-                                
-                                <div class="flex justify-between items-center text-sm text-gray-400">
-                                    <span>Auteur: {{ $article->editeur->name ?? 'Inconnu' }}</span>
-                                    <span>{{ $article->created_at->format('d/m/Y') }}</span>
-                                </div>
-                            </div>
-                            
-                            <div class="px-4 pb-4">
-                                <a href="{{ route('articles.show', $article->id) }}" 
-                                   class="w-full block text-center bg-gradient-to-r from-[#2858bb] to-[#c2006d] text-white py-2 rounded-lg font-medium hover:from-[#3a6bdd] hover:to-[#d81a7f] transition-all">
-                                    Lire l'article
-                                </a>
-                            </div>
+                        <div class="group relative bg-black/60 backdrop-blur-md rounded-xl border border-[#2858bb]/30 p-2 hover:border-[#2858bb] hover:shadow-[0_0_25px_rgba(40,88,187,0.4)] transition-all duration-300 hover:-translate-y-2">
+
+                            <x-article-card :article="$article" />
+
+                            <div class="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-[#bed2ff] opacity-50 group-hover:opacity-100 transition-opacity shadow-[0_0_10px_#bed2ff]"></div>
+                            <div class="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-[#bed2ff] opacity-50 group-hover:opacity-100 transition-opacity shadow-[0_0_10px_#bed2ff]"></div>
                         </div>
                     @endforeach
                 </div>

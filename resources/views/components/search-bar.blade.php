@@ -28,7 +28,7 @@
                                 class="w-full bg-black/50 border border-[#c2006d]/50 rounded-lg py-2 px-4 text-white focus:outline-none focus:border-[#ff8dc7] focus:ring-1 focus:ring-[#ff8dc7] transition-all">
                             <option value="">Toutes</option>
                             @foreach($accessibilites as $accessibilite)
-                                <option value="{{ $accessibilite->id }}">{{ $accessibilite->nom }}</option>
+                                <option value="{{ $accessibilite->id }}">{{ $accessibilite->texte }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -42,7 +42,7 @@
                                 class="w-full bg-black/50 border border-[#2858bb]/50 rounded-lg py-2 px-4 text-white focus:outline-none focus:border-[#bed2ff] focus:ring-1 focus:ring-[#bed2ff] transition-all">
                             <option value="">Toutes</option>
                             @foreach($conclusions as $conclusion)
-                                <option value="{{ $conclusion->id }}">{{ $conclusion->nom }}</option>
+                                <option value="{{ $conclusion->id }}">{{ $conclusion->texte }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -58,7 +58,7 @@
                                 class="w-full bg-black/50 border border-[#c2006d]/50 rounded-lg py-2 px-4 text-white focus:outline-none focus:border-[#ff8dc7] focus:ring-1 focus:ring-[#ff8dc7] transition-all">
                             <option value="">Tous</option>
                             @foreach($rythmes as $rythme)
-                                <option value="{{ $rythme->id }}">{{ $rythme->nom }}</option>
+                                <option value="{{ $rythme->id }}">{{ $rythme->texte }}</option>
                             @endforeach
                         </select>
                     </div>
