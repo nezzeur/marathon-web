@@ -91,12 +91,41 @@
 
                         <button
                                 type="submit"
-                                class="block mx-auto mt-8 mb-8 font-mono text-xs px-6 py-3 bg-primary text-primary-foreground hover:brightness-110 border-b-4 border-black/30 active:border-b-0 active:translate-y-1">
+                                class="block mx-auto mt-8 mb-6 font-mono text-xs px-6 py-3 bg-primary text-primary-foreground hover:brightness-110 border-b-4 border-black/30 active:border-b-0 active:translate-y-1">
                             S'INSCRIRE
                         </button>
 
+                        {{-- Contraintes de mot de passe --}}
+                        <div class="mt-6 p-3 bg-black/30 border border-[#2B5BBB]/20 rounded-lg">
+                            <p class="text-[#2BE7C6] text-xs font-bold mb-2 uppercase tracking-wider">
+                                ⚡ Exigences de sécurité du mot de passe
+                            </p>
+                            <ul class="text-gray-300 text-xs space-y-1 pl-4">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#2BE7C6] mt-0.5">•</span>
+                                    <span>Minimum 8 caractères de longueur</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#2BE7C6] mt-0.5">•</span>
+                                    <span>Au moins une lettre majuscule (A-Z)</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#2BE7C6] mt-0.5">•</span>
+                                    <span>Au moins une lettre minuscule (a-z)</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#2BE7C6] mt-0.5">•</span>
+                                    <span>Au moins un chiffre (0-9)</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#2BE7C6] mt-0.5">•</span>
+                                    <span>Au moins un caractère spécial (!@#$%^&*)</span>
+                                </li>
+                            </ul>
+                        </div>
+
                         {{-- Footer du cadre --}}
-                        <p class="mt-8 text-center text-gray-400 text-xs font-medium">
+                        <p class="mt-6 text-center text-gray-400 text-xs font-medium">
                             Déjà membre du club ?
                             <a href="{{ route('login') }}"
                                class="text-[#bed2ff] hover:text-[#2BE7C6] font-bold uppercase transition-colors ml-1 hover:underline decoration-2 underline-offset-4">
