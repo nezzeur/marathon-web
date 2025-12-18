@@ -27,17 +27,17 @@ class UserRecommendationService
                         SELECT l2.article_id FROM likes l2 WHERE l2.user_id = ?
                     )) * 3 +
                     
-                    -- Similarité basée sur les catégories d'articles créés
+                    -- Similarité basée sur les catégories d\'articles créés
                     (SELECT COUNT(*) FROM articles a1 WHERE a1.user_id = users.id AND a1.accessibilite_id IN (
                         SELECT a2.accessibilite_id FROM articles a2 WHERE a2.user_id = ?
                     )) * 2 +
                     
-                    -- Similarité basée sur les conclusions d'articles créés
+                    -- Similarité basée sur les conclusions d\'articles créés
                     (SELECT COUNT(*) FROM articles a1 WHERE a1.user_id = users.id AND a1.conclusion_id IN (
                         SELECT a2.conclusion_id FROM articles a2 WHERE a2.user_id = ?
                     )) * 2 +
                     
-                    -- Similarité basée sur les rythmes d'articles créés
+                    -- Similarité basée sur les rythmes d\'articles créés
                     (SELECT COUNT(*) FROM articles a1 WHERE a1.user_id = users.id AND a1.rythme_id IN (
                         SELECT a2.rythme_id FROM articles a2 WHERE a2.user_id = ?
                     )) * 2

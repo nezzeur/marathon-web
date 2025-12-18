@@ -43,7 +43,7 @@
 
                 {{-- Formulaire --}}
                 <div class="mx-3 my-4 p-4 relative overflow-hidden bg-[#0f0f23]" style="border: 2px solid #000; border-radius: 2px; box-shadow: inset 0 0 20px rgba(0,0,0,0.5);">
-                    <form action="{{ route('login') }}" method="post" class="p-8 space-y-8">
+                    <form action="{{ route('register') }}" method="post" class="p-8 space-y-8">
                         @csrf
 
                         <div class="group neon-border-cyan rounded-xl transition-all duration-300">
