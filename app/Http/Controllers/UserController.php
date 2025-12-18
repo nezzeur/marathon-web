@@ -2,38 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Services\User\UserService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    protected $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     // Afficher la page personnelle de l'utilisateur connecté
     public function me()
     {
         $user = Auth::user();
+        $profileData = $this->userService->getPersonalProfileData($user);
 
-        // Charger les relations
-        $user->load(['articles', 'suiveurs', 'suivis', 'likes']);
-
-        // Séparer les articles en brouillon et publiés
-        $articlesBrouillons = $user->articles->where('en_ligne', 0);
-        $articlesPublies = $user->articles->where('en_ligne', 1);
-
-        // Articles aimés
-        $articlesAimes = $user->likes;
-
-        return view('users.profile-perso', compact('user', 'articlesBrouillons', 'articlesPublies', 'articlesAimes'));
+        return view('users.profile-perso', $profileData);
     }
 
     // Afficher le profil public d'un utilisateur
     public function show($id)
     {
-        $user = User::with(['articles' => function($query) {
-            $query->where('en_ligne', 1); // Afficher seulement les articles publiés
-        }, 'suiveurs', 'suivis'])->findOrFail($id);
+        $profileData = $this->userService->getPublicProfileData($id);
 
-        return view('users.profile', compact('user'));
+        return view('users.profile', $profileData);
     }
 
     // Formulaire d'édition du profil
@@ -47,75 +43,29 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $user = Auth::user();
+        $result = $this->userService->updateProfile($request, $user);
 
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-            'avatar' => 'nullable|image|mimes:jpeg,png,gif,webp|max:2048',
-        ]);
-
-        if ($request->hasFile('avatar')) {
-            // Utiliser le service ArticleService pour une validation sécurisée
-            $articleService = new \App\Services\Article\ArticleService();
-            
-            // Supprimer l'ancien avatar si existe
-            if ($user->avatar && \Storage::exists('public/' . $user->avatar)) {
-                \Storage::delete('public/' . $user->avatar);
-            }
-            
-            // Télécharger le nouveau avatar avec validation de sécurité
-            $validated['avatar'] = $articleService->handleFileUpload(
-                $request->file('avatar'),
-                'avatars',
-                $user->avatar,
-                ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
-                ['jpg', 'jpeg', 'png', 'gif', 'webp']
-            );
-        }
-
-        $user->update($validated);
-
-        return redirect()->route('user.me')->with('success', 'Profil mis à jour avec succès !');
+        return redirect()->route('user.me')->with('success', $result['message']);
     }
 
     // Basculer le suivi d'un utilisateur
     public function toggleFollow($userId)
     {
-        $userToFollow = User::findOrFail($userId);
-        $currentUser = Auth::user();
+        $result = $this->userService->toggleFollow($userId);
 
-        // Vérifier que l'utilisateur ne tente pas de se suivre lui-même
-        if ($currentUser->id === $userToFollow->id) {
+        if (!$result['success']) {
             return response()->json([
                 'success' => false,
-                'message' => 'Vous ne pouvez pas vous suivre vous-même.'
-            ], 400);
+                'message' => $result['message']
+            ], $result['code'] ?? 400);
         }
-
-        // Vérifier si l'utilisateur est déjà suivi
-        $isFollowing = $currentUser->suivis()->where('suivi_id', $userId)->exists();
-
-        if ($isFollowing) {
-            // Ne plus suivre
-            $currentUser->suivis()->detach($userId);
-            $message = 'Vous ne suivez plus ' . $userToFollow->name;
-            $action = 'unfollow';
-        } else {
-            // Suivre
-            $currentUser->suivis()->attach($userId);
-            $message = 'Vous suivez maintenant ' . $userToFollow->name;
-            $action = 'follow';
-        }
-
-        // Retourner le nombre de suiveurs mis à jour
-        $followersCount = $userToFollow->suiveurs()->count();
 
         return response()->json([
             'success' => true,
-            'message' => $message,
-            'action' => $action,
-            'isFollowing' => !$isFollowing,
-            'followersCount' => $followersCount
+            'message' => $result['message'],
+            'action' => $result['action'],
+            'isFollowing' => $result['isFollowing'],
+            'followersCount' => $result['followersCount']
         ]);
     }
 }
