@@ -40,6 +40,21 @@ class RedirectFirstTimeVisitor
         // Log pour debug
         logger('RedirectFirstTimeVisitor: ' . $request->path() . ' - hasCookie: ' . $hasCookie . ', cookieValue: ' . $cookieValue);
         
+        // MODE DEBUG: Forcer la redirection vers /first pour tester
+        // À commenter en production
+        if (env('APP_DEBUG', false) && $request->is('/')) {
+            logger('RedirectFirstTimeVisitor: MODE DEBUG - Redirection forcée vers /first');
+            return redirect()->route('first.page')->cookie(
+                'okrina_visited', 
+                'true', 
+                60 * 24 * 30, // 30 jours
+                '/', 
+                null, 
+                false, 
+                false
+            );
+        }
+        
         if (!$hasCookie) {
             // Si c'est la première visite et qu'on n'est pas sur une route spécifique (auth, api, etc.)
             // et qu'on n'est pas déjà sur /first, rediriger vers first avec le cookie
