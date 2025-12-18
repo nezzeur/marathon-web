@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Spatie\LaravelMarkdown\MarkdownRenderer;
+use App\Services\Security\MarkdownSanitizer;
 
 class Article extends Model
 {
@@ -36,12 +36,14 @@ class Article extends Model
 
     public function getTexteHtmlAttribute()
     {
-        return app(MarkdownRenderer::class)->toHtml($this->texte);
+        $sanitizer = new MarkdownSanitizer();
+        return $sanitizer->sanitizeAndRender($this->texte ?? '');
     }
 
     public function getResumeHtmlAttribute()
     {
-        return app(MarkdownRenderer::class)->toHtml($this->resume);
+        $sanitizer = new MarkdownSanitizer();
+        return $sanitizer->sanitizeAndRender($this->resume ?? '');
     }
 
 }

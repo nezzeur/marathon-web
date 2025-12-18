@@ -9,6 +9,7 @@ use App\Models\Rythme;
 use App\Services\Article\ArticleService;
 use App\Services\Article\LikeService;
 use App\Services\Article\NotificationService;
+use App\Services\Validation\ArticleValidator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,15 +18,18 @@ class ArticleController extends Controller
     protected $articleService;
     protected $likeService;
     protected $notificationService;
+    protected $articleValidator;
 
     public function __construct(
         ArticleService $articleService,
         LikeService $likeService,
-        NotificationService $notificationService
+        NotificationService $notificationService,
+        ArticleValidator $articleValidator
     ) {
         $this->articleService = $articleService;
         $this->likeService = $likeService;
         $this->notificationService = $notificationService;
+        $this->articleValidator = $articleValidator;
     }
 
     /**
@@ -50,11 +54,11 @@ class ArticleController extends Controller
             return response($view)->cookie(
                 'okrina_visited', 
                 'true', 
-                60 * 24 * 30, // 30 jours
+                60 * 24 * 30,
                 '/', 
                 null, 
-                false, 
-                false
+                true,
+                config('session.secure') || request()->secure()
             );
         }
         
@@ -161,17 +165,23 @@ class ArticleController extends Controller
         $isPublish = $request->has('action') && $request->action === 'publish';
         
         // Validation différente selon l'action
-        $this->validateRequest($request, $isPublish, false);
+        $this->articleValidator->validateRequest($request, $isPublish, false);
         
-        // Gestion des fichiers
+        // Gestion des fichiers avec validation de sécurité
         $imagePath = $this->articleService->handleFileUpload(
             $request->file('image'),
-            'articles/images'
+            'articles/images',
+            null,
+            ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
+            ['jpg', 'jpeg', 'png', 'gif', 'webp']
         );
         
         $mediaPath = $this->articleService->handleFileUpload(
             $request->file('media'),
-            'articles/media'
+            'articles/media',
+            null,
+            ['audio/mpeg', 'audio/wav'],
+            ['mp3', 'wav']
         );
         
         $article = Article::create([
@@ -198,35 +208,7 @@ class ArticleController extends Controller
             ->with('success', $message);
     }
     
-    /**
-     * Valide la requête selon le type d'action
-     * 
-     * @param Request $request
-     * @param bool $isPublish
-     * @param bool $isUpdate
-     * @return void
-     */
-    protected function validateRequest(Request $request, bool $isPublish, bool $isUpdate = false): void
-    {
-        if ($isPublish) {
-            $request->validate([
-                'titre' => 'required|string|max:255',
-                'resume' => 'required|string',
-                'texte' => 'required|string',
-                'image' => $isUpdate ? 'nullable|image|max:2048' : 'required|image|max:2048',
-                'media' => $isUpdate ? 'nullable|mimes:mp3,wav|max:10240' : 'required|mimes:mp3,wav|max:10240',
-                'rythme_id' => 'required|exists:rythmes,id',
-                'accessibilite_id' => 'required|exists:accessibilites,id',
-                'conclusion_id' => 'required|exists:conclusions,id',
-            ]);
-        } else {
-            $request->validate([
-                'titre' => 'required|string|max:255',
-            ], [
-                'titre.required' => 'Le titre est obligatoire même pour un brouillon.',
-            ]);
-        }
-    }
+
 
     /**
      * Filtrer les articles par accessibilité
@@ -311,21 +293,25 @@ class ArticleController extends Controller
         $this->checkArticleOwnership($article);
 
         $isPublish = $request->has('action') && $request->action === 'publish';
-        $this->validateRequest($request, $isPublish, true);
+        $this->articleValidator->validateRequest($request, $isPublish, true);
 
         $data = $this->prepareArticleData($request, $article);
         
-        // Gestion des fichiers
+        // Gestion des fichiers avec validation de sécurité
         $data['image'] = $this->articleService->handleFileUpload(
             $request->file('image'),
             'articles/images',
-            $article->image
+            $article->image,
+            ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
+            ['jpg', 'jpeg', 'png', 'gif', 'webp']
         ) ?? $article->image;
         
         $data['media'] = $this->articleService->handleFileUpload(
             $request->file('media'),
             'articles/media',
-            $article->media
+            $article->media,
+            ['audio/mpeg', 'audio/wav'],
+            ['mp3', 'wav']
         ) ?? $article->media;
 
         $article->update($data);

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Services\Security\TextSanitizer;
 
 class Avis extends Model
 {
@@ -17,6 +18,17 @@ class Avis extends Model
 
     public function article() {
         return $this->belongsTo(Article::class);
+    }
+
+    /**
+     * Retourne le contenu désinfecté
+     * 
+     * @return string
+     */
+    public function getSafeContentAttribute()
+    {
+        $sanitizer = new TextSanitizer();
+        return $sanitizer->sanitizeWithLineBreaks($this->contenu ?? '');
     }
 
 }

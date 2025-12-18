@@ -51,6 +51,22 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Rate Limiting
+    |--------------------------------------------------------------------------
+    |
+    | This value defines which rate limiter should be used for login and
+    | two-factor authentication attempts. This helps protect against
+    | brute force attacks by limiting the number of attempts.
+    |
+    */
+
+    'limiters' => [
+        'login' => 'login',
+        'two-factor' => 'two-factor',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Lowercase Usernames
     |--------------------------------------------------------------------------
     |
