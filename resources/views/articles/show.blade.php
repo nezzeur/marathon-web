@@ -79,11 +79,6 @@
                     <source src="{{ $audioSrc }}" type="{{ $mimeType }}">
                     Votre navigateur ne supporte pas la balise audio.
                 </audio>
-                @if($isExternalUrl)
-                    <p style="font-size: 0.9em; color: #666; margin-top: -15px; margin-bottom: 20px;">
-                        ⚠️ Ce média est hébergé sur un site externe. Si le lecteur ne fonctionne pas, cela peut être dû à des restrictions de sécurité.
-                    </p>
-                @endif
             </section>
         @endif
 
