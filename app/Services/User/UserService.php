@@ -4,16 +4,19 @@ namespace App\Services\User;
 
 use App\Models\User;
 use App\Services\FileManagement\FileUploadService;
+use App\Services\UserRecommendationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserService
 {
     protected $fileUploadService;
+    protected $userRecommendationService;
 
-    public function __construct(FileUploadService $fileUploadService)
+    public function __construct(FileUploadService $fileUploadService, UserRecommendationService $userRecommendationService)
     {
         $this->fileUploadService = $fileUploadService;
+        $this->userRecommendationService = $userRecommendationService;
     }
 
     /**
@@ -119,12 +122,16 @@ class UserService
 
         // Articles aimés
         $articlesAimes = $user->likes;
-
+        
+        // Utilisateurs recommandés
+        $recommendedUsers = $this->userRecommendationService->getRecommendedUsers($user, 5);
+        
         return [
             'user' => $user,
             'articlesBrouillons' => $articlesBrouillons,
             'articlesPublies' => $articlesPublies,
-            'articlesAimes' => $articlesAimes
+            'articlesAimes' => $articlesAimes,
+            'recommendedUsers' => $recommendedUsers
         ];
     }
 
@@ -140,8 +147,18 @@ class UserService
             $query->where('en_ligne', 1); // Afficher seulement les articles publiés
         }, 'suiveurs', 'suivis'])->findOrFail($userId);
 
+        // Utilisateurs recommandés (pour l'utilisateur connecté)
+        $recommendedUsers = collect();
+        if (Auth::check()) {
+            $currentUser = Auth::user();
+            if ($currentUser->id !== $user->id) {
+                $recommendedUsers = $this->userRecommendationService->getRecommendedUsers($currentUser, 5);
+            }
+        }
+
         return [
-            'user' => $user
+            'user' => $user,
+            'recommendedUsers' => $recommendedUsers
         ];
     }
 }
