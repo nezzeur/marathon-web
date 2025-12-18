@@ -7,8 +7,8 @@ import.meta.glob([
     '../sounds/**',
 ]);
 
-import hoverSoundPath from '../sounds/hover.mp3';
-import insertSoundPath from '../sounds/insert.mp3';
+import hoverSoundPath from '/sounds/hover.mp3';
+import insertSoundPath from '/sounds/insert.mp3';
 
 
 // Test Vite: Convertir euros en francs
