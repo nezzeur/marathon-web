@@ -34,7 +34,13 @@ class RedirectFirstTimeVisitor
     public function handle(Request $request, Closure $next): Response
     {
         // Vérifier si c'est la première visite en vérifiant le cookie existant
-        if (!$request->hasCookie('okrina_visited')) {
+        $hasCookie = $request->hasCookie('okrina_visited');
+        $cookieValue = $request->cookie('okrina_visited');
+        
+        // Log pour debug
+        logger('RedirectFirstTimeVisitor: ' . $request->path() . ' - hasCookie: ' . $hasCookie . ', cookieValue: ' . $cookieValue);
+        
+        if (!$hasCookie) {
             // Si c'est la première visite et qu'on n'est pas sur une route spécifique (auth, api, etc.)
             // et qu'on n'est pas déjà sur /first, rediriger vers first avec le cookie
             if (!$request->is('first') && 
@@ -47,6 +53,8 @@ class RedirectFirstTimeVisitor
                 !$request->is('_debugbar/*') &&
                 !$request->is('storage/*') &&
                 !$request->is('build/*')) {
+                
+                logger('RedirectFirstTimeVisitor: Redirection vers /first pour nouvelle visite');
                 
                 // Rediriger vers la page first pour les nouveaux visiteurs
                 // et poser le cookie pour éviter les redirections futures
@@ -63,6 +71,7 @@ class RedirectFirstTimeVisitor
         } else {
             // Si le cookie existe (visiteur déjà vu) et qu'on est sur /first, rediriger vers l'accueil
             if ($request->is('first')) {
+                logger('RedirectFirstTimeVisitor: Redirection depuis /first vers home pour visiteur existant');
                 return redirect()->route('home');
             }
         }

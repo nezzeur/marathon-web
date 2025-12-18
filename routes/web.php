@@ -20,6 +20,25 @@ Route::get('/first', function () {
     return view('first');
 })->name("first.page");
 
+// Route temporaire pour debug - à supprimer en production
+Route::get('/debug-cookie', function () {
+    $hasCookie = request()->hasCookie('okrina_visited');
+    $cookieValue = request()->cookie('okrina_visited');
+    
+    return response()->json([
+        'has_okrina_visited_cookie' => $hasCookie,
+        'cookie_value' => $cookieValue,
+        'all_cookies' => request()->cookie()
+    ]);
+})->name("debug.cookie");
+
+// Route pour supprimer le cookie - à supprimer en production
+Route::get('/clear-cookie', function () {
+    return response('Cookie cleared!')->cookie(
+        cookie()->forget('okrina_visited')
+    );
+})->name("clear.cookie");
+
 // Page de contact
 Route::get('/contact', function () {
     return view('contact');
