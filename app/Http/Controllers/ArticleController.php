@@ -50,11 +50,11 @@ class ArticleController extends Controller
             return response($view)->cookie(
                 'okrina_visited', 
                 'true', 
-                60 * 24 * 30, // 30 jours
+                60 * 24 * 30,
                 '/', 
                 null, 
-                false, 
-                false
+                true,
+                config('session.secure') || request()->secure()
             );
         }
         
