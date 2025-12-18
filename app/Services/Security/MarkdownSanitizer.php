@@ -24,7 +24,6 @@ use League\CommonMark\Extension\CommonMark\Node\Inline\Text;
 use League\CommonMark\Extension\Table\TableExtension;
 use League\CommonMark\MarkdownConverterInterface;
 use HTMLPurifier;
-use HTMLPurifier_Config;
 use Illuminate\Support\HtmlString;
 
 class MarkdownSanitizer
@@ -43,8 +42,8 @@ class MarkdownSanitizer
      */
     protected function configurePurifier(): void
     {
-        $config = HTMLPurifier_Config::createDefault();
-        
+        $config = \HTMLPurifier_Config::createDefault();
+
         // Configuration de sécurité
         $config->set('HTML.Doctype', 'HTML 4.01 Transitional');
         $config->set('HTML.Allowed', 'p,b,strong,i,em,u,s,del,ins,h1,h2,h3,h4,h5,h6,ul,ol,li,a[href|title],img[src|alt|title|width|height],blockquote,code,pre[class],table,thead,tbody,tr,th,td,hr');

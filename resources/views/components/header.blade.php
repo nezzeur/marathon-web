@@ -28,8 +28,8 @@
             </a>
 
             @auth
-                <a href="{{ route('articles.create') }}" class="font-sans text-2xl uppercase text-primary border border-primary/50 px-4 py-1 hover:bg-primary hover:text-primary-foreground transition-all box-shadow hover:shadow-[0_0_15px_var(--primary)]">
-                    ✚ Insert_Data
+                <a href="{{ route('articles.create') }}" class="font-sans text-2xl uppercase text-white hover:text-primary hover:animate-glow-pulse transition-colors">
+                    <span class="mr-1 opacity-50">[</span>Publier<span class="ml-1 opacity-50">]</span>
                 </a>
             @endauth
         </div>
@@ -45,7 +45,7 @@
                     <form id="logout" action="{{ route('logout') }}" method="post" style="display: inline;">
                         @csrf
                         <button type="submit" class="font-mono text-xs px-3 py-3 bg-destructive text-destructive-foreground hover:brightness-110 border-b-4 border-black/30 active:border-b-0 active:translate-y-1">
-                            QUIT
+                            QUITTER
                         </button>
                     </form>
                 </div>
