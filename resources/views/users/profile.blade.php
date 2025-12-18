@@ -140,7 +140,7 @@
     {{-- Section des utilisateurs recommandés --}}
     @if(isset($recommendedUsers) && $recommendedUsers->count() > 0)
     <div class="mt-12">
-        <x-user-recommendations :recommendedUsers="$recommendedUsers" title="🔍 Vous pourriez aussi aimer" />
+        <x-user-recommendations :recommendedUsers="$recommendedUsers" title="Utilisateurs recommandés" />
     </div>
     @endif
 @endsection

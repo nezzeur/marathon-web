@@ -5,14 +5,14 @@
 ])
 
 @if($recommendedUsers->count() > 0)
-<div class="bg-black/70 backdrop-blur-md rounded-2xl border border-white/10 p-6">
-    <h3 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#bed2ff] to-[#ff8dc7] mb-6">
-        {{ $title }}
+<div class="bg-gradient-to-br from-[#2B5BBB]/20 to-[#C2006D]/20 backdrop-blur-md rounded-2xl border-2 border-[#2BE7C6] p-6">
+    <h3 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#2BE7C6] via-[#2B5BBB] to-[#C2006D] mb-6">
+        Utilisateurs recommandés
     </h3>
     
     <div class="space-y-4">
         @foreach($recommendedUsers as $user)
-        <div class="flex items-center justify-between p-4 rounded-lg bg-black/50 hover:bg-black/60 transition-colors">
+        <div class="flex items-center justify-between p-4 rounded-lg bg-white/10 hover:bg-white/20 transition-all border border-[#2BE7C6]/30 hover:border-[#2BE7C6]/60">
             <div class="flex items-center gap-4">
                 <!-- Avatar -->
                 <div class="relative">

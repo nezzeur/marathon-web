@@ -70,8 +70,8 @@
                     
                     @auth
                         <a href="{{ route('articles.create') }}" 
-                           class="bg-gradient-to-r from-[#2858bb] to-[#c2006d] text-white px-6 py-2 rounded-lg font-medium hover:opacity-90 transition-opacity">
-                            Publier le premier article
+                           class="font-mono text-xs px-4 py-3 bg-primary text-primary-foreground hover:brightness-110 border-b-4 border-black/30 active:border-b-0 active:translate-y-1">
+                            PUBLIER LE PREMIER ARTICLE
                         </a>
                     @else
                         <p class="text-gray-400">Connectez-vous pour publier des articles.</p>
