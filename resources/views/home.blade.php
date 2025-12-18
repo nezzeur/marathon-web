@@ -36,15 +36,6 @@
     {{-- 2. CONTENU PRINCIPAL --}}
     <div class="relative z-10 max-w-7xl mx-auto px-6 py-10 space-y-20">
 
-        {{-- BARRE DE RECHERCHE --}}
-        @php
-            // Récupérer les données nécessaires pour la barre de recherche
-            $accessibilites = Accessibilite::all();
-            $conclusions = Conclusion::all();
-            $rythmes = Rythme::all();
-        @endphp
-
-        <x-search-bar :accessibilites="$accessibilites" :conclusions="$conclusions" :rythmes="$rythmes"/>
 
         {{-- SECTION 1 : HIGH SCORES (Thème Bleu #2858bb / #bed2ff) --}}
         @if(isset($articlesPlusVus) && count($articlesPlusVus) > 0)
