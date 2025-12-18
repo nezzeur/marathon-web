@@ -6,6 +6,22 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Middleware pour rediriger les nouveaux visiteurs vers une page d'accueil spéciale
+ * avec une expérience d'iframe, puis les rediriger vers la vraie page d'accueil.
+ * 
+ * Fonctionnement:
+ * - Vérifie la présence du cookie 'okrina_visited' pour déterminer si c'est la première visite
+ * - Les nouveaux visiteurs (sans cookie) sont redirigés vers /first
+ * - La page /first contient une iframe avec la vraie page d'accueil et une animation
+ * - Après l'animation, l'utilisateur est redirigé vers la vraie page d'accueil
+ * - Un cookie est posé pour éviter de rediriger les visiteurs suivants
+ * 
+ * Exclusions:
+ * - Les routes d'authentification (login, register, logout, password/*)
+ * - Les routes API et assets
+ * - Les routes techniques (_debugbar, storage, build)
+ */
 class RedirectFirstTimeVisitor
 {
     /**
