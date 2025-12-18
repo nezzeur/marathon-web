@@ -67,4 +67,45 @@ class UserController extends Controller
 
         return redirect()->route('user.me')->with('success', 'Profil mis à jour avec succès !');
     }
+
+    // Basculer le suivi d'un utilisateur
+    public function toggleFollow($userId)
+    {
+        $userToFollow = User::findOrFail($userId);
+        $currentUser = Auth::user();
+
+        // Vérifier que l'utilisateur ne tente pas de se suivre lui-même
+        if ($currentUser->id === $userToFollow->id) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Vous ne pouvez pas vous suivre vous-même.'
+            ], 400);
+        }
+
+        // Vérifier si l'utilisateur est déjà suivi
+        $isFollowing = $currentUser->suivis()->where('suivi_id', $userId)->exists();
+
+        if ($isFollowing) {
+            // Ne plus suivre
+            $currentUser->suivis()->detach($userId);
+            $message = 'Vous ne suivez plus ' . $userToFollow->name;
+            $action = 'unfollow';
+        } else {
+            // Suivre
+            $currentUser->suivis()->attach($userId);
+            $message = 'Vous suivez maintenant ' . $userToFollow->name;
+            $action = 'follow';
+        }
+
+        // Retourner le nombre de suiveurs mis à jour
+        $followersCount = $userToFollow->suiveurs()->count();
+
+        return response()->json([
+            'success' => true,
+            'message' => $message,
+            'action' => $action,
+            'isFollowing' => !$isFollowing,
+            'followersCount' => $followersCount
+        ]);
+    }
 }

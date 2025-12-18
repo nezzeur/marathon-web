@@ -1,3 +1,5 @@
+@props(['class' => ''])
+
 @if(auth()->check())
     @php
         // Vérifier si la table notifications existe avant de l'utiliser
@@ -10,179 +12,84 @@
         }
     @endphp
     
-    <div class="notification-dropdown">
-        <button class="notification-button" id="notificationButton">
-            🔔 <span class="notification-count">{{ $unreadCount }}</span>
-        </button>
-        
-        <div class="notification-panel" id="notificationPanel">
-            <div class="notification-header">
-                <h3>Notifications</h3>
+    <div class="fixed top-6 right-6 z-50">
+        <div {{ $attributes->merge(['class' => 'relative inline-block ' . $class]) }}>
+            <button class="relative p-2 text-2xl bg-white rounded-full shadow-lg hover:shadow-xl transition-shadow border-2 cursor-pointer" id="notificationButton" title="Notifications" style="border-color: #2B5BBB">
+                🔔
                 @if($unreadCount > 0)
-                    <a href="{{ route('notifications.markAllAsRead') }}" class="mark-all-read">Marquer tout comme lu</a>
+                    <span class="absolute -top-1 -right-1 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold" style="background-color: #C2006D">
+                        {{ $unreadCount > 99 ? '99+' : $unreadCount }}
+                    </span>
                 @endif
-            </div>
-            
-            @if($notifications->isEmpty())
-                <div class="notification-empty">
-                    Aucune notification pour le moment.
+            </button>
+
+            <div class="hidden absolute right-0 top-16 bg-white border-2 rounded-lg shadow-2xl w-96 max-h-96 overflow-hidden z-50" id="notificationPanel" style="border-color: #2BE7C6">
+                <!-- En-tête -->
+                <div class="p-4 border-b flex justify-between items-center sticky top-0 text-white" style="background: linear-gradient(135deg, #2B5BBB 0%, #C2006D 100%)">
+                    <h3 class="m-0 text-lg font-bold">🔔 Notifications</h3>
+                    @if($unreadCount > 0)
+                        <a href="{{ route('notifications.markAllAsRead') }}" class="hover:bg-white hover:bg-opacity-20 px-3 py-1 rounded text-sm font-semibold transition-colors">
+                            ✓ Marquer tout
+                        </a>
+                    @endif
                 </div>
-            @else
-                <div class="notification-list">
-                    @foreach($notifications as $notification)
-                        @php
-                            $data = $notification->data;
-                            $isUnread = !$notification->read_at;
-                        @endphp
-                        
-                        <div class="notification-item {{ $isUnread ? 'unread' : '' }}">
-                            <div class="notification-content">
-                                <p><strong>{{ $data['auteur_nom'] ?? 'Utilisateur' }}</strong> {{ $data['message'] ?? '' }}</p>
-                                <small class="notification-time">
-                                    {{ $notification->created_at->diffForHumans() }}
-                                </small>
-                            </div>
-                            <a href="{{ $data['url'] ?? '#' }}" class="notification-link">Voir</a>
-                            @if($isUnread)
-                                <a href="{{ route('notifications.markAsRead', $notification->id) }}" class="mark-read">✓</a>
-                            @endif
+
+                <!-- Contenu des notifications -->
+                <div class="overflow-y-auto max-h-80">
+                    @if($notifications->isEmpty())
+                        <div class="p-6 text-center text-gray-500">
+                            <p class="text-2xl mb-2">📭</p>
+                            <p class="font-semibold">Aucune notification</p>
+                            <p class="text-sm">Vous êtes à jour !</p>
                         </div>
-                    @endforeach
+                    @else
+                        <div class="list-none p-0 m-0">
+                            @foreach($notifications as $notification)
+                                @php
+                                    $data = $notification->data;
+                                    $isUnread = !$notification->read_at;
+                                @endphp
+
+                                <div class="px-4 py-3 border-b border-gray-100 flex items-start gap-3 hover:bg-gray-50 transition-colors" style="{{ $isUnread ? 'background-color: #2BE7C6; background-color: rgba(43, 231, 198, 0.1)' : '' }}">
+                                    <div class="text-xl flex-shrink-0">👤</div>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="m-0 text-sm font-semibold text-gray-900">
+                                            {{ $data['auteur_nom'] ?? 'Utilisateur' }}
+                                        </p>
+                                        <p class="m-0 text-sm text-gray-700 line-clamp-2">
+                                            {{ $data['message'] ?? 'Nouvelle notification' }}
+                                        </p>
+                                        <small class="text-gray-400 text-xs block mt-1">
+                                            {{ $notification->created_at->diffForHumans() }}
+                                        </small>
+                                    </div>
+                                    <div class="flex gap-1 flex-shrink-0">
+                                        <a href="{{ $data['url'] ?? '#' }}" class="text-white hover:opacity-80 px-2 py-1 rounded text-xs font-bold transition-opacity" title="Voir" style="background-color: #2B5BBB">
+                                            👁️
+                                        </a>
+                                        @if($isUnread)
+                                            <a href="{{ route('notifications.markAsRead', $notification->id) }}" class="text-white hover:opacity-80 px-2 py-1 rounded text-xs font-bold transition-opacity" title="Marquer comme lu" style="background-color: #2BE7C6; color: #2B5BBB">
+                                                ✓
+                                            </a>
+                                        @endif
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
                 
-                <div class="notification-footer">
-                    <a href="{{ route('notifications.all') }}">Voir toutes les notifications</a>
-                </div>
-            @endif
+                <!-- Pied de page -->
+                @if($notifications->isNotEmpty())
+                    <div class="p-3 text-center border-t border-gray-200 bg-gray-50 sticky bottom-0">
+                        <a href="{{ route('notifications.all') }}" class="hover:opacity-80 font-semibold text-sm transition-opacity" style="color: #2B5BBB">
+                            Voir toutes les notifications →
+                        </a>
+                    </div>
+                @endif
+            </div>
         </div>
     </div>
-    
-    <style>
-        .notification-dropdown {
-            position: relative;
-            display: inline-block;
-        }
-        
-        .notification-button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1.2em;
-            position: relative;
-            padding: 5px 10px;
-        }
-        
-        .notification-count {
-            background-color: #ff4444;
-            color: white;
-            border-radius: 50%;
-            padding: 2px 6px;
-            font-size: 0.8em;
-            position: absolute;
-            top: -5px;
-            right: -5px;
-        }
-        
-        .notification-panel {
-            display: none;
-            position: absolute;
-            right: 0;
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            width: 350px;
-            max-height: 500px;
-            overflow-y: auto;
-            z-index: 1000;
-        }
-        
-        .notification-panel.show {
-            display: block;
-        }
-        
-        .notification-header {
-            padding: 12px 15px;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .notification-header h3 {
-            margin: 0;
-            font-size: 1.1em;
-        }
-        
-        .mark-all-read {
-            color: #4CAF50;
-            text-decoration: none;
-            font-size: 0.9em;
-        }
-        
-        .notification-empty {
-            padding: 20px;
-            text-align: center;
-            color: #666;
-        }
-        
-        .notification-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        
-        .notification-item {
-            padding: 12px 15px;
-            border-bottom: 1px solid #f5f5f5;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .notification-item.unread {
-            background-color: #f8f9fa;
-        }
-        
-        .notification-content {
-            flex: 1;
-        }
-        
-        .notification-content p {
-            margin: 0 0 5px 0;
-            font-size: 0.95em;
-        }
-        
-        .notification-time {
-            color: #999;
-            font-size: 0.8em;
-        }
-        
-        .notification-link {
-            color: #4CAF50;
-            text-decoration: none;
-            margin: 0 5px;
-            font-size: 0.9em;
-        }
-        
-        .mark-read {
-            color: #4CAF50;
-            text-decoration: none;
-            font-size: 0.9em;
-        }
-        
-        .notification-footer {
-            padding: 10px 15px;
-            text-align: center;
-            border-top: 1px solid #eee;
-        }
-        
-        .notification-footer a {
-            color: #2196F3;
-            text-decoration: none;
-            font-size: 0.9em;
-        }
-    </style>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -192,12 +99,12 @@
             if (button && panel) {
                 button.addEventListener('click', function(e) {
                     e.stopPropagation();
-                    panel.classList.toggle('show');
+                    panel.classList.toggle('hidden');
                 });
                 
                 document.addEventListener('click', function(e) {
-                    if (!panel.contains(e.target) && e.target !== button) {
-                        panel.classList.remove('show');
+                    if (!panel.contains(e.target) && e.target !== button && !button.contains(e.target)) {
+                        panel.classList.add('hidden');
                     }
                 });
             }

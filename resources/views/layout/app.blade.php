@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{isset($title) ? $title : "Page en cours"}}</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-@vite(["resources/css/normalize.css", 'resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
-@include('components.header')
-@include('components.navigation')
 
-<main>
+<body class="flex flex-col min-h-screen">
+<x-header/>
+<x-navigation/>
+<x-welcome-message />
+<main class="flex-grow">
     @yield("contenu")
 </main>
 
-@include('components.footer')
-@include('components.notifications')
+<x-footer />
+<x-notifications />
 </body>
 </html>

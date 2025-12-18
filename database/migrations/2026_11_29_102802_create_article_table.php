@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('texte')->nullable();
             $table->string('image')->nullable();
             $table->string('media')->nullable();
-	        $table->boolean("en_ligne");
+            $table->boolean("en_ligne");
             $table->integer('nb_vues')->default(0);
             $table->foreignIdFor(\App\Models\User::class)->nullable()->constrained()
                 ->onUpdate('cascade')
