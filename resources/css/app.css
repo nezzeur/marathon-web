@@ -6,26 +6,26 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-    /* Synthwave 80s color palette */
+    /* Palette Retro personnalisée */
     --background: #0d0221;
     --foreground: #ffffff;
     --card: #1a0533;
     --card-foreground: #ffffff;
     --popover: #1a0533;
     --popover-foreground: #ffffff;
-    --primary: #00ffff;
-    --primary-foreground: #0d0221;
-    --secondary: #ff6ad5;
+    --primary: #2BE7C6;
+    --primary-foreground: #2B5BBB;
+    --secondary: #C2006D;
     --secondary-foreground: #ffffff;
     --muted: #2d1b4e;
     --muted-foreground: #a0a0a0;
-    --accent: #ffde59;
-    --accent-foreground: #0d0221;
-    --destructive: #ff6ad5;
+    --accent: #2B5BBB;
+    --accent-foreground: #ffffff;
+    --destructive: #C2006D;
     --destructive-foreground: #ffffff;
-    --border: rgba(255, 106, 213, 0.3);
+    --border: rgba(43, 231, 198, 0.3);
     --input: #1a0533;
-    --ring: #00ffff;
+    --ring: #2BE7C6;
     --radius: 0px;
     --chart-1: oklch(0.646 0.222 41.116);
     --chart-2: oklch(0.6 0.118 184.704);
@@ -49,19 +49,19 @@
     --card-foreground: #ffffff;
     --popover: #1a0533;
     --popover-foreground: #ffffff;
-    --primary: #00ffff;
-    --primary-foreground: #0d0221;
-    --secondary: #ff6ad5;
+    --primary: #2BE7C6;
+    --primary-foreground: #2B5BBB;
+    --secondary: #C2006D;
     --secondary-foreground: #ffffff;
     --muted: #2d1b4e;
     --muted-foreground: #a0a0a0;
-    --accent: #ffde59;
-    --accent-foreground: #0d0221;
-    --destructive: #ff6ad5;
+    --accent: #2B5BBB;
+    --accent-foreground: #ffffff;
+    --destructive: #C2006D;
     --destructive-foreground: #ffffff;
-    --border: rgba(255, 106, 213, 0.3);
+    --border: rgba(43, 231, 198, 0.3);
     --input: #1a0533;
-    --ring: #00ffff;
+    --ring: #2BE7C6;
     --chart-1: oklch(0.488 0.243 264.376);
     --chart-2: oklch(0.696 0.17 162.48);
     --chart-3: oklch(0.769 0.188 70.08);
@@ -251,7 +251,7 @@
 
 /* Chrome text effect */
 .chrome-text {
-    background: linear-gradient(180deg, #ffffff 0%, #ff6ad5 25%, #ffffff 50%, #00ffff 75%, #ffffff 100%);
+    background: linear-gradient(180deg, #ffffff 0%, #C2006D 25%, #ffffff 50%, #2BE7C6 75%, #ffffff 100%);
     background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

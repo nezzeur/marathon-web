@@ -34,7 +34,11 @@
         {{-- Image --}}
         @if($article->image)
             <div class="my-8 text-center">
-                <img src="{{ asset('storage/' . $article->image) }}" alt="Image de l'article" class="max-w-full h-auto rounded-lg shadow-lg">
+                @if(str_contains($article->image, 'images/'))
+                    <img src="{{ asset($article->image) }}" alt="Image de l'article" class="max-w-full h-auto rounded-lg shadow-lg">
+                @else
+                    <img src="{{ asset('storage/' . $article->image) }}" alt="Image de l'article" class="max-w-full h-auto rounded-lg shadow-lg">
+                @endif
             </div>
         @endif
 
