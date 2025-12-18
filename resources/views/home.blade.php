@@ -1,59 +1,78 @@
 @extends("layout.app")
 
 @section('contenu')
-    <div class="max-w-5xl mx-auto p-5">
+
+    {{-- Fond Grille 3D utilisant les variables CSS --}}
+    <div class="fixed inset-0 z-0 pointer-events-none bg-background">
+        <!-- Soleil Retro (Optionnel, simple CSS shape) -->
+        <div class="absolute top-20 left-1/2 -translate-x-1/2 w-64 h-64 rounded-full bg-gradient-to-t from-accent to-transparent opacity-20 blur-3xl"></div>
+    </div>
+
+    <!-- Grid Floor -->
+    <div class="fixed bottom-0 left-0 right-0 h-[45vh] z-0 pointer-events-none opacity-40"
+         style="
+            background-image:
+                linear-gradient(0deg, transparent 24%, var(--border) 25%, var(--border) 26%, transparent 27%, transparent 74%, var(--border) 75%, var(--border) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, var(--border) 25%, var(--border) 26%, transparent 27%, transparent 74%, var(--border) 75%, var(--border) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            perspective: 1000px;
+            transform: perspective(500px) rotateX(60deg) translateY(100px) scale(2);
+         ">
+    </div>
+
+    {{-- Contenu Principal --}}
+    <div class="relative z-10 max-w-6xl mx-auto p-5 mt-10 space-y-24">
+
         @if(isset($articlesPlusVus) && count($articlesPlusVus) > 0)
-            <div class="mb-16">
-                <h2 class="text-3xl font-bold text-gray-800 mb-7 pb-4 border-b-4" style="border-color: #2BE7C6">🔥 Top 3 articles les plus vus</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <section>
+                <div class="flex items-center gap-4 mb-8 border-b-2 border-primary pb-2 w-fit pr-10 shadow-[0_4px_20px_rgba(0,255,255,0.2)]">
+                    <span class="text-4xl animate-bounce">🏆</span>
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-mono font-bold text-primary uppercase italic transform -skew-x-6" style="text-shadow: 2px 2px 0px var(--muted);">
+                            High Scores
+                        </h2>
+                        <span class="font-sans text-xl text-muted-foreground">> Most Viewed Data</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     @foreach($articlesPlusVus as $article)
-                        <article class="bg-white rounded-lg shadow-md border-2 p-4 flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg" style="border-color: #2BE7C6">
-                            @if($article->image)
-                                <div class="w-full h-64 overflow-hidden bg-gray-100 mb-4 rounded-md">
-                                    <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->titre ?? 'Image de l\'article' }}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" />
-                                </div>
-                            @endif
-                            <div class="p-4 flex-1 flex flex-col">
-                                <h2 class="text-xl font-bold text-gray-900 mb-2 leading-snug">{{ $article->titre ?? 'Sans titre' }}</h2>
-                                @if($article->editeur)
-                                    <p class="text-sm text-gray-600 my-1">Par <strong>{{ $article->editeur->name }}</strong></p>
-                                @endif
-                                <p class="text-xs text-gray-400 my-1 mb-3">{{ $article->created_at->format('d/m/Y') }}</p>
-                                <p class="text-sm text-gray-700 leading-relaxed mb-4 flex-grow">{{ Illuminate\Support\Str::limit(strip_tags($article->resume ?? ''), 150) }}</p>
-                                <p class="text-sm font-bold my-2.5" style="color: #2BE7C6">{{ $article->nb_vues }} vues</p>
-                                <a href="{{ route('articles.show', $article) }}" class="inline-block text-white px-5 py-2.5 rounded-md text-decoration-none text-sm font-bold transition-opacity duration-200 self-start mt-auto hover:opacity-90" style="background-color: #2B5BBB">Lire la suite</a>
-                            </div>
-                        </article>
+                        <div class="group relative bg-card border border-border p-1 hover:border-primary hover:shadow-[0_0_25px_rgba(0,255,255,0.3)] transition-all duration-300 hover:-translate-y-1">
+                            <x-article-card :article="$article" />
+
+                            <!-- Corner Accents -->
+                            <div class="absolute -top-1 -left-1 w-3 h-3 border-t-2 border-l-2 border-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div class="absolute -bottom-1 -right-1 w-3 h-3 border-b-2 border-r-2 border-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        </div>
                     @endforeach
                 </div>
-            </div>
+            </section>
         @endif
 
         @if(isset($articlesPlusLikes) && count($articlesPlusLikes) > 0)
-            <div class="mb-16">
-                <h2 class="text-3xl font-bold text-gray-800 mb-7 pb-4 border-b-4" style="border-color: #C2006D">❤️ Top 3 articles les plus aimés</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <section>
+                <div class="flex items-center gap-4 mb-8 border-b-2 border-secondary pb-2 w-fit pr-10 shadow-[0_4px_20px_rgba(255,106,213,0.2)]">
+                    <span class="text-4xl animate-pulse">❤️</span>
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-mono font-bold text-secondary uppercase italic transform -skew-x-6" style="text-shadow: 2px 2px 0px var(--muted);">
+                            Fan Favorites
+                        </h2>
+                        <span class="font-sans text-xl text-muted-foreground">> Top Rated</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     @foreach($articlesPlusLikes as $article)
-                        <article class="bg-white rounded-lg shadow-md border-2 p-4 flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg" style="border-color: #C2006D">
-                            @if($article->image)
-                                <div class="w-full h-64 overflow-hidden bg-gray-100 mb-4 rounded-md">
-                                    <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->titre ?? 'Image de l\'article' }}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" />
-                                </div>
-                            @endif
-                            <div class="p-4 flex-1 flex flex-col">
-                                <h2 class="text-xl font-bold text-gray-900 mb-2 leading-snug">{{ $article->titre ?? 'Sans titre' }}</h2>
-                                @if($article->editeur)
-                                    <p class="text-sm text-gray-600 my-1">Par <strong>{{ $article->editeur->name }}</strong></p>
-                                @endif
-                                <p class="text-xs text-gray-400 my-1 mb-3">{{ $article->created_at->format('d/m/Y') }}</p>
-                                <p class="text-sm text-gray-700 leading-relaxed mb-4 flex-grow">{{ Illuminate\Support\Str::limit(strip_tags($article->resume ?? ''), 150) }}</p>
-                                <p class="text-sm font-bold my-2.5" style="color: #C2006D">{{ $article->likes_count }} likes</p>
-                                <a href="{{ route('articles.show', $article) }}" class="inline-block text-white px-5 py-2.5 rounded-md text-decoration-none text-sm font-bold transition-opacity duration-200 self-start mt-auto hover:opacity-90" style="background-color: #2B5BBB">Lire la suite</a>
-                            </div>
-                        </article>
+                        <div class="group relative bg-card border border-border p-1 hover:border-secondary hover:shadow-[0_0_25px_rgba(255,106,213,0.3)] transition-all duration-300 hover:-translate-y-1">
+                            <x-article-card :article="$article" />
+
+                            <!-- Corner Accents -->
+                            <div class="absolute -top-1 -left-1 w-3 h-3 border-t-2 border-l-2 border-secondary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div class="absolute -bottom-1 -right-1 w-3 h-3 border-b-2 border-r-2 border-secondary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        </div>
                     @endforeach
                 </div>
-            </div>
+            </section>
         @endif
     </div>
 @endsection

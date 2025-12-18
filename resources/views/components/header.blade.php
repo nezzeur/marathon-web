@@ -1,24 +1,37 @@
 @props(['class' => ''])
 
-<nav {{ $attributes->merge(['class' => '' . $class]) }} class="bg-white border-b-4 shadow-lg" style="border-color: #2BE7C6">
-    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-8">
-        <!-- Logo à gauche -->
-        <a href="{{ route('accueil') }}" class="flex-shrink-0">
-            <img src="{{ asset('images/logo_long.svg') }}" alt="Logo Marathon" class="h-12 w-auto hover:opacity-80 transition-opacity" />
+{{-- Injection des polices pour matcher vos variables CSS --}}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+    :root {
+        --font-vt323: "VT323", monospace;
+        --font-press-start: "Press Start 2P", cursive;
+    }
+</style>
+
+<nav class="bg-background/90 backdrop-blur-md border-b border-border sticky top-0 z-50 shadow-[0_0_20px_rgba(0,255,255,0.15)]">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-8">
+
+        <!-- Logo Hyper Vyper Style avec effet Chrome -->
+        <a href="{{ route('accueil') }}" class="flex-shrink-0 group">
+            <h1 class="text-4xl md:text-5xl font-mono font-black italic tracking-tighter chrome-text transform -skew-x-12 hover:skew-x-0 transition-transform duration-300">
+                OKRINA
+            </h1>
         </a>
 
         <!-- Liens centraux -->
-        <div class="flex items-center gap-6 flex-1 justify-center">
-            <a href="{{ route('accueil') }}" class="font-bold transition-colors hover:opacity-80" style="color: #2B5BBB">
-                🏠 Accueil
+        <div class="hidden md:flex items-center gap-8 flex-1 justify-center">
+            <a href="{{ route('accueil') }}" class="font-sans text-2xl uppercase text-muted-foreground hover:text-primary hover:animate-glow-pulse transition-colors">
+                <span class="mr-1 opacity-50">[</span>Base<span class="ml-1 opacity-50">]</span>
             </a>
-            <a href="{{ route('contact') }}" class="font-bold transition-colors hover:opacity-80" style="color: #2B5BBB">
-                📞 Contact
+            <a href="{{ route('contact') }}" class="font-sans text-2xl uppercase text-muted-foreground hover:text-secondary hover:animate-glow-pulse transition-colors">
+                <span class="mr-1 opacity-50">[</span>Signal<span class="ml-1 opacity-50">]</span>
             </a>
 
             @auth
-                <a href="{{ route('articles.create') }}" class="font-bold transition-colors hover:opacity-80" style="color: #2BE7C6">
-                    ✍️ Créer un article
+                <a href="{{ route('articles.create') }}" class="font-sans text-2xl uppercase text-primary border border-primary/50 px-4 py-1 hover:bg-primary hover:text-primary-foreground transition-all box-shadow hover:shadow-[0_0_15px_var(--primary)]">
+                    ✚ Insert_Data
                 </a>
             @endauth
         </div>
@@ -26,24 +39,24 @@
         <!-- Authentification à droite -->
         <div class="flex items-center gap-4">
             @auth
-                <div class="flex items-center gap-3">
-                    <a href="{{ route('user.me') }}" class="font-bold px-3 py-2 rounded-lg transition-opacity hover:opacity-80" style="background-color: #2BE7C6; color: #2B5BBB">
-                        👤 {{ Auth::user()->name }}
+                <div class="flex items-center gap-4">
+                    <a href="{{ route('user.me') }}" class="font-sans text-xl px-4 py-2 border border-secondary text-secondary bg-card hover:bg-secondary hover:text-secondary-foreground transition-all uppercase truncate max-w-[150px]">
+                        P1: {{ Auth::user()->name }}
                     </a>
 
                     <form id="logout" action="{{ route('logout') }}" method="post" style="display: inline;">
                         @csrf
-                        <button type="submit" class="font-bold px-4 py-2 rounded-lg text-white transition-opacity hover:opacity-90" style="background-color: #C2006D">
-                            🚪 Logout
+                        <button type="submit" class="font-mono text-xs px-3 py-3 bg-destructive text-destructive-foreground hover:brightness-110 border-b-4 border-black/30 active:border-b-0 active:translate-y-1">
+                            QUIT
                         </button>
                     </form>
                 </div>
             @else
-                <a href="{{ route('login') }}" class="font-bold px-4 py-2 rounded-lg text-white transition-opacity hover:opacity-90" style="background-color: #2B5BBB">
-                    🔐 Login
+                <a href="{{ route('login') }}" class="hidden md:inline-block font-mono text-xs px-4 py-3 bg-primary text-primary-foreground hover:brightness-110 border-b-4 border-black/30 active:border-b-0 active:translate-y-1">
+                    START
                 </a>
-                <a href="{{ route('register') }}" class="font-bold px-4 py-2 rounded-lg text-white transition-opacity hover:opacity-90" style="background-color: #2BE7C6; color: #2B5BBB">
-                    📝 Register
+                <a href="{{ route('register') }}" class="hidden md:inline-block font-mono text-xs px-4 py-3 bg-secondary text-secondary-foreground hover:brightness-110 border-b-4 border-black/30 active:border-b-0 active:translate-y-1">
+                    JOIN
                 </a>
             @endauth
         </div>
