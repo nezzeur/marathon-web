@@ -20,6 +20,8 @@ class TextSanitizer
     protected function configurePurifier(): void
     {
         $config = HTMLPurifier_Config::createDefault();
+
+        $config->set('Cache.DefinitionImpl', null);
         
         // Configuration de sécurité pour le texte simple
         $config->set('HTML.Doctype', 'HTML 4.01 Transitional');
