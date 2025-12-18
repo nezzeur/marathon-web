@@ -101,6 +101,11 @@
         {{-- Footer décoratif --}}
         <div class="text-center border-t border-[#2858bb]/20 pt-8 mt-12">
             <p class="text-[10px] font-mono text-[#bed2ff]/50 uppercase tracking-[0.2em] animate-pulse">End of transmission // Signal lost</p>
+            <div class="mt-4">
+                <a href="{{ route('wiki') }}" class="inline-block font-mono text-xs px-4 py-2 bg-[#2858bb] text-white hover:brightness-110 border-b-2 border-[#bed2ff]/30 active:border-b-0 active:translate-y-0.5 transition-all">
+                    📚 ACCÉDER AU WIKI
+                </a>
+            </div>
         </div>
 
     </div>
