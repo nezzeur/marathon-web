@@ -51,11 +51,11 @@ class FirstTimeVisitorTest extends TestCase
     }
 
     /**
-     * Test que le cookie est posé lors de la première redirection
+     * Test que le cookie et la session sont posés lors de la première redirection
      *
      * @return void
      */
-    public function test_cookie_is_set_on_first_redirect()
+    public function test_cookie_and_session_set_on_first_redirect()
     {
         // Simuler une première visite
         $response = $this->get('/');
@@ -63,6 +63,9 @@ class FirstTimeVisitorTest extends TestCase
         // Vérifier que la redirection contient le cookie
         $response->assertRedirect(route('first.page'));
         $response->assertCookie('okrina_visited', 'true');
+        
+        // Vérifier que la session est aussi marquée
+        $this->assertTrue(Session::has('okrina_visited'));
     }
 
     /**
