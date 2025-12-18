@@ -7,11 +7,11 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body>
+<body class="flex flex-col min-h-screen">
 <x-header/>
 <x-navigation/>
 <x-welcome-message />
-<main>
+<main class="flex-grow">
     @yield("contenu")
 </main>
 

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -121,8 +123,51 @@
     * {
         @apply border-border outline-ring/50;
     }
-    body {
+
+    /* Police par défaut partout : Montserrat */
+    html, body {
         @apply bg-background text-foreground;
+        font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
+    }
+
+    /* Tous les éléments héritent de Montserrat */
+    html, body, div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, embed,
+    figure, figcaption, footer, header, hgroup,
+    menu, nav, output, ruby, section, summary,
+    time, mark, audio, video {
+        font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
+    }
+
+    /* Titres avec Orbitron - font-black */
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Orbitron', monospace;
+        @apply font-black;
+    }
+
+    /* Textes importants avec Orbitron */
+    strong, b, .font-bold, .font-black {
+        font-family: 'Orbitron', monospace;
+    }
+
+    /* Labels et textes de formulaire */
+    label, input, textarea, select, button {
+        font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
+    }
+
+    /* Cards et containers */
+    .card, [class*="card"], [class*="Card"],
+    .article, [class*="article"], [class*="Article"],
+    .container, .box, .panel {
+        font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
     }
 }
 
@@ -156,25 +201,6 @@
     }
 }
 
-@keyframes neon-flicker {
-    0%,
-    19%,
-    21%,
-    23%,
-    25%,
-    54%,
-    56%,
-    100% {
-        opacity: 1;
-        text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 40px currentColor;
-    }
-    20%,
-    24%,
-    55% {
-        opacity: 0.8;
-        text-shadow: none;
-    }
-}
 
 @keyframes pulse {
     0%,

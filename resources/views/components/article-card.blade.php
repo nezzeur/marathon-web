@@ -19,7 +19,7 @@
 
     {{-- Curseur de sélection (Flèche gauche) --}}
     <div class="absolute -left-8 top-1/2 -translate-y-1/2 transition-all duration-200 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0">
-        <div class="font-mono text-2xl text-[#ffd60a] animate-pulse" style="text-shadow: 0 0 10px #ffd60a">
+        <div class="font-orbitron text-2xl text-[#ffd60a] animate-pulse" style="text-shadow: 0 0 10px #ffd60a">
             ▶
         </div>
     </div>
@@ -69,18 +69,18 @@
                     </div>--}}
 
                     {{-- Titre de l'article (Mapping: Game Title) --}}
-                    <h3 class="font-mono text-lg font-black text-white mb-1 leading-tight tracking-tight line-clamp-2"
+                    <h3 class="font-orbitron text-lg font-black text-white mb-1 leading-tight tracking-tight line-clamp-2"
                         style="text-shadow: 2px 2px 0 #000; image-rendering: pixelated; min-height: 3rem;">
                         {{ $article->titre ?? 'SANS TITRE' }}
                     </h3>
 
                     {{-- Date complète (Mapping: Genre) --}}
                     <div class="inline-block px-2 py-0.5 bg-black/50 border border-white/30 mb-3 backdrop-blur-sm">
-                        <span class="font-mono text-[10px] text-white/80 tracking-wider">{{ $fullDate }}</span>
+                        <span class="text-[10px] text-white/80 tracking-wider" style="font-family: 'Orbitron', monospace;">{{ $fullDate }}</span>
                     </div>
 
                     {{-- Résumé (Mapping: Excerpt) --}}
-                    <p class="font-mono text-xs text-white/90 leading-relaxed mb-2 line-clamp-3 h-[4.5em]" style="text-shadow: 1px 1px 0 #000">
+                    <p class="font-montserrat text-xs text-white/90 leading-relaxed mb-2 line-clamp-3 h-[4.5em]" style="text-shadow: 1px 1px 0 #000">
                         {{ Illuminate\Support\Str::limit(strip_tags($article->resume ?? ''), 100) }}
                     </p>
 
@@ -94,18 +94,11 @@
                                     </div>
                                 @endfor
                             </div>
-                            <span class="font-mono text-[10px] text-[#00ffff] uppercase truncate max-w-[120px]">
+                            <span class="text-[10px] text-[#00ffff] uppercase truncate max-w-[120px]" style="font-family: 'Orbitron', monospace;">
                             {{ $article->editeur->name }}
                         </span>
                         </div>
                     @endif
-
-                    {{-- Faux sceau de qualité --}}
-                    {{--<div class="absolute bottom-0 right-0 w-8 h-8 rounded-full border-2 border-[#ffd60a] flex items-center justify-center bg-[#ffd60a20] backdrop-blur-sm">
-                        <span class="font-mono text-[6px] text-[#ffd60a] font-bold text-center leading-tight">
-                            DEV<br>BLOG
-                        </span>
-                    </div>--}}
                 </div>
             </div>
 
@@ -118,7 +111,7 @@
         </div>
 
         {{-- Badge temps de lecture --}}
-        <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 px-3 py-1 bg-[#0a0a1a] border-2 border-[#00ffff] font-mono text-[10px] text-[#00ffff] shadow-[0_0_10px_#00ffff40]">
+        <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 px-3 py-1 bg-[#0a0a1a] border-2 border-[#00ffff] font-orbitron text-[10px] text-[#00ffff] shadow-[0_0_10px_#00ffff40]">
             {{ $readTime }} READ
         </div>
     </div>

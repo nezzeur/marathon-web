@@ -24,12 +24,11 @@
         @if(isset($articlesPlusVus) && count($articlesPlusVus) > 0)
             <section>
                 <div class="flex items-center gap-4 mb-8 border-b-2 border-primary pb-2 w-fit pr-10 shadow-[0_4px_20px_rgba(0,255,255,0.2)]">
-                    <span class="text-4xl animate-bounce">🏆</span>
                     <div>
-                        <h2 class="text-3xl md:text-4xl font-mono font-bold text-primary uppercase italic transform -skew-x-6" style="text-shadow: 2px 2px 0px var(--muted);">
+                        <h2 class="text-3xl md:text-4xl font-orbitron font-bold text-primary uppercase italic transform -skew-x-6" style="text-shadow: 2px 2px 0px var(--muted);">
                             High Scores
                         </h2>
-                        <span class="font-sans text-xl text-muted-foreground">> Most Viewed Data</span>
+                        <span class="font-montserrat text-xl text-muted-foreground">> Most Viewed Data</span>
                     </div>
                 </div>
 
@@ -50,12 +49,11 @@
         @if(isset($articlesPlusLikes) && count($articlesPlusLikes) > 0)
             <section>
                 <div class="flex items-center gap-4 mb-8 border-b-2 border-secondary pb-2 w-fit pr-10 shadow-[0_4px_20px_rgba(255,106,213,0.2)]">
-                    <span class="text-4xl animate-pulse">❤️</span>
                     <div>
-                        <h2 class="text-3xl md:text-4xl font-mono font-bold text-secondary uppercase italic transform -skew-x-6" style="text-shadow: 2px 2px 0px var(--muted);">
+                        <h2 class="text-3xl md:text-4xl font-orbitron font-bold text-secondary uppercase italic transform -skew-x-6" style="text-shadow: 2px 2px 0px var(--muted);">
                             Fan Favorites
                         </h2>
-                        <span class="font-sans text-xl text-muted-foreground">> Top Rated</span>
+                        <span class="font-montserrat text-xl text-muted-foreground">> Top Rated</span>
                     </div>
                 </div>
 
