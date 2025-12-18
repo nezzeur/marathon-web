@@ -45,6 +45,7 @@
 
             {{-- FORMULAIRE --}}
             <form id="articleForm" action="{{ route('articles.store') }}" method="POST" enctype="multipart/form-data" class="relative group">
+                @csrf
 
                 {{-- Cadre principal --}}
                 <div class="relative bg-gradient-to-br from-[#2B5BBB]/30 to-[#051025]/80 backdrop-blur-xl rounded-2xl border border-[#2BE7C6]/30 p-8 shadow-[0_0_50px_rgba(43,91,187,0.2)]">
@@ -116,18 +117,20 @@
                         </div>
                     </div>
 
-                    {{-- ACTIONS (BOUTONS STYLE HEADER) --}}
+                    {{-- ACTIONS (BOUTONS STYLE ARCADE START) --}}
                     <div class="mt-8 pt-6 border-t border-[#2B5BBB]/30 flex flex-col md:flex-row gap-4 items-center">
 
-                        {{-- Bouton PUBLIER (Cyan #2BE7C6 - Style Header) --}}
+                        {{-- Bouton PUBLIER (Cyan #2BE7C6 - Style Arcade) --}}
                         <button type="submit" name="action" value="publish" onclick="setRequired(true)"
-                                class="flex-1 w-full font-sans text-xl uppercase text-[#2BE7C6] border border-[#2BE7C6]/50 px-4 py-2 hover:bg-[#2BE7C6] hover:text-black transition-all box-shadow hover:shadow-[0_0_15px_#2BE7C6]">
+                                class="flex-1 w-full font-mono text-xs px-4 py-3 text-black hover:brightness-110 border-b-4 border-black/30 active:border-b-0 active:translate-y-1 transition-all"
+                                style="background-color: #2BE7C6;">
                              PUBLIER L'ARTICLE
                         </button>
 
-                        {{-- Bouton BROUILLON (Bleu #2B5BBB - Style Header) --}}
+                        {{-- Bouton BROUILLON (Rose #C2006D - Style Arcade) --}}
                         <button type="submit" name="action" value="draft" onclick="setRequired(false)"
-                                class="flex-1 w-full font-sans text-xl uppercase text-primary border border-primary/50 px-4 py-2 hover:bg-primary hover:text-primary-foreground transition-all box-shadow hover:shadow-[0_0_15px_var(--primary)]">
+                                class="flex-1 w-full font-mono text-xs px-4 py-3 text-white hover:brightness-110 border-b-4 border-black/30 active:border-b-0 active:translate-y-1 transition-all"
+                                style="background-color: #C2006D;">
                              SAUVEGARDER BROUILLON
                         </button>
                     </div>

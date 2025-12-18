@@ -45,7 +45,7 @@
                     <form id="logout" action="{{ route('logout') }}" method="post" style="display: inline;">
                         @csrf
                         <button type="submit" class="font-mono text-xs px-3 py-3 bg-destructive text-destructive-foreground hover:brightness-110 border-b-4 border-black/30 active:border-b-0 active:translate-y-1">
-                            QUIT
+                            QUITTER
                         </button>
                     </form>
                 </div>

@@ -39,9 +39,14 @@ Route::get('/home', [ArticleController::class, 'index'])->name("home");
  * ============================================
  */
 
-// Création d'articles
-Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
-Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store')->middleware('throttle:api');
+// Création d'articles (protégée par authentification)
+Route::middleware(['auth'])->group(function () {
+    Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
+    Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store')->middleware('throttle:api');
+});
+
+// Liste des articles (publique)
+Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
 
 // Affichage et gestion des articles
 const ARTICLE_SHOW = '/articles/{article}';
