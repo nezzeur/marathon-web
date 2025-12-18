@@ -20,6 +20,9 @@ Route::get('/first', function () {
     return view('first');
 })->name("first.page");
 
+// Route de recherche d'articles
+Route::get('/articles/search', [ArticleController::class, 'search'])->name('articles.search');
+
 // Route temporaire pour debug - à supprimer en production
 Route::get('/debug-cookie', function () {
     $hasCookie = request()->hasCookie('okrina_visited');
