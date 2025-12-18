@@ -28,6 +28,9 @@
             <a href="{{ route('contact') }}" class="font-sans text-2xl uppercase text-white hover:text-secondary hover:animate-glow-pulse transition-colors">
                 <span class="mr-1 opacity-50">[</span>Contact<span class="ml-1 opacity-50">]</span>
             </a>
+            <a href="{{ route('wiki') }}" class="font-sans text-2xl uppercase text-white hover:text-secondary hover:animate-glow-pulse transition-colors">
+                <span class="mr-1 opacity-50">[</span>Wiki<span class="ml-1 opacity-50">]</span>
+            </a>
 
             @auth
                 <a href="{{ route('articles.create') }}" class="font-sans text-2xl uppercase text-white hover:text-primary hover:animate-glow-pulse transition-colors">

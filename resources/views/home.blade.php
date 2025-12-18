@@ -92,5 +92,36 @@
                 </div>
             </section>
         @endif
+
+        {{-- SECTION 3 : VIDEO PRESENTATION (Thème Cyan #2BE7C6) --}}
+        <section>
+            {{-- Titre de section --}}
+            <div class="flex items-end gap-4 mb-8 border-b-4 border-[#2BE7C6] pb-2 pr-10 shadow-[0_4px_20px_rgba(43,231,198,0.3)] w-fit backdrop-blur-sm bg-black/30 px-4 rounded-t-lg">
+                <div>
+                    <h2 class="text-3xl md:text-5xl font-black font-orbitron text-transparent bg-clip-text bg-gradient-to-r from-[#2BE7C6] to-white uppercase italic transform -skew-x-6 drop-shadow-[0_2px_0px_#2BE7C6]">
+                        Interview
+                    </h2>
+                    <span class="font-bold text-[#2BE7C6] text-sm md:text-lg tracking-widest uppercase">> Gaming Interview</span>
+                </div>
+            </div>
+
+            {{-- Conteneur vidéo avec style synthwave --}}
+            <div class="group/video relative bg-black/60 backdrop-blur-md rounded-xl border border-[#2BE7C6]/30 p-4 hover:border-[#2BE7C6] hover:shadow-[0_0_25px_rgba(43,231,198,0.4)] transition-all duration-300">
+
+                {{-- Conteneur vidéo YouTube responsive --}}
+                <div class="aspect-video w-full overflow-hidden rounded-lg border-2 border-[#2BE7C6]/20 group-hover/video:border-[#2BE7C6]/50 transition-colors duration-300">
+                    <iframe
+                        width="100%"
+                        height="100%"
+                        src="https://www.youtube.com/embed/ja8zQV-FJ54"
+                        title="Présentation Marathon - Plateforme Synthwave"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                        class="w-full h-full">
+                    </iframe>
+                </div>
+            </div>
+        </section>
     </div>
 @endsection
