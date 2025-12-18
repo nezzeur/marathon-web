@@ -46,10 +46,28 @@
         {{-- Média --}}
         @if($article->media)
             <h3>Média associé</h3>
+            @php
+                // Vérifier si c'est une URL externe ou un fichier local
+                $isExternalUrl = str_starts_with($article->media, 'http');
+                $audioSrc = $isExternalUrl ? $article->media : asset('storage/' . $article->media);
+                
+                // Déterminer le type MIME
+                if ($isExternalUrl) {
+                    $mimeType = 'audio/mpeg'; // Par défaut pour les URL externes
+                } else {
+                    $fileExtension = pathinfo($article->media, PATHINFO_EXTENSION);
+                    $mimeType = $fileExtension === 'wav' ? 'audio/wav' : 'audio/mpeg';
+                }
+            @endphp
             <audio controls style="width: 100%; margin: 20px 0;">
-                <source src="{{ asset('storage/' . $article->media) }}" type="audio/mpeg">
+                <source src="{{ $audioSrc }}" type="{{ $mimeType }}">
                 Votre navigateur ne supporte pas la balise audio.
             </audio>
+            @if($isExternalUrl)
+                <p style="font-size: 0.9em; color: #666; margin-top: -15px; margin-bottom: 20px;">
+                    ⚠️ Ce média est hébergé sur un site externe. Si le lecteur ne fonctionne pas, cela peut être dû à des restrictions de sécurité.
+                </p>
+            @endif
         @endif
 
         {{-- Caractéristiques --}}
