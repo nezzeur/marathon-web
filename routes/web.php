@@ -47,6 +47,11 @@ Route::get('/contact', function () {
     return view('contact');
 })->name("contact");
 
+// Page wiki
+Route::get('/wiki', function () {
+    return view('wiki');
+})->name("wiki");
+
 // Page de test Vite
 Route::get('/test-vite', function () {
     return view('test-vite');
