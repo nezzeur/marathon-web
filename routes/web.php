@@ -100,6 +100,7 @@ Route::get('/profile/{id}', [UserController::class, 'show'])->name('user.profile
 // Routes protégées pour la gestion du profil (nécessitent authentification)
 Route::middleware(['auth'])->group(function () {
     Route::post('/profile/{id}/toggle-follow', [UserController::class, 'toggleFollow'])->name('user.toggleFollow');
+    Route::post('/user/{id}/toggle-follow', [UserController::class, 'toggleFollow'])->name('user.toggleFollow');
     
     Route::get('/mon-profil', [UserController::class, 'me'])->name('user.me');
     Route::get('/mon-profil/edit', [UserController::class, 'edit'])->name('user.edit');
