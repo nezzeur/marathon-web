@@ -11,7 +11,7 @@
                 • <span class="comment-date">{{ $avis->created_at->format('d/m/Y H:i') }}</span>
             </div>
             <div class="comment-body">
-                <p>{{ $avis->contenu }}</p>
+                {!! $avis->safeContent !!}
             </div>
         </div>
     @empty

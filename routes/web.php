@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 // Page d'accueil
 Route::get('/', [ArticleController::class, 'index'])->name("accueil");
 
+// Page first pour les nouveaux visiteurs
+Route::get('/first', function () {
+    return view('first');
+})->name("first.page");
+
 // Page de contact
 Route::get('/contact', function () {
     return view('contact');
@@ -34,15 +39,20 @@ Route::get('/home', [ArticleController::class, 'index'])->name("home");
  * ============================================
  */
 
-// Création d'articles
-Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
-Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store');
+// Création d'articles (protégée par authentification)
+Route::middleware(['auth'])->group(function () {
+    Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
+    Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store')->middleware('throttle:api');
+});
+
+// Liste des articles (publique)
+Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
 
 // Affichage et gestion des articles
 const ARTICLE_SHOW = '/articles/{article}';
 
 Route::get(ARTICLE_SHOW, [ArticleController::class, 'show'])->name("articles.show");
-Route::post(ARTICLE_SHOW . '/toggle-like', [ArticleController::class, 'toggleLike'])->name("articles.toggleLike");
+Route::post(ARTICLE_SHOW . '/toggle-like', [ArticleController::class, 'toggleLike'])->name("articles.toggleLike")->middleware('throttle:likes');
 
 // Routes protégées pour la gestion des articles (nécessitent authentification)
 Route::middleware(['auth'])->group(function () {
@@ -94,5 +104,5 @@ Route::middleware(['auth'])->group(function () {
  * ============================================
  */
 
-Route::post('/avis', [AvisController::class, 'store'])->name('avis.store');
+Route::post('/avis', [AvisController::class, 'store'])->name('avis.store')->middleware('throttle:comments');
 
