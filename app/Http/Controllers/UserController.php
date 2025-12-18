@@ -54,18 +54,9 @@ class UserController extends Controller
         $result = $this->userService->toggleFollow($userId);
 
         if (!$result['success']) {
-            return response()->json([
-                'success' => false,
-                'message' => $result['message']
-            ], $result['code'] ?? 400);
+            return redirect()->back()->with('error', $result['message']);
         }
 
-        return response()->json([
-            'success' => true,
-            'message' => $result['message'],
-            'action' => $result['action'],
-            'isFollowing' => $result['isFollowing'],
-            'followersCount' => $result['followersCount']
-        ]);
+        return redirect()->back()->with('success', $result['message']);
     }
 }

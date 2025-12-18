@@ -21,12 +21,30 @@
         </div>
 
         {{-- Auteur & date --}}
-        <div class="bg-card/50 border-l-4 border-primary p-4 mb-8 rounded">
-            <p class="text-white">
-                <strong class="text-primary">{{ $article->editeur->name }}</strong> •
-                {{ $article->created_at->format('d/m/Y') }} •
-                {{ $article->nb_vues }} {{ $article->nb_vues > 1 ? 'vues' : 'vue' }}
-            </p>
+        <div class="bg-card/50 border-l-4 border-primary p-4 mb-8 rounded flex justify-between items-center">
+            <div>
+                <p class="text-white">
+                    <strong class="text-primary">{{ $article->editeur->name }}</strong> •
+                    {{ $article->created_at->format('d/m/Y') }} •
+                    {{ $article->nb_vues }} {{ $article->nb_vues > 1 ? 'vues' : 'vue' }}
+                </p>
+            </div>
+
+            {{-- Bouton Suivre --}}
+            @auth
+                @php
+                    $isFollowing = auth()->user()->suivis->contains($article->editeur->id);
+                @endphp
+                @if(Auth::id() !== $article->editeur->id)
+                    <form method="POST" action="{{ route('user.toggleFollow', $article->editeur->id) }}" style="display:inline;">
+                        @csrf
+                        <button type="submit" class="font-mono text-xs px-4 py-3 text-white hover:brightness-110 border-b-4 border-black/30 active:border-b-0 active:translate-y-1 transition-all font-semibold uppercase"
+                            style="background-color: {{ $isFollowing ? '#C2006D' : '#2BE7C6' }};">
+                            {{ $isFollowing ? 'NE PLUS SUIVRE' : 'SUIVRE' }}
+                        </button>
+                    </form>
+                @endif
+            @endauth
         </div>
 
         {{-- Image --}}
