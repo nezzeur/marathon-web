@@ -1,6 +1,5 @@
 @props(['class' => ''])
 
-{{-- Injection des polices pour matcher vos variables CSS --}}
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
 
