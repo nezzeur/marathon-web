@@ -257,3 +257,11 @@
     -webkit-text-fill-color: transparent;
     animation: chrome-shine 3s linear infinite;
 }
+
+@keyframes scanline {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 4px; } /* Doit correspondre à la hauteur du motif */
+}
+.animate-scanline {
+    animation: scanline 0.8s linear infinite;
+}
