@@ -1,64 +1,98 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AvisController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
 
+/**
+ * ============================================
+ * ROUTES PUBLIQUES
+ * ============================================
+ */
 
+// Page d'accueil
 Route::get('/', [ArticleController::class, 'index'])->name("accueil");
 
-Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
-Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store');
-
-Route::get('/articles/{article}', [ArticleController::class, 'show'])->name("articles.show");
-Route::post('/articles/{article}/toggle-like', [ArticleController::class, 'toggleLike'])->name("articles.toggleLike");
-Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])->middleware('auth')->name('articles.edit');
-Route::put('/articles/{article}', [ArticleController::class, 'update'])->middleware('auth')->name('articles.update');
-Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->middleware('auth')->name('articles.destroy');
-
-// Routes pour filtrer les articles par caractéristique
-Route::get('/articles/accessibilite/{accessibilite}', [ArticleController::class, 'byAccessibilite'])->name("articles.byAccessibilite");
-Route::get('/articles/rythme/{rythme}', [ArticleController::class, 'byRythme'])->name("articles.byRythme");
-Route::get('/articles/conclusion/{conclusion}', [ArticleController::class, 'byConclusion'])->name("articles.byConclusion");
-
-// Routes pour les notifications
-Route::middleware(['auth'])->group(function () {
-    Route::get('/notifications', [\App\Http\Controllers\NotificationController::class, 'all'])->name('notifications.all');
-    Route::get('/notifications/mark-as-read/{notification}', [\App\Http\Controllers\NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
-    Route::get('/notifications/mark-all-as-read', [\App\Http\Controllers\NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
-    Route::delete('/notifications/{notification}', [\App\Http\Controllers\NotificationController::class, 'destroy'])->name('notifications.destroy');
-    Route::delete('/notifications/destroy-all', [\App\Http\Controllers\NotificationController::class, 'destroyAll'])->name('notifications.destroyAll');
-});
-
+// Page de contact
 Route::get('/contact', function () {
     return view('contact');
 })->name("contact");
 
+// Page de test Vite
 Route::get('/test-vite', function () {
     return view('test-vite');
 })->name("test-vite");
 
+// Redirection home (alias de l'accueil)
 Route::get('/home', [ArticleController::class, 'index'])->name("home");
 
+/**
+ * ============================================
+ * ROUTES ARTICLES
+ * ============================================
+ */
 
+// Création d'articles
+Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
+Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store');
+
+// Affichage et gestion des articles
+const ARTICLE_SHOW = '/articles/{article}';
+
+Route::get(ARTICLE_SHOW, [ArticleController::class, 'show'])->name("articles.show");
+Route::post(ARTICLE_SHOW . '/toggle-like', [ArticleController::class, 'toggleLike'])->name("articles.toggleLike");
+
+// Routes protégées pour la gestion des articles (nécessitent authentification)
+Route::middleware(['auth'])->group(function () {
+    Route::get(ARTICLE_SHOW . '/edit', [ArticleController::class, 'edit'])->name('articles.edit');
+    Route::put(ARTICLE_SHOW, [ArticleController::class, 'update'])->name('articles.update');
+    Route::delete(ARTICLE_SHOW, [ArticleController::class, 'destroy'])->name('articles.destroy');
+});
+
+// Filtrage des articles par caractéristiques
+Route::get('/articles/accessibilite/{accessibilite}', [ArticleController::class, 'byAccessibilite'])->name("articles.byAccessibilite");
+Route::get('/articles/rythme/{rythme}', [ArticleController::class, 'byRythme'])->name("articles.byRythme");
+Route::get('/articles/conclusion/{conclusion}', [ArticleController::class, 'byConclusion'])->name("articles.byConclusion");
+
+/**
+ * ============================================
+ * ROUTES UTILISATEURS
+ * ============================================
+ */
+
+// Profil public d'un utilisateur
 Route::get('/profile/{id}', [UserController::class, 'show'])->name('user.profile');
 
-Route::post('/profile/{id}/toggle-follow', [UserController::class, 'toggleFollow'])
-    ->middleware('auth')
-    ->name('user.toggleFollow');
+// Routes protégées pour la gestion du profil (nécessitent authentification)
+Route::middleware(['auth'])->group(function () {
+    Route::post('/profile/{id}/toggle-follow', [UserController::class, 'toggleFollow'])->name('user.toggleFollow');
+    
+    Route::get('/mon-profil', [UserController::class, 'me'])->name('user.me');
+    Route::get('/mon-profil/edit', [UserController::class, 'edit'])->name('user.edit');
+    Route::put('/mon-profil', [UserController::class, 'update'])->name('user.update');
+});
 
-Route::get('/mon-profil', [UserController::class, 'me'])
-    ->middleware('auth')
-    ->name('user.me');
+/**
+ * ============================================
+ * ROUTES NOTIFICATIONS
+ * ============================================
+ */
 
-Route::get('/mon-profil/edit', [UserController::class, 'edit'])
-    ->middleware('auth')
-    ->name('user.edit');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/notifications', [NotificationController::class, 'all'])->name('notifications.all');
+    Route::get('/notifications/mark-as-read/{notification}', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+    Route::get('/notifications/mark-all-as-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
+    Route::delete('/notifications/{notification}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
+    Route::delete('/notifications/destroy-all', [NotificationController::class, 'destroyAll'])->name('notifications.destroyAll');
+});
 
-Route::put('/mon-profil', [UserController::class, 'update'])
-    ->middleware('auth')
-    ->name('user.update');
+/**
+ * ============================================
+ * ROUTES AVIS/COMMENTAIRES
+ * ============================================
+ */
 
-// Routes pour les avis/commentaires
-Route::post('/avis', [\App\Http\Controllers\AvisController::class, 'store'])->name('avis.store');
+Route::post('/avis', [AvisController::class, 'store'])->name('avis.store');
 
