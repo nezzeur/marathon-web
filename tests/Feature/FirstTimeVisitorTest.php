@@ -93,4 +93,19 @@ class FirstTimeVisitorTest extends TestCase
         $registerResponse = $this->get('/register');
         $registerResponse->assertStatus(200);
     }
+
+    /**
+     * Test que le contrôleur d'accueil ne pose plus de cookie
+     *
+     * @return void
+     */
+    public function test_home_controller_does_not_set_cookie()
+    {
+        // Simuler un visiteur existant qui accède directement à l'accueil
+        $response = $this->withCookie('okrina_visited', 'true')->get('/home');
+        
+        // Vérifier que la réponse ne contient pas de cookie
+        $response->assertStatus(200);
+        $response->assertViewIs('home');
+    }
 }
