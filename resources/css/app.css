@@ -319,3 +319,33 @@ input[type="file"]::file-selector-button:active {
     border-bottom: 0;
     transform: translateY(4px);
 }
+
+/* ==== CSS POUR SHOW ARTICLE PAGE ==== */
+
+.article-container {
+    background: linear-gradient(135deg, rgba(13, 2, 33, 0.8) 0%, rgba(26, 5, 51, 0.6) 100%);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(43, 231, 198, 0.2);
+    box-shadow: 0 0 20px rgba(43, 231, 198, 0.1);
+}
+
+.article-section {
+    border-left: 3px solid var(--primary);
+    padding-left: 1rem;
+    margin-bottom: 2rem;
+}
+
+.scanline-content {
+    background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        rgba(43, 231, 198, 0.05) 1px,
+        transparent 2px
+    );
+}
+
+.article-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

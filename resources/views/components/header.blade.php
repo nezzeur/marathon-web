@@ -28,8 +28,8 @@
             </a>
 
             @auth
-                <a href="{{ route('articles.create') }}" class="font-sans text-2xl uppercase text-primary border border-primary/50 px-4 py-1 hover:bg-primary hover:text-primary-foreground transition-all box-shadow hover:shadow-[0_0_15px_var(--primary)]">
-                    ✚ Insert_Data
+                <a href="{{ route('articles.create') }}" class="font-sans text-2xl uppercase text-white hover:text-primary hover:animate-glow-pulse transition-colors">
+                    <span class="mr-1 opacity-50">[</span>Insert_Data<span class="ml-1 opacity-50">]</span>
                 </a>
             @endauth
         </div>

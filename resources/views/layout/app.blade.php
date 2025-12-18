@@ -9,7 +9,6 @@
 
 <body class="flex flex-col min-h-screen">
 <x-header/>
-<x-navigation/>
 <x-welcome-message />
 <main class="flex-grow">
     @yield("contenu")

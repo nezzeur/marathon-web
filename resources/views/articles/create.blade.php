@@ -21,7 +21,7 @@
             {{-- EN-TÊTE --}}
             <div class="mb-10 text-center">
                 <h1 class="text-4xl md:text-5xl font-black italic uppercase tracking-tighter text-white drop-shadow-[0_2px_0px_#2B5BBB]">
-                    NEW ENTRY
+                    NOUVEL ARTICLE
                 </h1>
                 <div class="h-1 w-32 mx-auto mt-4 bg-gradient-to-r from-transparent via-[#C2006D] to-transparent"></div>
             </div>
@@ -99,7 +99,7 @@
                             <hr class="border-[#2B5BBB]/30">
 
                             <div class="space-y-4">
-                                @foreach(['rythme_id' => '⏱Rythme', 'accessibilite_id' => 'Accessibilité', 'conclusion_id' => '✓ Conclusion'] as $field => $label)
+                                @foreach(['rythme_id' => 'Rythme', 'accessibilite_id' => 'Accessibilité', 'conclusion_id' => 'Conclusion'] as $field => $label)
                                     <div>
                                         <label class="text-[10px] text-white uppercase font-bold">{{ $label }}</label>
                                         <select name="{{ $field }}" id="{{ $field }}" class="w-full mt-1 bg-[#051025]/60 border border-[#2B5BBB]/50 rounded-lg text-white text-xs py-2 px-3 focus:border-[#2BE7C6] focus:ring-1 focus:ring-[#2BE7C6]">
@@ -116,20 +116,18 @@
                         </div>
                     </div>
 
-                    {{-- ACTIONS (BOUTONS IDENTIQUES ARCADE) --}}
+                    {{-- ACTIONS (BOUTONS STYLE HEADER) --}}
                     <div class="mt-8 pt-6 border-t border-[#2B5BBB]/30 flex flex-col md:flex-row gap-4 items-center">
 
-                        {{-- Bouton PUBLIER (Cyan #2BE7C6 - Style Arcade) --}}
+                        {{-- Bouton PUBLIER (Cyan #2BE7C6 - Style Header) --}}
                         <button type="submit" name="action" value="publish" onclick="setRequired(true)"
-                                class="flex-1 w-full bg-[#2BE7C6] text-black font-bold py-4 px-6 border-b-4 border-black/30 hover:brightness-110 active:border-b-0 active:translate-y-1 transition-all"
-                                style="font-family: 'VT323', monospace; font-size: 1.5rem; text-transform: uppercase;">
+                                class="flex-1 w-full font-sans text-xl uppercase text-[#2BE7C6] border border-[#2BE7C6]/50 px-4 py-2 hover:bg-[#2BE7C6] hover:text-black transition-all box-shadow hover:shadow-[0_0_15px_#2BE7C6]">
                              PUBLIER L'ARTICLE
                         </button>
 
-                        {{-- Bouton BROUILLON (Bleu #2B5BBB - Style Arcade) --}}
+                        {{-- Bouton BROUILLON (Bleu #2B5BBB - Style Header) --}}
                         <button type="submit" name="action" value="draft" onclick="setRequired(false)"
-                                class="flex-1 w-full bg-[#2B5BBB] text-white font-bold py-4 px-6 border-b-4 border-black/30 hover:brightness-110 active:border-b-0 active:translate-y-1 transition-all"
-                                style="font-family: 'VT323', monospace; font-size: 1.5rem; text-transform: uppercase;">
+                                class="flex-1 w-full font-sans text-xl uppercase text-primary border border-primary/50 px-4 py-2 hover:bg-primary hover:text-primary-foreground transition-all box-shadow hover:shadow-[0_0_15px_var(--primary)]">
                              SAUVEGARDER BROUILLON
                         </button>
                     </div>
