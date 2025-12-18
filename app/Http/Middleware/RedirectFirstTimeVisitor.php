@@ -4,6 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -33,64 +35,53 @@ class RedirectFirstTimeVisitor
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Vérifier si c'est la première visite en vérifiant le cookie existant
+        // Vérifier si c'est la première visite en vérifiant le cookie ET la session
         $hasCookie = $request->hasCookie('okrina_visited');
-        $cookieValue = $request->cookie('okrina_visited');
+        $hasSession = Session::has('okrina_visited');
+        $isFirstVisit = !$hasCookie && !$hasSession;
         
         // Log pour debug
-        logger('RedirectFirstTimeVisitor: ' . $request->path() . ' - hasCookie: ' . $hasCookie . ', cookieValue: ' . $cookieValue);
+        Log::info('RedirectFirstTimeVisitor: ' . $request->path() . 
+                 ' - hasCookie: ' . ($hasCookie ? 'true' : 'false') . 
+                 ', hasSession: ' . ($hasSession ? 'true' : 'false') . 
+                 ', isFirstVisit: ' . ($isFirstVisit ? 'true' : 'false'));
         
-        // MODE DEBUG: Forcer la redirection vers /first pour tester
-        // À commenter en production
-        if (env('APP_DEBUG', false) && $request->is('/')) {
-            logger('RedirectFirstTimeVisitor: MODE DEBUG - Redirection forcée vers /first');
-            return redirect()->route('first.page')->cookie(
-                'okrina_visited', 
-                'true', 
-                60 * 24 * 30, // 30 jours
-                '/', 
-                null, 
-                false, 
-                false
-            );
-        }
-        
-        if (!$hasCookie) {
-            // Si c'est la première visite et qu'on n'est pas sur une route spécifique (auth, api, etc.)
-            // et qu'on n'est pas déjà sur /first, rediriger vers first avec le cookie
-            if (!$request->is('first') && 
-                !$request->is('login') && 
-                !$request->is('register') && 
-                !$request->is('logout') &&
-                !$request->is('password/*') &&
-                !$request->is('auth/*') &&
-                !$request->is('api/*') &&
-                !$request->is('_debugbar/*') &&
-                !$request->is('storage/*') &&
-                !$request->is('build/*')) {
+        // Si nous sommes sur la page d'accueil
+        if ($request->is('/')) {
+            if ($isFirstVisit) {
+                // Première visite: rediriger vers /first avec le cookie ET la session
+                Log::info('RedirectFirstTimeVisitor: Première visite - redirection vers /first avec cookie et session');
                 
-                logger('RedirectFirstTimeVisitor: Redirection vers /first pour nouvelle visite');
+                // Marquer dans la session pour plus de fiabilité
+                Session::put('okrina_visited', true);
+                Session::save();
                 
-                // Rediriger vers la page first pour les nouveaux visiteurs
-                // et poser le cookie pour éviter les redirections futures
+                // Rediriger vers /first avec le cookie
                 return redirect()->route('first.page')->cookie(
                     'okrina_visited', 
                     'true', 
                     60 * 24 * 30, // 30 jours
-                    '/', 
-                    null, 
-                    false, 
-                    false
+                    '/', // Chemin racine
+                    null, // Domaine par défaut
+                    false, // HTTPS seulement
+                    false, // HttpOnly
+                    false, // Raw
+                    'lax' // SameSite (plus compatible)
                 );
-            }
-        } else {
-            // Si le cookie existe (visiteur déjà vu) et qu'on est sur /first, rediriger vers l'accueil
-            if ($request->is('first')) {
-                logger('RedirectFirstTimeVisitor: Redirection depuis /first vers home pour visiteur existant');
-                return redirect()->route('home');
+            } else {
+                // Visiteur existant: laisser passer vers la page d'accueil
+                Log::info('RedirectFirstTimeVisitor: Visiteur existant - accès direct à l\'accueil');
+                return $next($request);
             }
         }
-
+        
+        // Si nous sommes sur /first et que ce n'est pas une première visite, rediriger vers l'accueil
+        if ($request->is('first') && !$isFirstVisit) {
+            Log::info('RedirectFirstTimeVisitor: Visiteur existant sur /first - redirection vers home');
+            return redirect()->route('home');
+        }
+        
+        // Pour toutes les autres routes, laisser passer
         return $next($request);
     }
 }

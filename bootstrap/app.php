@@ -11,8 +11,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        // Enregistrer notre middleware en premier pour qu'il s'exécute avant les autres
-        $middleware->prepend(\App\Http\Middleware\RedirectFirstTimeVisitor::class);
+        // Enregistrer notre middleware après le middleware de session
+        // pour que la session soit disponible
+        $middleware->append(\App\Http\Middleware\RedirectFirstTimeVisitor::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
