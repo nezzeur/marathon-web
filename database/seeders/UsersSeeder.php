@@ -16,11 +16,11 @@ class UsersSeeder extends Seeder {
      */
     public function run(): void {
         // Nettoyer les tables relacionadas
-        \DB::table('suivis')->truncate();
-        \DB::table('likes')->truncate();
-        \DB::table('avis')->truncate();
-        \DB::table('articles')->truncate();
-        User::truncate();
+        \DB::table('suivis')->delete();
+        \DB::table('likes')->delete();
+        \DB::table('avis')->delete();
+        \DB::table('articles')->delete();
+        User::query()->delete();
 
         $hash = Hash::make('azerty');
 
