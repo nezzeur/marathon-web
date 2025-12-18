@@ -1,6 +1,5 @@
 @props(['class' => ''])
 
-{{-- Injection des polices pour matcher vos variables CSS --}}
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
 
@@ -22,6 +21,9 @@
         <div class="hidden md:flex items-center gap-8 flex-1 justify-center">
             <a href="{{ route('accueil') }}" class="font-sans text-2xl uppercase text-white hover:text-primary hover:animate-glow-pulse transition-colors">
                 <span class="mr-1 opacity-50">[</span>Accueil<span class="ml-1 opacity-50">]</span>
+            </a>
+            <a href="{{ route('articles.index') }}" class="font-sans text-2xl uppercase text-white hover:text-secondary hover:animate-glow-pulse transition-colors">
+                <span class="mr-1 opacity-50">[</span>Articles<span class="ml-1 opacity-50">]</span>
             </a>
             <a href="{{ route('contact') }}" class="font-sans text-2xl uppercase text-white hover:text-secondary hover:animate-glow-pulse transition-colors">
                 <span class="mr-1 opacity-50">[</span>Contact<span class="ml-1 opacity-50">]</span>
@@ -51,7 +53,7 @@
                 </div>
             @else
                 <a href="{{ route('login') }}" class="hidden md:inline-block font-mono text-xs px-4 py-3 bg-primary text-primary-foreground hover:brightness-110 border-b-4 border-black/30 active:border-b-0 active:translate-y-1">
-                    START
+                    SE CONNECTER
                 </a>
 
             @endauth
