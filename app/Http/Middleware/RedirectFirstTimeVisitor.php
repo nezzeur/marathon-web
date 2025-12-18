@@ -75,12 +75,6 @@ class RedirectFirstTimeVisitor
             }
         }
         
-        // Si nous sommes sur /first et que ce n'est pas une première visite, rediriger vers l'accueil
-        if ($request->is('first') && !$isFirstVisit) {
-            Log::info('RedirectFirstTimeVisitor: Visiteur existant sur /first - redirection vers home');
-            return redirect()->route('home');
-        }
-        
         // Pour toutes les autres routes, laisser passer
         return $next($request);
     }
