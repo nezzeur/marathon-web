@@ -1,7 +1,7 @@
 @props(['article'])
 
 @php
-    $colors = ['#e63946', '#d90429', '#7209b7', '#3a0ca3', '#4361ee', '#4cc9f0', '#f72585'];
+    $colors = ['#2858bb', '#c2006d', '#2be7c6'];
     $cartridgeColor = $colors[$article->id % count($colors)];
     $year = $article->created_at ? $article->created_at->format('Y') : '202X';
     $fullDate = $article->created_at ? $article->created_at->format('d/m/Y') : 'N/A';
@@ -80,7 +80,7 @@
         </div>
 
         <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 px-3 py-1 bg-[#0a0a1a] border-2 border-[#00ffff] font-orbitron text-[10px] text-[#00ffff] shadow-[0_0_10px_#00ffff40]">
-            {{ $readTime }} READ
+            {{ $readTime }} DE LECTURE
         </div>
     </div>
 </a>

@@ -194,10 +194,10 @@
                     </p>
                     <div class="flex gap-4 justify-center">
                         <a href="{{ route('login') }}" class="font-mono text-xs px-4 py-3 bg-primary text-primary-foreground hover:brightness-110 border-b-4 border-black/30 active:border-b-0 active:translate-y-1">
-                            LOGIN
+                            SE CONNECTER
                         </a>
                         <a href="{{ route('register') }}" class="font-mono text-xs px-4 py-3 text-white hover:brightness-110 border-b-4 border-black/30 active:border-b-0 active:translate-y-1" style="background-color: #C2006D;">
-                            REGISTER
+                            S'INSCRIRE
                         </a>
                     </div>
                 </div>

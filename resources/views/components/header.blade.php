@@ -50,7 +50,7 @@
                 </div>
             @else
                 <a href="{{ route('login') }}" class="hidden md:inline-block font-mono text-xs px-4 py-3 bg-primary text-primary-foreground hover:brightness-110 border-b-4 border-black/30 active:border-b-0 active:translate-y-1">
-                    START
+                    SE CONNECTER
                 </a>
 
             @endauth

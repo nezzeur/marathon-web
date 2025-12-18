@@ -39,9 +39,9 @@
                 <div class="flex items-end gap-4 mb-8 border-b-4 border-[#2858bb] pb-2 pr-10 shadow-[0_4px_20px_rgba(40,88,187,0.3)] w-fit backdrop-blur-sm bg-black/30 px-4 rounded-t-lg">
                     <div>
                         <h2 class="text-3xl md:text-5xl font-black font-orbitron text-transparent bg-clip-text bg-gradient-to-r from-[#bed2ff] to-white uppercase italic transform -skew-x-6 drop-shadow-[0_2px_0px_#2858bb]">
-                            High Scores
+                            Top Articles
                         </h2>
-                        <span class="font-bold text-[#bed2ff] text-sm md:text-lg tracking-widest uppercase">> Most Viewed Data</span>
+                        <span class="font-bold text-[#bed2ff] text-sm md:text-lg tracking-widest uppercase">> Les plus vus</span>
                     </div>
                 </div>
 
@@ -67,9 +67,9 @@
                 <div class="flex items-end gap-4 mb-8 border-b-4 border-[#c2006d] pb-2 pr-10 shadow-[0_4px_20px_rgba(194,0,109,0.3)] w-fit backdrop-blur-sm bg-black/30 px-4 rounded-t-lg ml-auto md:ml-0">
                     <div class="text-right md:text-left">
                         <h2 class="text-3xl md:text-5xl font-black font-orbitron text-transparent bg-clip-text bg-gradient-to-r from-[#ff8dc7] to-white uppercase italic transform -skew-x-6 drop-shadow-[0_2px_0px_#c2006d]">
-                            Fan Favorites
+                            Top Articles
                         </h2>
-                        <span class="font-bold text-[#c2006d] text-sm md:text-lg tracking-widest uppercase text-right">> Top Rated System</span>
+                        <span class="font-bold text-[#c2006d] text-sm md:text-lg tracking-widest uppercase text-right">> Les plus likés</span>
                     </div>
                 </div>
 
