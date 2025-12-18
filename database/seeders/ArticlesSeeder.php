@@ -14,6 +14,16 @@ class ArticlesSeeder extends Seeder {
     public function run(): void {
         $faker = Factory::create('fr_FR');
 
+        // Liste des musiques disponibles pour la génération aléatoire
+        $musiques = [
+            'musiques/au_clair_de_la_lune.mp3',
+            'musiques/frere_jacques.mp3',
+            'musiques/twinkle_twinkle.mp3',
+            'musiques/mary_had_lamb.mp3',
+            'musiques/old_macdonald.mp3',
+            'musiques/baa_baa_black_sheep.mp3',
+        ];
+
         $titre = "Au clair de la lune";
 
         $texte = "Ah, Au clair de la lune, cette ballade intemporelle où l’on découvre que la première urgence, au XVIIIᵉ siècle, n’était ni la faim, ni la guerre, ni même la météo… mais un manque de bougie. Le héros, manifestement équipé d’une mémoire de poisson rouge, se retrouve plongé dans l’obscurité totale et décide d’aller sonner chez son voisin Pierrot, spécialiste incontesté de la gestion d’inventaire… enfin, c’est ce qu’il espère. Pierrot, bien sûr, dort. Car personne ne dort jamais dans une chanson, sauf quand on a besoin d’une bougie.<br />
@@ -31,7 +41,7 @@ Bref : une aventure nocturne minimaliste, un suspense à hauteur d’enfant, et 
             'resume' => $resume,
             'texte' => $texte,
             'image' => '/images/au-clair-de-la-lune.jpg',
-            'media' => 'https://comptines.tv/musiques/au_clair_de_la_lune.mp3',
+            'media' => 'musiques/au_clair_de_la_lune.mp3',
             "en_ligne" => 1,
             "nb_vues" => 50,
             "user_id" => 1,
@@ -47,7 +57,7 @@ Bref : une aventure nocturne minimaliste, un suspense à hauteur d’enfant, et 
                 'resume' => $faker->realTextBetween(30, 100,  2),
                 'texte' => $faker->realTextBetween(160, 500,  2),
                 'image' => "/images/article$i.png",
-                'media' => 'https://comptines.tv/musiques/au_clair_de_la_lune.mp3',
+                'media' => $faker->randomElement($musiques),
                 "user_id" =>  $faker->numberBetween(1, 50),
                 "rythme_id" => $faker->numberBetween(1, 5),
                 "accessibilite_id" => $faker->numberBetween(1, 5),
