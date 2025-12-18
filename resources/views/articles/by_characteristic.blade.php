@@ -21,35 +21,13 @@
         @if($articles->count() > 0)
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                 @foreach($articles as $article)
-                    <article class="bg-white rounded-lg shadow-md border-2 p-5 hover:shadow-lg transition-shadow" style="border-color: #2BE7C6">
-                        <h2 class="text-lg font-bold text-gray-900 mb-2">
-                            <a href="{{ route('articles.show', $article->id) }}" style="color: #2B5BBB" class="hover:underline transition-colors">
-                                {{ $article->titre }}
-                            </a>
-                        </h2>
-                        <p class="text-sm text-gray-600 mb-3">
-                            Par <strong>{{ $article->editeur->name }}</strong> •
-                            {{ $article->created_at->format('d/m/Y') }} •
-                            👁️ {{ $article->nb_vues }}
-                        </p>
-                        <p class="text-gray-700 mb-4 line-clamp-3">
-                            {{ Str::limit($article->resume, 100) }}
-                        </p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="text-xs px-2 py-1 rounded font-semibold text-white" style="background-color: #2BE7C6; color: #2B5BBB">
-                                ♿ {{ $article->accessibilite->texte ?? 'Non renseigné' }}
-                            </span>
-                            <span class="text-xs px-2 py-1 rounded font-semibold text-white" style="background-color: #C2006D">
-                                ⏱️ {{ $article->rythme->texte ?? 'Non renseigné' }}
-                            </span>
-                            <span class="text-xs px-2 py-1 rounded font-semibold text-white" style="background-color: #2B5BBB">
-                                ✓ {{ $article->conclusion->texte ?? 'Non renseigné' }}
-                            </span>
-                        </div>
-                        <a href="{{ route('articles.show', $article->id) }}" class="inline-block text-white px-4 py-2 rounded font-bold hover:opacity-90 transition-opacity text-sm" style="background-color: #2BE7C6; color: #2B5BBB">
-                            Lire →
-                        </a>
-                    </article>
+                    <div class="group relative bg-black/60 backdrop-blur-md rounded-xl border border-[#2858bb]/30 p-2 hover:border-[#2858bb] hover:shadow-[0_0_25px_rgba(40,88,187,0.4)] transition-all duration-300 hover:-translate-y-2">
+
+                        <x-article-card :article="$article" />
+
+                        <div class="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-[#bed2ff] opacity-50 group-hover:opacity-100 transition-opacity shadow-[0_0_10px_#bed2ff]"></div>
+                        <div class="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-[#bed2ff] opacity-50 group-hover:opacity-100 transition-opacity shadow-[0_0_10px_#bed2ff]"></div>
+                    </div>
                 @endforeach
             </div>
             
