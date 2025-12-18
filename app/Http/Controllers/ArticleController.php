@@ -47,6 +47,26 @@ class ArticleController extends Controller
     }
 
     /**
+     * Afficher tous les articles avec la barre de recherche
+     *
+     * @return \Illuminate\View\View
+     */
+    public function indexAll()
+    {
+        // Récupérer tous les articles avec pagination
+        $articles = Article::with(['editeur', 'accessibilite', 'conclusion', 'rythme'])
+                          ->orderBy('created_at', 'desc')
+                          ->paginate(9);
+        
+        // Récupérer les données pour les filtres
+        $accessibilites = Accessibilite::all();
+        $conclusions = Conclusion::all();
+        $rythmes = Rythme::all();
+        
+        return view('articles.index', compact('articles', 'accessibilites', 'conclusions', 'rythmes'));
+    }
+
+    /**
      * Afficher un article spécifique
      * 
      * @param string $id
