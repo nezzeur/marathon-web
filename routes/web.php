@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 // Page d'accueil
 Route::get('/', [ArticleController::class, 'index'])->name("accueil");
 
+// Page first pour les nouveaux visiteurs
+Route::get('/first', function () {
+    return view('first');
+})->name("first.page");
+
 // Page de contact
 Route::get('/contact', function () {
     return view('contact');
