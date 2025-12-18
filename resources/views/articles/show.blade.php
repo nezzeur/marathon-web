@@ -62,8 +62,21 @@
         @if($article->media)
             <section class="mb-8">
                 <h2 class="text-2xl font-bold text-gray-900 mb-4 pb-2 border-b-2 border-blue-600">🎵 Média associé</h2>
+                @php
+                    // Vérifier si c'est une URL externe ou un fichier local
+                    $isExternalUrl = str_starts_with($article->media, 'http');
+                    $audioSrc = $isExternalUrl ? $article->media : asset('storage/' . $article->media);
+
+                    // Déterminer le type MIME
+                    if ($isExternalUrl) {
+                        $mimeType = 'audio/mpeg'; // Par défaut pour les URL externes
+                    } else {
+                        $fileExtension = pathinfo($article->media, PATHINFO_EXTENSION);
+                        $mimeType = $fileExtension === 'wav' ? 'audio/wav' : 'audio/mpeg';
+                    }
+                @endphp
                 <audio controls class="w-full my-4 rounded-lg">
-                    <source src="{{ asset('storage/' . $article->media) }}" type="audio/mpeg">
+                    <source src="{{ $audioSrc }}" type="{{ $mimeType }}">
                     Votre navigateur ne supporte pas la balise audio.
                 </audio>
             </section>
