@@ -288,9 +288,7 @@ Ce projet est développé dans le cadre du marathon de développement web univer
 ## 📞 Support
 
 Pour toute question ou problème : 
-- Ouvrez une [issue](https://github.com/nezzeur/marathon-web/issues)
 - Consultez la [documentation Laravel](https://laravel.com/docs)
 
 ---
 
-⭐ Si ce projet vous a été utile, n'hésitez pas à lui donner une étoile ! 
