@@ -1,161 +1,296 @@
-## Blog sur la musique
+# 🎵 Marathon Web - Blog sur la Musique
 
-Groupe test but25_groupe11
+[![PHP](https://img.shields.io/badge/PHP-8.1+-777BB4?style=flat&logo=php&logoColor=white)](https://www.php.net/)
+[![Laravel](https://img.shields.io/badge/Laravel-10.x-FF2D20?style=flat&logo=laravel&logoColor=white)](https://laravel.com/)
+[![Blade](https://img.shields.io/badge/Blade-Template-FF2D20?style=flat&logo=laravel&logoColor=white)](https://laravel.com/docs/blade)
+[![TailwindCSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
-## Version initiale
+Application web de blog musical développée avec Laravel, Blade et TailwindCSS.  Ce projet fait partie du marathon de développement web universitaire (BUT25 - Groupe 11).
 
-Pour lancer avec succès une première version de votre site web pendant la phase de développement, il faut exécuter les
-commandes suivantes sur votre machine de développement :
+## 📋 Table des Matières
 
-```shell
-# A partir de la racine de votre projet
+- [Fonctionnalités](#-fonctionnalités)
+- [Prérequis](#-prérequis)
+- [Installation](#-installation)
+- [Configuration](#️-configuration)
+- [Utilisation](#-utilisation)
+- [Déploiement](#-déploiement)
+- [Technologies](#-technologies)
+- [Structure du Projet](#-structure-du-projet)
+- [Contribution](#-contribution)
+- [Licence](#-licence)
 
-# installation des dépendances
-composer install 
+## ✨ Fonctionnalités
 
-# installation des outils pour la construction du front
-npm install 
-# Modification du front en cours de développement
+- 📝 Création et gestion d'articles de blog sur la musique
+- 🎨 Interface moderne et responsive avec TailwindCSS
+- 🖼️ Gestion des images et médias
+- 🔍 Système de recherche et filtrage
+- 💾 Base de données relationnelle (SQLite/MySQL)
+- 🚀 Déploiement automatisé via GitLab CI/CD
+
+## 🛠 Prérequis
+
+Avant de commencer, assurez-vous d'avoir installé :
+
+- **PHP** >= 8.1
+- **Composer** >= 2.0
+- **Node.js** >= 16.x et **npm** >= 8.x
+- **SQLite** ou **MySQL** (selon votre configuration)
+- **Git**
+
+## 📦 Installation
+
+### 1. Cloner le dépôt
+
+```bash
+git clone https://github.com/nezzeur/marathon-web.git
+cd marathon-web
+```
+
+### 2. Installer les dépendances PHP
+
+```bash
+composer install
+```
+
+### 3. Installer les dépendances front-end
+
+```bash
+npm install
+```
+
+### 4. Construire les assets front-end
+
+Pour le développement (avec hot-reload) : 
+```bash
 npm run dev
-# Construction du front pour la version exploitation
+```
+
+Pour la production :
+```bash
 npm run build
+```
 
-# liaison avec le SGBD et la base de données utilisée
+## ⚙️ Configuration
+
+### 1. Créer le fichier d'environnement
+
+```bash
 cp .env.example .env
+```
 
+### 2. Configurer la base de données
 
-#########################################################
-#
-# Ici il faut modifier en particulier les variables suivantes
-#
+Ouvrez le fichier `.env` et modifiez les paramètres selon votre environnement :
+
+#### Pour SQLite (développement local) : 
+
+```env
 DB_CONNECTION=sqlite
 # DB_HOST=127.0.0.1
 # DB_PORT=3306
 # DB_DATABASE=marathon_24
 # DB_USERNAME=root
 # DB_PASSWORD=
-#
-#
-#########################################################
+```
 
-# Génération de la clé initiale
+#### Pour MySQL (production) :
 
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=but25_groupe11
+DB_USERNAME=but25_groupe11
+DB_PASSWORD=votre_mot_de_passe
+```
+
+### 3. Générer la clé d'application
+
+```bash
 php artisan key:generate
+```
 
-# génération des tables dans votre base de données
+### 4. Créer les tables de la base de données
 
+```bash
 php artisan migrate
+```
 
-# ou pour ré-initialiser
+Ou pour réinitialiser complètement :
 
-php artisan key:generate
-
+```bash
 php artisan migrate:fresh
+```
 
-# Initialisation des données de départ
+### 5. Initialiser les images et créer le lien symbolique
 
+```bash
+# Copier les images de base
 cp -r resources/images storage/app/public
 
-# Création du lien physique en storage/app/public et public/storage
-
+# Créer le lien symbolique pour le stockage public
 php artisan storage:link
+```
 
-# Ajout de données aléatoire dans les tables de la base de données
+### 6. Peupler la base avec des données de test
 
+```bash
 php artisan db:seed
+```
 
-# Lancement de l'application web pour le développement
+## 🚀 Utilisation
 
+### Démarrer le serveur de développement
+
+```bash
 php artisan serve
 ```
 
-Si toutes les commandes précédentes ont été exécutées, votre application doit être accessible à
-l'adresse [http://localhost:8000](http://localhost:8000)
+Votre application sera accessible à l'adresse : **http://localhost:8000**
 
-## Le déploiement sur la machine marathon
+### Commandes utiles
 
-Chaque modification de la branche main de votre projet sur [gitlab](https://gitlab.univ-artois.fr) entraine le
-déploiement de votre site sur la machine marathon.
+```bash
+# Effacer le cache
+php artisan cache:clear
+php artisan config:clear
+php artisan view:clear
 
-### Création des variables d'environnement
+# Lancer les tests
+php artisan test
 
-Pour que le déploiement se déroule bien, il faut configurer deux variables dans votre projet sur gitlab.
+# Voir les routes disponibles
+php artisan route:list
+```
 
-- Une variable `NAME` qui doit contenir votre nom de login sur la machine marathon qui vous a été délivré en début de
-  marathon.
-- Une variable `SSH_PRIVATE_KEY` qui doit contenir votre clé privée qui a été calculée pour vous et qui se trouve dans
-  le fichier `~/.ssh/id_rsa` sur la machine marathon.
+## 🌐 Déploiement
 
-Pour modifier ces 2 variables, il faut
+### Déploiement sur le serveur Marathon
 
-1. afficher dans votre navigateur, la page de votre projet sur gitlab.
+Le projet utilise GitLab CI/CD pour le déploiement automatique. Chaque modification sur la branche `main` déclenche automatiquement le déploiement.
 
-   ![](./resources/docs/images/projet_gitlab.png)
+#### Configuration des variables d'environnement sur GitLab
 
-2. Puis sélectionner _Paramètres_ ou _Setting_ et l'entrée _intégration et livraisons continues_ ou _CI/CD_.
+1. Accédez à votre projet sur [GitLab Univ-Artois](https://gitlab.univ-artois.fr)
+2. Allez dans **Paramètres** > **CI/CD** > **Variables**
+3. Créez les variables suivantes :
 
-   ![](./resources/docs/images/entree_variables.png)
+| Variable | Description |
+|----------|-------------|
+| `NAME` | Votre nom de login sur la machine Marathon (ex: `but25_groupe11`) |
+| `SSH_PRIVATE_KEY` | Votre clé privée SSH (contenu de `~/.ssh/id_rsa`) |
 
-3. Créez la variable `NAME`
+#### Configuration initiale sur le serveur Marathon
 
-   ![](./resources/docs/images/cle_name.png)
-4. Créez la variable `SSH_PRIVATE_KEY`
+Lors du premier déploiement, connectez-vous au serveur Marathon et exécutez :
 
-   ![](./resources/docs/images/cle_ssh_private_key.png)
-
-### Commandes sur la machine marathon
-
-Lors du premier déploiement, vous devez initialiser l'environnement de votre site sur le serveur marathon.
-
-Comme, la connexion avec la base de données.
-Pour cela, vous devez à nouveau modifier le fichier `.env`.
-
-Les commandes à taper lors du premier déploiement :
-
-```shell
-# liaison avec le SGBD et la base de données utilisée
+```bash
+# Créer le fichier d'environnement
 cp .env.example .env
 
-#########################################################
-#
-# Ici il faut modifier en particulier les variables suivantes
-#
+# Configurer la base de données dans . env
 # DB_CONNECTION=mysql
 # DB_HOST=127.0.0.1
 # DB_PORT=3306
 # DB_DATABASE=but25_groupeXX
 # DB_USERNAME=but25_groupeXX
 # DB_PASSWORD=password_but25_groupeXX
-#
-#
-#########################################################
 
-# Génération de la clé initiale
-
+# Générer la clé
 php artisan key:generate
 
-# génération des tables dans votre base de données
-
+# Créer les tables
 php artisan migrate
 
-# ou pour ré-initialiser
-
-php artisan migrate:fresh
-
-# Initialisation des données de départ
-
+# Initialiser les données
 cp -r resources/images storage/app/public
-
-# Création du lien physique en storage/app/public et public/storage
-
-php artisan storage:link
-
-# Ajout de données aléatoire dans les tables de la base de données
-
+php artisan storage: link
 php artisan db:seed
-
 ```
 
-À partir de là, votre site doit être visible avec l'url : `http://marathon/~but25_groupeXX` avec `XX` votre numéro
-de groupe.
+Votre site sera accessible à :  `http://marathon/~but25_groupe11`
 
+## 🧰 Technologies
+
+### Backend
+- **[Laravel 10](https://laravel.com/)** - Framework PHP moderne et élégant
+- **[PHP 8.1+](https://www.php.net/)** - Langage de programmation serveur
+- **[Blade](https://laravel.com/docs/blade)** - Moteur de templates Laravel
+
+### Frontend
+- **[TailwindCSS](https://tailwindcss.com/)** - Framework CSS utility-first
+- **[Vite](https://vitejs.dev/)** - Build tool moderne et rapide
+- **[PostCSS](https://postcss.org/)** - Outil de transformation CSS
+
+### Base de données
+- **SQLite** (développement)
+- **MySQL** (production)
+
+### DevOps
+- **GitLab CI/CD** - Intégration et déploiement continus
+
+## 📁 Structure du Projet
+
+```
+marathon-web/
+├── app/                    # Code applicatif (Models, Controllers, etc.)
+├── bootstrap/              # Fichiers de bootstrap de Laravel
+├── config/                 # Fichiers de configuration
+├── database/               # Migrations, seeders et factories
+│   ├── migrations/         # Migrations de base de données
+│   └── seeders/            # Données de test
+├── public/                 # Point d'entrée web et assets publics
+├── resources/              # Vues, assets bruts et traductions
+│   ├── css/                # Fichiers CSS (TailwindCSS)
+│   ├── images/             # Images de base
+│   ├── js/                 # Fichiers JavaScript
+│   └── views/              # Templates Blade
+├── routes/                 # Définition des routes
+│   └── web.php             # Routes web
+├── storage/                # Fichiers générés (logs, cache, uploads)
+├── tests/                  # Tests unitaires et fonctionnels
+├── . env. example            # Exemple de configuration environnement
+├── .gitlab-ci.yml          # Configuration CI/CD GitLab
+├── artisan                 # CLI Laravel
+├── composer.json           # Dépendances PHP
+├── package.json            # Dépendances Node.js
+├── tailwind.config.js      # Configuration TailwindCSS
+├── vite.config.js          # Configuration Vite
+└── README.md               # Ce fichier
+```
+
+## 🤝 Contribution
+
+Les contributions sont les bienvenues ! Pour contribuer : 
+
+1. Forkez le projet
+2. Créez une branche pour votre fonctionnalité (`git checkout -b feature/AmazingFeature`)
+3. Committez vos changements (`git commit -m 'Add some AmazingFeature'`)
+4. Poussez vers la branche (`git push origin feature/AmazingFeature`)
+5. Ouvrez une Pull Request
+
+### Standards de code
+
+- Suivre les [PSR-12](https://www.php-fig.org/psr/psr-12/) pour PHP
+- Respecter les conventions Laravel
+- Écrire des tests pour les nouvelles fonctionnalités
+
+## 📝 Licence
+
+Ce projet est développé dans le cadre du marathon de développement web universitaire (BUT25 - Groupe 11).
+
+## 👥 Auteurs
+
+- **Groupe BUT25_groupe11** - *Développement initial*
+
+## 📞 Support
+
+Pour toute question ou problème : 
+- Ouvrez une [issue](https://github.com/nezzeur/marathon-web/issues)
+- Consultez la [documentation Laravel](https://laravel.com/docs)
+
+---
+
+⭐ Si ce projet vous a été utile, n'hésitez pas à lui donner une étoile ! 
